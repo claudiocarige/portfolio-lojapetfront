@@ -1,3 +1,51 @@
+<mat-drawer-container class="container" autosize>
+    <mat-drawer #drawer class="sidenav" mode="side">
+        <img src="../../../assets/img/logoservico.png" alt="Imagem de navegaçao">
+        <h1><span>Pet</span> Star </h1>
+        <mat-nav-list class="list-nav">
+            <a mat-list-item routerLink="/home">
+                <i class="material-icons">home</i>
+                Home
+              </a>
+              <a mat-list-item routerLink="/funcionarios">
+                <i class="material-icons">account_circle</i>
+                Funcionários
+              </a>
+              <a mat-list-item routerLink="/clientes">
+                <i class="material-icons">person</i>
+                Clientes
+              </a>
+              <a mat-list-item routerLink="/servicos">
+                <i class="material-icons">support</i>
+                Serviços
+              </a>
+              <a mat-list-item routerLink="/portfolio">
+                <i class="material-icons">stars</i>
+                Portfólio
+              </a>
+              <a mat-list-item routerLink="/portfolio/contato">
+                <i class="material-icons">contact_page</i>
+                Contato
+              </a>
+              <a mat-list-item href="https://github.com/claudiocarige" target="_blank">
+                <i class="fa-brands fa-github icon-github"></i>
+                GitHub
+              </a>
+              <a mat-list-item href="https://www.linkedin.com/in/claudio-carige-b7429b6b/" target="_blank">
+                <i class="fa-brands fa-linkedin icon-linkedin"></i>
+                Linkedin
+              </a>
+              <a mat-list-item >
+                <i class="material-icons">logout</i>
+                Logout
+              </a>
+        </mat-nav-list>
+    </mat-drawer>
 
-<h1>Novo Portfólio</h1>
-<button mat-button color="primary">Primary</button>
+    <div class="sidenav-content">
+        <button class="button-menu" mat-icon-button (click)="drawer.toggle()">
+            <mat-icon>menu</mat-icon>
+        </button>
+    </div>
+
+</mat-drawer-container>

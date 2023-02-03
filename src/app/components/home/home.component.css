@@ -1,0 +1,56 @@
+.card {
+    width: 90%;
+    height: 60%;
+    background: rgb(238, 247, 247);
+    text-align: center;
+    margin: 1em auto;
+    box-shadow: 0px 3px 14px 1px rgba(0, 0, 0, 0.51);
+    -webkit-box-shadow: 0px 3px 14px 1px rgba(0, 0, 0, 0.51);
+    -moz-box-shadow: 0px 3px 14px 1px rgba(0, 0, 0, 0.51);
+}
+
+.card h2 {
+    width: 50%;
+    margin: 0;
+    text-align: left;
+}
+
+.card-subtitulo {
+    width: 60%;
+    text-align: left;
+}
+
+.card-subtitulo p {
+    font-size: 1.1em;
+}
+
+.card-subtitulo span {
+    font-size: 1.3em;
+    color: rgb(54, 54, 255);
+}
+
+.card-subtitulo .star {
+    font-size: 1.4em;
+
+}
+
+img {
+    width: 50%;
+    height: 18em;
+}
+
+@media (max-width: 360px) {
+    .card h2 {
+        width: 100%;
+        text-align: center;
+        font-weight: bold;
+
+    }
+    .card-subtitulo {
+        width: 100%;
+       
+    }
+    p{
+        width: 100%;
+    }
+  }

@@ -1,0 +1,25 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 1em 0 0 0;
+
+}
+
+.span-title {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.container h1 {
+    color: rgb(246, 246, 246);
+    border: 1px solid rgb(175, 172, 172);
+    padding: 1rem 10%;
+    border-radius: .5em;
+    box-shadow: 0px 3px 14px 1px rgba(0, 0, 0, 0.51);
+    -webkit-box-shadow: 0px 3px 14px 1px rgba(0, 0, 0, 0.51);
+    -moz-box-shadow: 0px 3px 14px 1px rgba(0, 0, 0, 0.51);
+    background: linear-gradient(63deg, rgba(2, 0, 36, 1) 0%, rgb(133, 92, 2) 0%, rgba(165, 240, 255, 1) 100%);
+
+}

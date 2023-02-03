@@ -11,8 +11,9 @@ img {
 }
 
 .sidenav {
-    width: 8rem;
+    width: 8.5rem;
     color: white;
+    margin-left: 0;
     padding-top: 1em;
     padding-left: 0;
     background: linear-gradient(63deg, rgba(2, 0, 36, 1) 0%, rgba(37, 97, 207, 1) 0%, rgba(0, 212, 255, 1) 100%);
@@ -48,13 +49,14 @@ img {
 .sidenav a {
     transition: all .2s;
     color: white;
+    padding-left: 0;
+    text-decoration: none;
 }
 
 .sidenav a:hover {
     background: rgb(39, 124, 141);
     font-size: 1.2em;
 }
-
 
 .button-menu {
     position: relative;

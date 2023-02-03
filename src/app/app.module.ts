@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 //Import para formularios 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-//Requisições Http
+//Import para Requisições Http
 import { HttpClientModule    } from '@angular/common/http';
 
 //Import para os compnents do Angula Matirial
@@ -30,13 +30,13 @@ import { MatRippleModule     } from '@angular/material/core';
 import { MatTooltipModule    } from '@angular/material/tooltip';
 import { MatDialogModule     } from '@angular/material/dialog';
 import { MatSortModule       } from '@angular/material/sort';
-
-
+import { NavComponent } from './components/nav/nav.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NavComponent
   ],
   imports: [
     BrowserModule,

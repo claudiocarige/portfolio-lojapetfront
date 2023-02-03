@@ -30,6 +30,8 @@ import { MatRippleModule     } from '@angular/material/core';
 import { MatTooltipModule    } from '@angular/material/tooltip';
 import { MatDialogModule     } from '@angular/material/dialog';
 import { MatSortModule       } from '@angular/material/sort';
+
+//Componentes do projeto
 import { NavComponent } from './components/nav/nav.component';
 
 

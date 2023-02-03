@@ -39,18 +39,18 @@ img {
     height: 18em;
 }
 
-@media (max-width: 360px) {
+@media (max-width: 414px) {
     .card h2 {
         width: 100%;
         text-align: center;
         font-weight: bold;
-
     }
+
     .card-subtitulo {
         width: 100%;
-       
     }
-    p{
+
+    p {
         width: 100%;
     }
-  }
+}

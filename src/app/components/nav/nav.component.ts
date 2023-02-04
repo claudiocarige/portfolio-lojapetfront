@@ -13,7 +13,7 @@ export class NavComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.route.navigate([ 'employees' ]);
+    this.route.navigate([ 'login' ]);
   }
 
 }

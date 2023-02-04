@@ -35,6 +35,7 @@ import { MatSortModule       } from '@angular/material/sort';
 import { NavComponent } from './components/nav/nav.component';
 import { HomeComponent } from './components/home/home.component';
 import { HeaderComponent } from './components/header/header.component';
+import { EmployeeListComponent } from './components/employes/employee-list/employee-list.component';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { HeaderComponent } from './components/header/header.component';
     AppComponent,
     NavComponent,
     HomeComponent,
-    HeaderComponent
+    HeaderComponent,
+    EmployeeListComponent
   ],
   imports: [
     BrowserModule,

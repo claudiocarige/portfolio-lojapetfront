@@ -36,6 +36,7 @@ import { NavComponent } from './components/nav/nav.component';
 import { HomeComponent } from './components/home/home.component';
 import { HeaderComponent } from './components/header/header.component';
 import { EmployeeListComponent } from './components/employes/employee-list/employee-list.component';
+import { LoginComponent } from './components/login/login.component';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { EmployeeListComponent } from './components/employes/employee-list/emplo
     NavComponent,
     HomeComponent,
     HeaderComponent,
-    EmployeeListComponent
+    EmployeeListComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

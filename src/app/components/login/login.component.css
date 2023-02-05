@@ -29,16 +29,28 @@ h3{
     letter-spacing: .2rem;
     font-size: 1.2rem;
 }
+h2{
+    color: rgb(92, 92, 92);
+    margin: 0;
+    padding: 0;
+}
+
+.title-senha-login h2:last-child{
+    padding-bottom: 1rem;
+}
 
 p {
-    font-size: 1.3rem;
+    margin: 0;
+    padding: 0 0 .5rem 0;
+    font-size: 1.4rem;
     font-weight: 500;
     color: rgb(92, 92, 92);
 }
 
 span {
-    font-weight: bold;
-    color: white;
+    color: rgb(166, 255, 255);
+    letter-spacing: .1rem;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.45);
 }
 
 .form {

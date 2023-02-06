@@ -31,12 +31,18 @@ import { MatTooltipModule    } from '@angular/material/tooltip';
 import { MatDialogModule     } from '@angular/material/dialog';
 import { MatSortModule       } from '@angular/material/sort';
 
+
+//Outras importações
+import { ToastrModule } from 'ngx-toastr';
+
+
 //Componentes do projeto
 import { NavComponent } from './components/nav/nav.component';
 import { HomeComponent } from './components/home/home.component';
 import { HeaderComponent } from './components/header/header.component';
 import { EmployeeListComponent } from './components/employes/employee-list/employee-list.component';
 import { LoginComponent } from './components/login/login.component';
+
 
 
 @NgModule({
@@ -75,7 +81,12 @@ import { LoginComponent } from './components/login/login.component';
     MatRippleModule,
     MatTooltipModule,
     MatDialogModule,
-    MatSortModule
+    MatSortModule,
+   ToastrModule.forRoot({
+    timeOut: 3000,
+    closeButton: true,
+    progressBar: true
+   })
   ],
   providers: [],
   bootstrap: [AppComponent]

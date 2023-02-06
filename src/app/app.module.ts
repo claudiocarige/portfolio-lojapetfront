@@ -43,6 +43,9 @@ import { HeaderComponent } from './components/header/header.component';
 import { EmployeeListComponent } from './components/employes/employee-list/employee-list.component';
 import { LoginComponent } from './components/login/login.component';
 import { AuthoInterceptorProvider } from './interceptors/auth.interceptor';
+import { EmployeeCreateComponent } from './components/employes/employee-create/employee-create.component';
+import { EmployeeUpdateComponent } from './components/employes/employee-update/employee-update.component';
+import { EmployeeDeleteComponent } from './components/employes/employee-delete/employee-delete.component';
 
 
 
@@ -53,7 +56,10 @@ import { AuthoInterceptorProvider } from './interceptors/auth.interceptor';
     HomeComponent,
     HeaderComponent,
     EmployeeListComponent,
-    LoginComponent
+    LoginComponent,
+    EmployeeCreateComponent,
+    EmployeeUpdateComponent,
+    EmployeeDeleteComponent
   ],
   imports: [
     BrowserModule,

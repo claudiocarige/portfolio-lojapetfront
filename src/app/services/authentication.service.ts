@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ApiUrl } from '../config/api.config';
+import { API_URL } from '../config/api.config';
 import { Credentials } from '../models/credentials';
 import { JwtHelperService } from '@auth0/angular-jwt';
  
@@ -15,7 +15,7 @@ export class AuthenticationService {
   ) { }
 
   authentication(cred: Credentials){
-    return this.http.post(`${ApiUrl.urlBase}/login`, cred, {
+    return this.http.post(`${API_URL.urlBase}/login`, cred, {
        observe: 'response',
        responseType: 'text'
     });

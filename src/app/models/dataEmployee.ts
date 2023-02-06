@@ -1,6 +1,6 @@
 export interface Employee {
     id?:            any;
-    nome:        string;
+    name:        string;
     cpf:         string;
     email:       string;
     password:       string;

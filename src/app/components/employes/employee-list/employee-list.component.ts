@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource           } from '@angular/material/table';
-import { Employee }  from 'src/app/models/dataEmployee'
+import { MatTableDataSource } from '@angular/material/table';
+import { Employee } from 'src/app/models/dataEmployee'
+import { EmployeesService } from 'src/app/services/employees.service';
 
 @Component({
   selector: 'app-employee-list',
@@ -10,30 +11,32 @@ import { Employee }  from 'src/app/models/dataEmployee'
 })
 export class EmployeeListComponent implements OnInit {
 
-  ELEMENT_DATA: Employee[] = [
-   { 
-    id: 1,
-    nome: 'Claudio',
-    cpf:'89496531504',
-    email: 'ccarige@mail.com',
-    password: '123456',
-    profile: ['0'],
-    criationDate: '04/02/2023'
-}
-]
+  ELEMENT_DATA: Employee[] = []
 
   displayedColumns: string[] = ['id', 'nome', 'email', 'cpf', 'acoes'];
   dataSource = new MatTableDataSource<Employee>(this.ELEMENT_DATA);
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+  constructor(
+    private service: EmployeesService
+  ) { }
+
+  ngOnInit(): void {
+    this.findAll();
+  }
+
+  findAll() {
+    this.service.findAll().subscribe(resposta => {
+      this.ELEMENT_DATA = resposta;
+      this.dataSource = new MatTableDataSource<Employee>(this.ELEMENT_DATA);
+      this.dataSource.paginator = this.paginator;
+    })
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }
 

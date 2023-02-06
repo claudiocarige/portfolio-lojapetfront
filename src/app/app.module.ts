@@ -42,6 +42,7 @@ import { HomeComponent } from './components/home/home.component';
 import { HeaderComponent } from './components/header/header.component';
 import { EmployeeListComponent } from './components/employes/employee-list/employee-list.component';
 import { LoginComponent } from './components/login/login.component';
+import { AuthoInterceptorProvider } from './interceptors/auth.interceptor';
 
 
 
@@ -88,7 +89,7 @@ import { LoginComponent } from './components/login/login.component';
     progressBar: true
    })
   ],
-  providers: [],
+  providers: [AuthoInterceptorProvider],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

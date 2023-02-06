@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-nav',
@@ -8,12 +10,20 @@ import { Router } from '@angular/router';
 })
 export class NavComponent implements OnInit {
   showFiller = false;
-  constructor( 
-    private route: Router
+  constructor(
+    private route: Router,
+    private authenticated: AuthenticationService,
+    private toast: ToastrService,
+
   ) { }
 
   ngOnInit(): void {
-   // this.route.navigate([ 'login' ]);
+    //this.route.navigate([ 'login' ]);
   }
 
+  logout() {
+    this.route.navigate(['login']);
+    this.toast.success('Sessão encerrada', 'L O G O U T', {timeOut: 5000})
+    this.authenticated.logout();
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
   login() {
     this.service.authentication(this.cred).subscribe(resposta => {
       this.service.successLogin(resposta.headers.get('Authorization').substring(7));
-      this.route.navigate([''])
+      this.route.navigate(['home'])
       this.toast.success('Login efetuado com sucesse!', 'L O G I N')
     }, () => {
       this.toast.error("Usuário e / senha inválidos!", "Error")

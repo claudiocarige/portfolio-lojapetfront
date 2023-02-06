@@ -17,4 +17,8 @@ export class EmployeesService {
     return this.http.get<Employee[]>(`${API_URL.urlBase}/employees`)
   }
 
+  create(employee: Employee): Observable<Employee>{
+    return this.http.post<Employee>(`${API_URL.urlBase}/employees`, employee);
+  }
+
 }

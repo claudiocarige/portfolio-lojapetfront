@@ -13,7 +13,7 @@ export class EmployeeListComponent implements OnInit {
 
   ELEMENT_DATA: Employee[] = []
 
-  displayedColumns: string[] = ['id', 'nome', 'email', 'cpf', 'acoes'];
+  displayedColumns: string[] = ['id', 'nome', 'email', 'cpf', 'profile', 'acoes'];
   dataSource = new MatTableDataSource<Employee>(this.ELEMENT_DATA);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;

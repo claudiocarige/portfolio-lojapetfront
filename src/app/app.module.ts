@@ -55,7 +55,8 @@ import { DialogModalComponent } from './components/portfolio/dialog-modal/dialog
 import { ClientListComponent } from './components/clients/client-list/client-list.component';
 import { ClientCreateComponent } from './components/clients/client-create/client-create.component';
 import { ClientUpdateComponent } from './components/clients/client-update/client-update.component';
-import { ClientDeleteComponent } from './components/clients/client-delete/client-delete.component'
+import { ClientDeleteComponent } from './components/clients/client-delete/client-delete.component';
+import { ServicePetListComponent } from './components/servicePet/service-pet-list/service-pet-list.component'
 
 @NgModule({
   declarations: [
@@ -78,7 +79,8 @@ import { ClientDeleteComponent } from './components/clients/client-delete/client
     ClientListComponent,
     ClientCreateComponent,
     ClientUpdateComponent,
-    ClientDeleteComponent
+    ClientDeleteComponent,
+    ServicePetListComponent
   ],
   imports: [
     BrowserModule,

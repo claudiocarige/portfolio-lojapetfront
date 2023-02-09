@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator                 } from '@angular/material/paginator';
 import { MatTableDataSource           } from '@angular/material/table';
-import { Employee                     } from 'src/app/models/dataEmployee'
+import { Employee                     } from 'src/app/models/modelEmployee'
 import { EmployeesService             } from 'src/app/services/employees.service';
 
 @Component({

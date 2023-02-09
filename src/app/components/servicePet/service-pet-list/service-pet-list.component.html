@@ -1,1 +1,78 @@
-<p>service-pet-list works!</p>
+<div class="container">
+    <h2>Lista de Serviços Pet</h2>
+    <div class="container-field">
+        <button routerLink="create" mat-stroked-button color="primary"> <span> Add</span></button>
+        <mat-form-field>
+            <mat-label>Filter</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+        </mat-form-field>
+        <mat-radio-group color="primary">
+            <div>
+                <h3>Filtrar p/ Status: </h3>
+            </div>
+            <div class="div-radio-group">
+                <mat-radio-button class="check" (click)="filterByStatus(0)" value="0">ABERTO</mat-radio-button>
+                <mat-radio-button class="check" (click)="filterByStatus(1)" value="1">ANDAMENTO</mat-radio-button>
+                <mat-radio-button class="check" (click)="filterByStatus(2)" value="2">ENCERRADO</mat-radio-button>
+            </div>
+        </mat-radio-group>
+        <p><a class="link" (click)="refreshLimpar()">Limpar</a></p>
+    </div>
+    <div class="tabela mat-elevation-z8 ">
+        <table mat-table [dataSource]="dataSource">
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef> Id </th>
+                <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+            </ng-container>
+            <ng-container matColumnDef="title">
+                <th mat-header-cell *matHeaderCellDef> Título </th>
+                <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+            </ng-container>
+            <ng-container matColumnDef="client">
+                <th mat-header-cell *matHeaderCellDef> Cliente </th>-
+                <td mat-cell *matCellDef="let element"> {{element.nameClient}} </td>
+            </ng-container>
+            <ng-container matColumnDef="employee">
+                <th mat-header-cell *matHeaderCellDef> Funcionário </th>-
+                <td mat-cell *matCellDef="let element"> {{element.nameEmploye}} </td>
+            </ng-container>
+            <ng-container matColumnDef="priority">
+                <th mat-header-cell *matHeaderCellDef> Prioridade </th>
+                <td mat-cell *matCellDef="let element"> {{retornaPrioridade(element.priority)}} </td>
+            </ng-container>
+            <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef> Status </th>-
+                <td mat-cell *matCellDef="let element"> {{retornaStatus(element.status)}} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="openDate">
+                <th mat-header-cell *matHeaderCellDef> Dt Abertura </th>-
+                <td mat-cell *matCellDef="let element"> {{element.openingDate}} </td>
+            </ng-container>
+            <ng-container matColumnDef="closingDate">
+                <th mat-header-cell *matHeaderCellDef> Dt Fechamento </th>-
+                <td mat-cell *matCellDef="let element"> {{element.closingDate}} </td>
+            </ng-container>
+            <ng-container matColumnDef="comments">
+                <th mat-header-cell *matHeaderCellDef> Descrição </th>-
+                <td mat-cell *matCellDef="let element"> {{element.comments}} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="acoes">
+                <th mat-header-cell *matHeaderCellDef> Ações </th>
+                <td mat-cell *matCellDef="let element">
+                    <a routerLink="update/{{element.id}}"><i class="fa-solid fa-pen update"></i></a>
+                    <a routerLink="delete/{{element.id}}"><i class="fa-solid fa-trash delete"></i></a>
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[2, 3, 5, 10, 20]" showFirstLastButtons
+            aria-label="Select page of periodic elements">
+        </mat-paginator>
+    </div>
+
+</div>

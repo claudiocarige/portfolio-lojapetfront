@@ -16,6 +16,7 @@ import { FormacaoComponent          } from './components/portfolio/formacao/form
 import { HabilidadesComponent       } from './components/portfolio/habilidades/habilidades.component';
 import { PortfolioHomeComponent     } from './components/portfolio/portfolio-home/portfolio-home.component';
 import { SobremimComponent          } from './components/portfolio/sobremim/sobremim.component';
+import { ServicePetListComponent } from './components/servicePet/service-pet-list/service-pet-list.component';
 
 const routes: Routes = [
   { path: "login", component:LoginComponent},
@@ -39,9 +40,10 @@ const routes: Routes = [
         { path: "clients",                component:          ClientListComponent},
         { path: "clients/create",         component:        ClientCreateComponent},  
         { path: "clients/update/:id",     component:        ClientUpdateComponent},  
-        { path: "clients/delete/:id",     component:        ClientUpdateComponent}
+        { path: "clients/delete/:id",     component:        ClientUpdateComponent},
 
          //Rotas para Serviços
+         { path: "services",     component:               ServicePetListComponent}
   ] }
 ];
 

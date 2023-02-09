@@ -2,7 +2,7 @@ import { Component, OnInit        } from '@angular/core';
 import { FormControl, Validators  } from '@angular/forms';
 import { ActivatedRoute, Router   } from '@angular/router';
 import { ToastrService            } from 'ngx-toastr';
-import { Employee                 } from 'src/app/models/dataEmployee';
+import { Employee                 } from 'src/app/models/modelEmployee';
 import { EmployeesService         } from 'src/app/services/employees.service';
 
 @Component({

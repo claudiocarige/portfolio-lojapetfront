@@ -1,30 +1,30 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
-import { Employee } from 'src/app/models/dataEmployee';
-import { EmployeesService } from 'src/app/services/employees.service';
+import { Component, OnInit        } from '@angular/core';
+import { FormControl, Validators  } from '@angular/forms';
+import { Router                   } from '@angular/router';
+import { ToastrService            } from 'ngx-toastr';
+import { Employee                 } from 'src/app/models/dataEmployee';
+import { EmployeesService         } from 'src/app/services/employees.service';
 
 @Component({
-  selector: 'app-employee-create',
+  selector:    'app-employee-create',
   templateUrl: './employee-create.component.html',
-  styleUrls: ['./employee-create.component.css']
+  styleUrls:  ['./employee-create.component.css']
 })
 export class EmployeeCreateComponent implements OnInit {
 
   employee: Employee = {
-    id: '',
-    name: '',
-    cpf: '',
-    email: '',
-    password: '',
-    profile: [],
+    id:           '',
+    name:         '',
+    cpf:          '',
+    email:        '',
+    password:     '',
+    profile:      [],
     criationDate: ''
   }
-  name: FormControl = new FormControl(null, Validators.minLength(3));
-  cpf: FormControl = new FormControl(null, Validators.required);
-  email: FormControl = new FormControl(null, Validators.email);
-  password: FormControl = new FormControl(null, Validators.minLength(4));
+  name:     FormControl = new FormControl(null, Validators.minLength(3));
+  cpf:      FormControl = new FormControl(null,[Validators.required, Validators.minLength(11)]);
+  email:    FormControl = new FormControl(null,        Validators.email);
+  password: FormControl = new FormControl(null, Validators.minLength(6));
 
   constructor(
     private service: EmployeesService,
@@ -50,11 +50,11 @@ export class EmployeeCreateComponent implements OnInit {
     })
   }
 
-  addPerfil(profile: any): void{
-    if(this.employee.profile.includes(profile)){
+  addPerfil(profile: any): void {
+    if (this.employee.profile.includes(profile)) {
       this.employee.profile.splice(this.employee.profile.indexOf(profile), 1);
-    }else{
-      this.employee.profile.push(profile);  
+    } else {
+      this.employee.profile.push(profile);
     }
   }
   validation(): boolean {

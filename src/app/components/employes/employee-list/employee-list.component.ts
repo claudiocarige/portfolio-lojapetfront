@@ -1,13 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
-import { Employee } from 'src/app/models/dataEmployee'
-import { EmployeesService } from 'src/app/services/employees.service';
+import { MatPaginator                 } from '@angular/material/paginator';
+import { MatTableDataSource           } from '@angular/material/table';
+import { Employee                     } from 'src/app/models/dataEmployee'
+import { EmployeesService             } from 'src/app/services/employees.service';
 
 @Component({
-  selector: 'app-employee-list',
+  selector:    'app-employee-list',
   templateUrl: './employee-list.component.html',
-  styleUrls: ['./employee-list.component.css']
+  styleUrls:  ['./employee-list.component.css']
 })
 export class EmployeeListComponent implements OnInit {
 

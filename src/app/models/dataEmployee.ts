@@ -3,7 +3,7 @@ export interface Employee {
     name:        string;
     cpf:         string;
     email:       string;
-    password:       string;
+    password:    string;
     profile:   string[];
     criationDate:   any;
 

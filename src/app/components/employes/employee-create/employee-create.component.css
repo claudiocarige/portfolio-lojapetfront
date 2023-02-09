@@ -1,58 +1,147 @@
 .container {
-    width: 35%;
-    height: 100%;
-    margin: 0 auto 2rem;
-    text-align: center;
-    box-shadow: 0px 3px 14px 1px rgba(0, 0, 0, 0.51);
-    -webkit-box-shadow: 0px 3px 14px 1px rgba(0, 0, 0, 0.51);
-    -moz-box-shadow: 0px 3px 14px 1px rgba(0, 0, 0, 0.51);
+    width: 45%;
+    margin: auto auto 4em auto;
+    padding: 1rem 2rem 1rem 2rem;
+    border-radius: .6rem;
+    box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.35);
+    -webkit-box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.35);
+    -moz-box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.35);
 }
 
-.card {
-    padding-bottom: 2rem;
+.title-create {
+    text-align: center;
+    color: blue;
+    font-size: 1.8em;
+    font-weight: bold;
+    margin-bottom: 1em;
+}
+
+.width-img {
+    width: 100%;
+    text-align: center;
 }
 
 img {
-    padding-top: 1rem;
-    width: 18%;
+    height: 5rem;
+    margin: auto;
 }
 
-h2 {
-    width: 100%;
-    text-align: center;
-    padding: 0 0 2rem 0;
-    margin: 0;
-    font-size: 1.7rem;
-    font-weight: 900;
-    text-transform: uppercase;
-    color: rgb(0, 142, 207);
-    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.45);
+label span {
+    display: inline-block;
+    width: 60px;
+    height: 30px;
+    background: #ddd;
+    border-radius: 15px;
 }
+
+label span::before {
+    content: '';
+    display: block;
+    background: rgb(182, 182, 182);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin: 5px;
+    transition: all 0.3S ease-in-out;
+}
+
+label input:checked+span::before {
+    transform: translateX(30px);
+    background-color: blue;
+}
+
+input[type="checkbox"] {
+    width: 0.5px;
+    height: 0.5px;
+    overflow: hidden;
+    opacity: 0;
+    margin: 0;
+}
+
 .section {
-    width: 30%;
+    width: 80%;
     margin: 0 auto 1rem auto;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     text-align: center;
     color: blue;
 }
 
-.full-width {
-    width: 100%;
-    padding-bottom: .5rem;
+.margin-lable {
+    font-size: 1.3em;
+    font-weight: 500;
+    color: blue;
+    margin: 0;
+    padding-bottom: 1em;
 }
 
-.btn {
+.width-full {
+    width: 100%;
+}
+
+.icon {
+    font-size: 2em;
+    color: rgb(119, 119, 241);
+}
+
+.button-event {
     text-align: center;
 }
 
-button{
-    margin: 1rem;
-    transition: all .4s;
+.button-event button {
+    margin: 2em;
+    padding: 0 3em;
+    box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.35);
+    -webkit-box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.35);
+    -moz-box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.35);
+    border: .5px solid blue;
+    transition: all .3s;
 }
-button:hover{
-    box-shadow: 0px 3px 14px 1px rgba(0, 0, 0, 0.51);
-    -webkit-box-shadow: 0px 3px 14px 1px rgba(0, 0, 0, 0.51);
-    -moz-box-shadow: 0px 3px 14px 1px rgba(0, 0, 0, 0.51);
-    background: rgb(192, 219, 245);
+
+
+.button-event button:hover {
+    background: rgb(152, 152, 244);
+    color: blue;
+}
+
+.tec-footer {
+    width: 100;
+    text-align: center;
+    padding-top: 4em;
+    padding-bottom: 0;
+}
+
+.tec-footer p {
+    opacity: .4;
+}
+
+@media (max-width: 350px) {
+    .button-event button {
+        width: 90%;
+        margin: 1rem auto;
+        padding: 0;
+    }
+
+    .title-create {
+        font-size: 1.3em;
+    }
+
+    .margin-lable {
+        font-size: .9rem;
+    }
+}
+
+@media (max-width: 350px) {
+    .section {
+        display: block;
+    }
+
+    .margin {
+        width: 100%;
+    }
+
+    .button-event {
+        text-align: center;
+        display: block;
+    }
 }

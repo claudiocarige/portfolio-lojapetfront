@@ -9,27 +9,27 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 //Import para Requisições Http
-import { HttpClientModule    } from '@angular/common/http';
+import { HttpClientModule       } from '@angular/common/http';
 
 //Import para os compnents do Angula Matirial
-import { MatFormFieldModule  } from '@angular/material/form-field';
-import { MatPaginatorModule  } from '@angular/material/paginator';
-import { MatSnackBarModule   } from '@angular/material/snack-bar';
-import { MatToolbarModule    } from '@angular/material/toolbar';
-import { MatCheckboxModule   } from '@angular/material/checkbox';
-import { MatSidenavModule    } from '@angular/material/sidenav';
-import { MatButtonModule     } from '@angular/material/button';
-import { MatSelectModule     } from '@angular/material/select';
-import { MatTableModule      } from '@angular/material/table';
-import { MatRadioModule      } from '@angular/material/radio';
-import { MatInputModule      } from '@angular/material/input';
-import { MatIconModule       } from '@angular/material/icon';
-import { MatListModule       } from '@angular/material/list';
-import { MatCardModule       } from '@angular/material/card';
-import { MatRippleModule     } from '@angular/material/core';
-import { MatTooltipModule    } from '@angular/material/tooltip';
-import { MatDialogModule     } from '@angular/material/dialog';
-import { MatSortModule       } from '@angular/material/sort';
+import { MatFormFieldModule     } from '@angular/material/form-field';
+import { MatPaginatorModule     } from '@angular/material/paginator';
+import { MatSnackBarModule      } from '@angular/material/snack-bar';
+import { MatToolbarModule       } from '@angular/material/toolbar';
+import { MatCheckboxModule      } from '@angular/material/checkbox';
+import { MatSidenavModule       } from '@angular/material/sidenav';
+import { MatButtonModule        } from '@angular/material/button';
+import { MatSelectModule        } from '@angular/material/select';
+import { MatTableModule         } from '@angular/material/table';
+import { MatRadioModule         } from '@angular/material/radio';
+import { MatInputModule         } from '@angular/material/input';
+import { MatIconModule          } from '@angular/material/icon';
+import { MatListModule          } from '@angular/material/list';
+import { MatCardModule          } from '@angular/material/card';
+import { MatRippleModule        } from '@angular/material/core';
+import { MatTooltipModule       } from '@angular/material/tooltip';
+import { MatDialogModule        } from '@angular/material/dialog';
+import { MatSortModule          } from '@angular/material/sort';
 
 
 //Outras importações
@@ -37,17 +37,21 @@ import { ToastrModule } from 'ngx-toastr';
 
 
 //Componentes do projeto
-import { NavComponent } from './components/nav/nav.component';
-import { HomeComponent } from './components/home/home.component';
-import { HeaderComponent } from './components/header/header.component';
-import { EmployeeListComponent } from './components/employes/employee-list/employee-list.component';
-import { LoginComponent } from './components/login/login.component';
-import { AuthoInterceptorProvider } from './interceptors/auth.interceptor';
-import { EmployeeCreateComponent } from './components/employes/employee-create/employee-create.component';
-import { EmployeeUpdateComponent } from './components/employes/employee-update/employee-update.component';
-import { EmployeeDeleteComponent } from './components/employes/employee-delete/employee-delete.component';
-
-
+import { HomeComponent               } from './components/home/home.component';
+import { HeaderComponent             } from './components/header/header.component';
+import { NavComponent                } from './components/nav/nav.component';
+import { EmployeeListComponent       } from './components/employes/employee-list/employee-list.component';
+import { LoginComponent              } from './components/login/login.component';
+import { AuthoInterceptorProvider    } from './interceptors/auth.interceptor';
+import { EmployeeCreateComponent     } from './components/employes/employee-create/employee-create.component';
+import { EmployeeUpdateComponent     } from './components/employes/employee-update/employee-update.component';
+import { EmployeeDeleteComponent     } from './components/employes/employee-delete/employee-delete.component';
+import { SobremimComponent           } from './components/portfolio/sobremim/sobremim.component'
+import { ExperienciasComponent       } from './components/portfolio/experiencias/experiencias.component'
+import { FormacaoComponent           } from './components/portfolio/formacao/formacao.component'
+import { HabilidadesComponent        } from './components/portfolio/habilidades/habilidades.component'
+import { PortfolioHomeComponent      } from './components/portfolio/portfolio-home/portfolio-home.component';
+import { DialogModalComponent } from './components/portfolio/dialog-modal/dialog-modal.component'
 
 @NgModule({
   declarations: [
@@ -59,7 +63,14 @@ import { EmployeeDeleteComponent } from './components/employes/employee-delete/e
     LoginComponent,
     EmployeeCreateComponent,
     EmployeeUpdateComponent,
-    EmployeeDeleteComponent
+    EmployeeDeleteComponent,
+    SobremimComponent,
+    FormacaoComponent,
+    HabilidadesComponent,
+    ExperienciasComponent,
+    HomeComponent,
+    PortfolioHomeComponent,
+    DialogModalComponent
   ],
   imports: [
     BrowserModule,
@@ -89,10 +100,10 @@ import { EmployeeDeleteComponent } from './components/employes/employee-delete/e
     MatTooltipModule,
     MatDialogModule,
     MatSortModule,
-   ToastrModule.forRoot({
-    timeOut: 3000,
-    closeButton: true,
-    progressBar: true
+    ToastrModule.forRoot({
+      timeOut: 3000,
+      closeButton: true,
+      progressBar: true
    })
   ],
   providers: [AuthoInterceptorProvider],

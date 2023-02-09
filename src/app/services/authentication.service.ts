@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { API_URL } from '../config/api.config';
-import { Credentials } from '../models/credentials';
-import { JwtHelperService } from '@auth0/angular-jwt';
+import { HttpClient        } from '@angular/common/http';
+import { Injectable        } from '@angular/core';
+import { API_URL           } from '../config/api.config';
+import { Credentials       } from '../models/credentials';
+import { JwtHelperService  } from '@auth0/angular-jwt';
  
 @Injectable({
   providedIn: 'root'

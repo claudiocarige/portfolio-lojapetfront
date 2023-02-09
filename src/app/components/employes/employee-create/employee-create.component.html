@@ -1,47 +1,50 @@
-<h2>Adicionar Funcionário</h2>
 <div class="container">
-    <mat-card class="card">
-        <img mat-card-image src="../../../../assets/img/logoPetStar.svg" alt="Photo of a Shiba Inu">
-        <form>
-            <h3 class="margin-lable">Perfil:</h3>
-            <section class="section">
-                <label class="margin"><input (click)="addPerfil(0)" type="checkbox">
-                    <span></span>
-                    <p>ADMIN</p>
-                </label>
-                <label class="margin"><input (click)="addPerfil(2)" type="checkbox">
-                    <span></span>
-                    <p>EMPLOYEE</p>
-                </label>
-            </section>
-            <mat-form-field appearance="outline">
-                <mat-label>Nome</mat-label>
-                <input [(ngModel)]="employee.name" name="name" matInput [formControl]="name" required
-                    placeholder="Ex..Fulano de Tal" maxlength="60">
-                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-                <mat-label>CPF</mat-label>
-                <input [(ngModel)]="employee.cpf" name="cpf" matInput [formControl]="cpf" required
-                    placeholder="Ex..000.000.000-00" mask="000.000.000-00" minlength="11" maxlength="11">
-                <mat-icon matSuffix>pin</mat-icon>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-                <mat-label>E-mail</mat-label>
-                <input [(ngModel)]="employee.email" name="email" matInput [formControl]="email" required
-                    placeholder="Ex..fulano@mail.com.br">
-                <mat-icon matSuffix>email</mat-icon>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-                <mat-label>Senha</mat-label>
-                <input [(ngModel)]="employee.password" name="password" type="password" matInput [formControl]="password"
-                    required placeholder="Ex..123456">
-                <mat-icon matSuffix>password</mat-icon>
-            </mat-form-field>
-            <div class="btn">
-                <button routerLink="../" mat-stroked-button>Cancelar</button>
-                <button (click)="create()" [disabled]="!validation()" mat-stroked-button>Confirmar</button>
-            </div>
-        </form>
-    </mat-card>
+    <form class="form">
+        <h2 class="title-create">Cadastrar Funcionário</h2>
+        <div class="width-img central">
+            <img src="../../../../assets/img/logoPetStar.svg" alt="">
+        </div>
+        <h3 class="margin-lable">Perfil:</h3>
+        <section class="section">
+            <label class="margin"><input (click)="addPerfil(0)" type="checkbox">
+                <span></span>
+                <p>ADMIN</p>
+            </label>
+            <label class="margin"><input (click)="addPerfil(1)" type="checkbox">
+                <span></span>
+                <p>TECNICO</p>
+            </label>
+        </section>
+        <mat-form-field class="width-full" appearance="fill">
+            <mat-label>Nome</mat-label>
+            <input [(ngModel)]="employee.name" name="name" [formControl]="name" required matInput
+                placeholder="Ex.. fulano de Tal" maxlength="60">
+            <mat-icon class="icon" matSuffix>sentiment_very_satisfied</mat-icon>
+        </mat-form-field>
+        <mat-form-field class="width-full" appearance="fill">
+            <mat-label>CPF</mat-label>
+            <input [(ngModel)]="employee.cpf" name="cpf" [formControl]="cpf" required matInput
+                placeholder="Ex.. 000.000.000-00" mask="000.000.000-00" minlength="11" maxlength="11">
+            <mat-icon class="icon" matSuffix>pin</mat-icon>
+        </mat-form-field>
+        <mat-form-field class="width-full" appearance="fill">
+            <mat-label>Email</mat-label>
+            <input [(ngModel)]="employee.email" name="email" [formControl]="email" required matInput
+                placeholder="Ex.. fulano@mail.com">
+            <mat-icon class="icon" matSuffix>mail</mat-icon>
+        </mat-form-field>
+        <mat-form-field class="width-full" appearance="fill">
+            <mat-label>Senha</mat-label>
+            <input [(ngModel)]="employee.password" name="senha" [formControl]="password" required type="password"
+                matInput placeholder="Ex.. 1234">
+            <mat-icon class="icon" matSuffix>password</mat-icon>
+        </mat-form-field>
+        <div class="button-event">
+            <button routerLink="../" mat-stroked-button color="warn">Cancelar</button>
+            <button (click)="create()" [disabled]="!validation()" mat-flat-button color="primary">Cadastrar</button>
+        </div>
+        <footer class="tec-footer">
+            <p>&copy;by Cláudio Carigé</p>
+        </footer>
+    </form>
 </div>

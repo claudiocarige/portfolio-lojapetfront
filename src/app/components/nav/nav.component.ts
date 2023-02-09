@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
+import { Component, OnInit     } from '@angular/core';
+import { Router                } from '@angular/router';
+import { ToastrService         } from 'ngx-toastr';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
-  selector: 'app-nav',
-  templateUrl: './nav.component.html',
-  styleUrls: ['./nav.component.css']
+  selector:     'app-nav',
+  templateUrl:  './nav.component.html',
+  styleUrls:   ['./nav.component.css']
 })
 export class NavComponent implements OnInit {
   showFiller = false;
@@ -18,12 +18,12 @@ export class NavComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.route.navigate([ 'employees/create' ]);
+    this.route.navigate(['portfolio/formacao']);
   }
 
   logout() {
     this.route.navigate(['login']);
-    this.toast.success('Sessão encerrada', 'L O G O U T', {timeOut: 5000})
+    this.toast.success('Sessão encerrada', 'L O G O U T', { timeOut: 5000 })
     this.authenticated.logout();
   }
 }

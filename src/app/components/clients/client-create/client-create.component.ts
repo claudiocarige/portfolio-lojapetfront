@@ -21,10 +21,10 @@ export class ClientCreateComponent implements OnInit {
     profile:      [],
     criationDate: ''
   }
-  name:     FormControl = new FormControl(null, Validators.minLength(3));
+  name:     FormControl = new FormControl(null,                         Validators.minLength(3));
   cpf:      FormControl = new FormControl(null, [Validators.required, Validators.minLength(11)]);
-  email:    FormControl = new FormControl(null,        Validators.email);
-  password: FormControl = new FormControl(null, Validators.minLength(6));
+  email:    FormControl = new FormControl(null,                                Validators.email);
+  password: FormControl = new FormControl(null,                         Validators.minLength(6));
 
   constructor(
     private service: ClientsService,

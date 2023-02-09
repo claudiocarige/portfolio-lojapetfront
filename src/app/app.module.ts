@@ -51,7 +51,11 @@ import { ExperienciasComponent       } from './components/portfolio/experiencias
 import { FormacaoComponent           } from './components/portfolio/formacao/formacao.component'
 import { HabilidadesComponent        } from './components/portfolio/habilidades/habilidades.component'
 import { PortfolioHomeComponent      } from './components/portfolio/portfolio-home/portfolio-home.component';
-import { DialogModalComponent } from './components/portfolio/dialog-modal/dialog-modal.component'
+import { DialogModalComponent } from './components/portfolio/dialog-modal/dialog-modal.component';
+import { ClientListComponent } from './components/clients/client-list/client-list.component';
+import { ClientCreateComponent } from './components/clients/client-create/client-create.component';
+import { ClientUpdateComponent } from './components/clients/client-update/client-update.component';
+import { ClientDeleteComponent } from './components/clients/client-delete/client-delete.component'
 
 @NgModule({
   declarations: [
@@ -70,7 +74,11 @@ import { DialogModalComponent } from './components/portfolio/dialog-modal/dialog
     ExperienciasComponent,
     HomeComponent,
     PortfolioHomeComponent,
-    DialogModalComponent
+    DialogModalComponent,
+    ClientListComponent,
+    ClientCreateComponent,
+    ClientUpdateComponent,
+    ClientDeleteComponent
   ],
   imports: [
     BrowserModule,

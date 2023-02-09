@@ -2,7 +2,7 @@ import { Component, OnInit        } from '@angular/core';
 import { FormControl, Validators  } from '@angular/forms';
 import { Router                   } from '@angular/router';
 import { ToastrService            } from 'ngx-toastr';
-import { Client                   } from 'src/app/models/dataClient';
+import { Client                   } from 'src/app/models/client';
 import { ClientsService           } from 'src/app/services/clients.service';
 
 @Component({

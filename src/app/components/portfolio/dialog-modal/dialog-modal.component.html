@@ -1,0 +1,39 @@
+
+<mat-dialog-content class="mat-typography">
+      <!--Display das Experiências-->
+    <article [ngStyle]="{'display': displayExperiencia}"  class="article-row" > 
+             <header>
+                 <h4 style="color: #3d009e">{{ title }}</h4>
+                 <p>Início - {{ dataInicio }} /  Concluido - {{ dataFim }}</p>
+                 <h5><b>{{ status }}</b></h5>
+             </header>
+             <div class="row" >
+                 <p>Cargo: <b>{{ cargo }}</b></p>
+                 <ul *ngFor="let lista of atividades">
+                     <li>{{ lista }}</li>
+                 </ul>
+             </div>
+             <section>
+                 <div>
+                     <p [innerHTML]="descricao"></p>
+                 </div>
+             </section>      
+     </article> 
+     <!--Display das Habilidades-->
+     <article [ngStyle]="{'display': displayHabilidade}" class="article-row-2" > 
+         <header>
+             <h4 style="color: #3d009e">{{ title }}</h4>
+          </header>
+         <section>
+             <div>
+                 <p [innerHTML]="descricao"></p>
+             </div>
+         </section>       
+ </article>          
+ </mat-dialog-content>
+ <mat-dialog-actions align="center">
+   <button [ngStyle]="{'display': buttonExp}" class="buttonNone" routerLink="portfolio/experiencias"  mat-button mat-dialog-close>Voltar</button>
+ </mat-dialog-actions>
+ <mat-dialog-actions align="center">
+   <button [ngStyle]="{'display': buttonHabil}" class="buttonNone1" routerLink="portfolio/conhecimentos"  mat-button mat-dialog-close>Voltar</button>
+ </mat-dialog-actions>

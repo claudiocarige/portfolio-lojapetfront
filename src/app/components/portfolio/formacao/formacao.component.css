@@ -1,0 +1,151 @@
+.container {
+    width: 90%;
+    margin: auto;
+    padding-bottom: 2em;
+
+}
+
+.container-fluid {
+    width: 50%;
+    text-align: center;
+    margin: auto;
+    position: relative;
+    display: flex;
+}
+
+.title-formacao {
+    text-align: center;
+    color: rgb(0, 142, 207);
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.45);
+    font-size: 1.8em;
+    font-weight: bold;
+    margin-bottom: 2em;
+}
+
+img {
+    padding: 2em 2em;
+    width: 40%;
+}
+
+li{
+    line-height: 10px;
+    font-size: 1em;
+    font-weight: 500;
+    color: rgb(0, 142, 207);
+}
+
+p {
+    line-height: 15px;
+    font-size: 1em;
+}
+h3 {
+    width: 100%;
+    color: rgb(0, 111, 255, .8);
+    font-size: 2em;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.53);
+}
+
+h4 {
+    width: 100%;
+    margin-bottom: 1em;
+    text-align: center;
+    font-size: 1.3em;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+span{
+    color: blue;
+}
+
+.button-voltar {
+    margin-top: 1em;
+    text-decoration: none;
+    text-align: center;
+    padding: .5em 1em;
+    color: white;
+    font-size: 1.1em;
+    position: absolute;
+    right: 7em;
+    top: 12em;
+    border-radius: .5em;
+    font-weight: 500;
+    background: rgb(154, 153, 153);
+    box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.55);
+    -webkit-box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.55);
+    -moz-box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.55);
+}
+
+.button-voltar:hover {
+    background: white;
+    color: blue;
+}
+
+.title {
+    width: 100%;
+    display: block;
+}
+
+.subtitle {
+    display: none;
+}
+
+.container-hidden {
+    width: 90%;
+    margin: auto;
+}
+
+.container-formacao {
+    display: none;
+    margin: auto;
+
+}
+
+.universidade {
+    text-transform: uppercase;
+    font-size: 3em;
+    font-weight: bold;
+    padding-bottom: 1em;
+}
+
+.universidade-paragrafo {
+    font-size: 1.6em;
+    padding-bottom: 1em;
+}
+
+.container-cursos {
+    display: none;
+    width: 25%;
+    margin: 0 auto 2em auto;
+}
+
+.curso-fluid {
+    background: rgba(0, 128, 0, .1);
+    height: 400px;
+    padding: 1.5em;
+    width: 200px;
+    color: rgb(104, 104, 104);
+    margin: 1em auto;
+    border-radius: .6em;
+    box-shadow: 0px 0px 9px 3px rgba(0, 0, 0, 0.6);
+    -webkit-box-shadow: 0px 0px 9px 3px rgba(0, 0, 0, 0.6);
+    -moz-box-shadow: 0px 0px 9px 3px rgba(0, 0, 0, 0.6);
+}
+
+.curso-grid{
+    display: flex;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-content: space-between;
+margin: auto;
+}
+
+@media (max-width: 1084px){
+    .curso-grid{
+        display: block;
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+    p{
+        line-height: 25px;
+    }
+
+}

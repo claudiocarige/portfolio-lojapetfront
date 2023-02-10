@@ -16,6 +16,7 @@ import { FormacaoComponent          } from './components/portfolio/formacao/form
 import { HabilidadesComponent       } from './components/portfolio/habilidades/habilidades.component';
 import { PortfolioHomeComponent     } from './components/portfolio/portfolio-home/portfolio-home.component';
 import { SobremimComponent          } from './components/portfolio/sobremim/sobremim.component';
+import { ServicePetCreateComponent } from './components/servicePet/service-pet-create/service-pet-create.component';
 import { ServicePetListComponent } from './components/servicePet/service-pet-list/service-pet-list.component';
 
 const routes: Routes = [
@@ -43,7 +44,8 @@ const routes: Routes = [
         { path: "clients/delete/:id",     component:        ClientUpdateComponent},
 
          //Rotas para Serviços
-         { path: "services",     component:               ServicePetListComponent}
+         { path: "services",     component:               ServicePetListComponent},
+         { path: "services/create",     component:      ServicePetCreateComponent}
   ] }
 ];
 

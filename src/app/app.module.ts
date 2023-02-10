@@ -56,7 +56,8 @@ import { ClientListComponent } from './components/clients/client-list/client-lis
 import { ClientCreateComponent } from './components/clients/client-create/client-create.component';
 import { ClientUpdateComponent } from './components/clients/client-update/client-update.component';
 import { ClientDeleteComponent } from './components/clients/client-delete/client-delete.component';
-import { ServicePetListComponent } from './components/servicePet/service-pet-list/service-pet-list.component'
+import { ServicePetListComponent } from './components/servicePet/service-pet-list/service-pet-list.component';
+import { ServicePetCreateComponent } from './components/servicePet/service-pet-create/service-pet-create.component'
 
 @NgModule({
   declarations: [
@@ -80,7 +81,8 @@ import { ServicePetListComponent } from './components/servicePet/service-pet-lis
     ClientCreateComponent,
     ClientUpdateComponent,
     ClientDeleteComponent,
-    ServicePetListComponent
+    ServicePetListComponent,
+    ServicePetCreateComponent
   ],
   imports: [
     BrowserModule,

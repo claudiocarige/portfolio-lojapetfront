@@ -36,7 +36,7 @@ export class ClientCreateComponent implements OnInit {
   }
   create(): void {
     this.service.create(this.client).subscribe(() => {
-      this.toast.success('Cliente criado com sucesso!', 'Cadastro')
+      this.toast.success('Cliente criado com sucesso!', 'C A D A S T R A R - C L I E N T E')
       this.route.navigate(['clients']);
     }, ex => {
       console.log(ex);

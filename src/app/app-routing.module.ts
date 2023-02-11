@@ -2,6 +2,7 @@ import { NgModule                   } from '@angular/core';
 import { RouterModule, Routes       } from '@angular/router';
 import { AuthGuard                  } from './auth/auth.guard';
 import { ClientCreateComponent      } from './components/clients/client-create/client-create.component';
+import { ClientDeleteComponent } from './components/clients/client-delete/client-delete.component';
 import { ClientListComponent        } from './components/clients/client-list/client-list.component';
 import { ClientUpdateComponent      } from './components/clients/client-update/client-update.component';
 import { ContactComponent } from './components/contacts/contact/contact.component';
@@ -19,6 +20,7 @@ import { PortfolioHomeComponent     } from './components/portfolio/portfolio-hom
 import { SobremimComponent          } from './components/portfolio/sobremim/sobremim.component';
 import { ServicePetCreateComponent } from './components/servicePet/service-pet-create/service-pet-create.component';
 import { ServicePetListComponent } from './components/servicePet/service-pet-list/service-pet-list.component';
+import { ServicePetUpdateComponent } from './components/servicePet/service-pet-update/service-pet-update.component';
 
 const routes: Routes = [
   { path: "login", component:LoginComponent},
@@ -42,11 +44,13 @@ const routes: Routes = [
         { path: "clients",                component:          ClientListComponent},
         { path: "clients/create",         component:        ClientCreateComponent},  
         { path: "clients/update/:id",     component:        ClientUpdateComponent},  
-        { path: "clients/delete/:id",     component:        ClientUpdateComponent},
+        { path: "clients/delete/:id",     component:        ClientDeleteComponent},
 
          //Rotas para Serviços
          { path: "services",     component:               ServicePetListComponent},
          { path: "services/create",     component:      ServicePetCreateComponent},
+         { path: "services/update/:id",     component:  ServicePetUpdateComponent},
+   
 
          //Rota de contato
         { path: "contact",  component:        ContactComponent},

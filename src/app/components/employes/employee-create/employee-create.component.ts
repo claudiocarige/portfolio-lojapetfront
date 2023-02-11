@@ -36,7 +36,7 @@ export class EmployeeCreateComponent implements OnInit {
   }
   create(): void {
     this.service.create(this.employee).subscribe(() => {
-      this.toast.success('Funcionário criado com sucesso!', 'Cadastro')
+      this.toast.success('Funcionário criado com sucesso!', 'C A D A S T R O - F U N C I O N Á R I O')
       this.route.navigate(['employees']);
     }, ex => {
       console.log(ex);

@@ -41,7 +41,7 @@ export class EmployeeDeleteComponent implements OnInit {
   }
   delete(): void {
     this.service.delete(this.employee.id).subscribe(() => {
-      this.toast.success('Funcionário deletado com sucesso!', 'D E L E T E');
+      this.toast.success('Funcionário deletado com sucesso!', 'D E L E T A R - F U N C I O N Á R I O');
       this.route.navigate(['employees'])
     }, ex => {
       console.log(ex.error.errors);

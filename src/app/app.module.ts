@@ -60,7 +60,6 @@ import { ServicePetListComponent } from './components/servicePet/service-pet-lis
 import { ServicePetCreateComponent } from './components/servicePet/service-pet-create/service-pet-create.component';
 import { ContactComponent } from './components/contacts/contact/contact.component';
 import { ServicePetUpdateComponent } from './components/servicePet/service-pet-update/service-pet-update.component';
-import { ServicePetDeleteComponent } from './components/servicePet/service-pet-delete/service-pet-delete.component'
 
 @NgModule({
   declarations: [
@@ -88,7 +87,6 @@ import { ServicePetDeleteComponent } from './components/servicePet/service-pet-d
     ServicePetCreateComponent,
     ContactComponent,
     ServicePetUpdateComponent,
-    ServicePetDeleteComponent
   ],
   imports: [
     BrowserModule,

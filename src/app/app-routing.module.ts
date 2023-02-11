@@ -50,10 +50,11 @@ const routes: Routes = [
          { path: "services",     component:               ServicePetListComponent},
          { path: "services/create",     component:      ServicePetCreateComponent},
          { path: "services/update/:id",     component:  ServicePetUpdateComponent},
+         { path: "services/delete/:id",     component:  ServicePetUpdateComponent},
    
 
          //Rota de contato
-        { path: "contact",  component:        ContactComponent},
+        { path: "contact",  component:        ContactComponent}
 
   ] }
 ];

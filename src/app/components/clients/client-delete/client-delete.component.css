@@ -1,0 +1,153 @@
+.container {
+    width: 35%;
+    min-width: 150px    ;
+    margin: auto auto 4em auto;
+    padding: 1rem 2rem 1rem 2rem;
+    border-radius: .6rem;
+    box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.35);
+    -webkit-box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.35);
+    -moz-box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.35);
+}
+
+.title-create {
+    text-align: center;
+    color: blue;
+    font-size: 1.8em;
+    font-weight: bold;
+    margin-bottom: 1em;
+}
+
+.width-img {
+    width: 100%;
+    text-align: center;
+}
+
+img {
+    height: 5rem;
+    margin: auto;
+    padding-bottom: 1rem;
+}
+
+.section {
+    width: 80%;
+    margin: 0 auto 1rem auto;
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    color: blue;
+}
+
+.margin-lable {
+    font-size: 1.3em;
+    font-weight: 500;
+    color: blue;
+    margin: 0;
+    padding-bottom: 1em;
+}
+
+.width-full {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.icon {
+    font-size: 2em;
+    color: rgb(119, 119, 241);
+}
+
+.button-event {
+    text-align: center;
+}
+
+.button-event button {
+    margin: 2em;
+    padding: 0 3em;
+    box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.35);
+    -webkit-box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.35);
+    -moz-box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.35);
+    border: .5px solid blue;
+    transition: all .3s;
+}
+
+.button-event button:hover {
+    background: rgb(152, 152, 244);
+    color: blue;
+}
+
+.check {
+    width: 100%;
+    padding-top: 1rem;
+
+    text-align: center;
+    justify-content: space-evenly;
+    justify-items: center;
+    border: .3px solid rgb(174, 229, 255);
+    font-weight: bold;
+    color: red;
+}
+
+.check mat-form-field {
+    width: 60%;
+}
+.check-span {
+    color: black;
+}
+
+.tec-footer {
+    width: 100;
+    text-align: center;
+    padding-top: 4em;
+    padding-bottom: 0;
+}
+
+.tec-footer p {
+    opacity: .4;
+}
+
+@media (max-width: 685px) {
+    .button-event button {
+        width: 70%;
+        margin: 1rem auto;
+        padding: 0;
+    }
+
+    .title-create {
+        font-size: 1.3em;
+    }
+
+    .margin-lable {
+        font-size: .9rem;
+    }
+}
+
+@media (max-width: 415px) {
+    .button-event button {
+        width: 60%;
+        margin: 1rem auto;
+        padding: 0;
+    }
+
+    .title-create {
+        font-size: 1.3em;
+    }
+
+    .margin-lable {
+        font-size: .9rem;
+    }
+}
+
+@media (max-width: 350px) {
+    .section {
+        display: block;
+    }
+
+    .margin {
+        width: 100%;
+    }
+
+    .button-event {
+        text-align: center;
+        display: block;
+    }
+}

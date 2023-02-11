@@ -35,10 +35,10 @@ mat-form-field {
   padding-right: 1.3em;
 }
 
-@media (max-width: 407px) {
+@media (max-width: 600px) {
 
   h2 {
-    font-size: 1rem;
+    font-size: 1.3rem;
   }
 
   th,

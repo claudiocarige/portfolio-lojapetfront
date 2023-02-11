@@ -29,7 +29,7 @@ h3 {
 }
 
 h2 {
-    color: rgb(92, 92, 92);
+    color: rgb(144, 144, 144);
     margin: 0;
     padding: 0;
 }
@@ -107,7 +107,7 @@ span {
     }
 }
 
-@media (max-width: 360px) {
+@media (max-width: 414px) {
     h1 {
         font-size: .7rem;
     }

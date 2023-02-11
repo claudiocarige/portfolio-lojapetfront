@@ -111,16 +111,16 @@ button {
     display: block;
     text-align: left;
   }
-}
+} 
 
-@media (max-width: 660px) {
+@media (max-width: 804px) {
   mat-form-field {
     width: 100%;
     margin-left: 1rem;
   }
 }
 
-@media (max-width: 407px) {
+@media (max-width: 600px) {
   h2 {
     font-size: 1rem;
   }

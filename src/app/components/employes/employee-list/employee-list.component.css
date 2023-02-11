@@ -37,7 +37,7 @@ mat-form-field {
 }
 
 
-@media (max-width: 407px) {
+@media (max-width: 600px) {
 
   h2 {
     font-size: 1rem;
@@ -46,11 +46,28 @@ mat-form-field {
   th,
   td,
   span {
-    font-size: .5rem;
+    font-size: .7rem;
   }
 }
 
-@media (max-width: 280px) {
+@media (max-width: 395px) {
+
+  h2 {
+    font-size: .7rem;
+  }
+
+  th,
+  td {
+    font-size: .5rem;
+  }
+
+  .mat-stroked-button,
+  .mat-form-field {
+    width: 100%;
+  }
+}
+
+@media (max-width: 305px) {
 
   h2 {
     font-size: .7rem;
@@ -59,10 +76,5 @@ mat-form-field {
   th,
   td {
     font-size: .3rem;
-  }
-
-  .mat-stroked-button,
-  .mat-form-field {
-    width: 100%;
   }
 }

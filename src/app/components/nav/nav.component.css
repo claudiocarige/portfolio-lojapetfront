@@ -89,6 +89,13 @@ a {
         margin: 0 0 .7em 2.5em;
         padding-left: .5rem;
     }
+    .sidenav .icon-linkedin {
+        padding-left: -2em;
+    }
+    
+    .sidenav .icon-github {
+        padding-left: -2em;
+    }
 }
 
 @media (max-width: 280px) {

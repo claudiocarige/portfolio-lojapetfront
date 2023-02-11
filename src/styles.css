@@ -19,7 +19,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     height: 120px; 
  }
 
- @media (max-width: 370px) {
+ @media (max-width: 408px) {
   .ngx-toastr {
     width: 220px !important; 
     height: 120px; 

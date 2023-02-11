@@ -6,34 +6,30 @@
     justify-content: space-between;
     border-radius: .5rem;
     background: #002f9a;
-    background: linear-gradient(90deg,#002f9a 0%, #1b55c3 20%, #3b8abb 50%, #48c9d5 80%);
-    background: -webkit-linear-gradient(90deg,#002f9a 0%, #1b55c3 20%, #3b8abb 50%, #48c9d5 80%);
-    background: -moz-linear-gradient(90deg,#002f9a 0%, #1b55c3 20%, #3b8abb 50%, #48c9d5 80%);
-}
-.container-left{
-    width: 33%;
-    margin: 2rem 2rem;
-    padding: 2rem 0 0 0 ;
+    background: linear-gradient(90deg, #002f9a 0%, #1b55c3 20%, #3b8abb 50%, #48c9d5 80%);
+    background: -webkit-linear-gradient(90deg, #002f9a 0%, #1b55c3 20%, #3b8abb 50%, #48c9d5 80%);
+    background: -moz-linear-gradient(90deg, #002f9a 0%, #1b55c3 20%, #3b8abb 50%, #48c9d5 80%);
 }
 
-.container-right{
+.container-right {
     width: 33%;
     margin: 2rem 2rem;
-    padding: 3rem 0 0 0 ;
+    padding: 3rem 0 0 0;
     color: white;
 }
-.arrouba{
+
+.arrouba {
     font-size: 2.5rem;
     font-weight: bold;
     color: white;
 }
 
-.lista{
+.lista {
     color: white;
 }
 
 
-h1{
+h1 {
     font-weight: bold;
     letter-spacing: .2rem;
     text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.45);
@@ -49,56 +45,92 @@ h2 {
     text-transform: uppercase;
     color: rgb(0, 142, 207);
     text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.45);
-  }
+}
 
-li{
+li {
     list-style: none;
     padding-left: 3rem;
 }
 
-a{
+a {
     text-decoration: none;
     color: #e0f7f9;
     transition: all .3s;
 }
 
-a:hover{
+a:hover {
     color: rgb(189, 255, 122);
     font-weight: 700;
 }
 
-i{
+i {
     font-size: 1.7rem;
 }
 
-.whatsapp{
-    padding-left: 3rem;
-    font-size: 1.1rem;
-}
-.email{
+.whatsapp {
     padding-left: 3rem;
     font-size: 1.1rem;
 }
 
+.email {
+    padding-left: 3rem;
+    font-size: 1.1rem;
+}
 
-@media (max-width: 1194px){
-    .arrouba{
+.aviso {
+    color: blue;
+}
+
+@media (max-width: 1194px) {
+    .arrouba {
         font-size: 1.7rem;
     }
-    h1{
+
+    h1 {
         font-size: 1.2rem;
     }
 
-    i{
+    i {
         font-size: 1.5rem;
     }
 }
 
-@media (max-width: 1194px){
-    .arrouba{
+@media (max-width: 876px) {
+    .arrouba {
         font-size: 1.7rem;
     }
-    h1{
-        font-size: 1.2rem;
+
+    p {
+        font-size: .8rem;
+    }
+
+    .container-right {
+        width: 28%;
+        margin: 1rem 1rem;
+        padding: 3rem 0 0 0;
+    }
+
+}
+
+@media (max-width: 677px) {
+
+    .container {
+        display: block;
+        text-align: center;
+        height: 80%;
+
+    }
+
+    .container-right {
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .aviso {
+        color: #ffffff;
+        color: linear-gradient(90deg, #ffffff 0%, #878bff 40%, #280fff 80%);
+        color: -webkit-linear-gradient(90deg, #ffffff 0%, #878bff 40%, #280fff 80%);
+        color: -moz-linear-gradient(90deg, #ffffff 0%, #878bff 40%, #280fff 80%);
+        padding-bottom: 3rem;
     }
 }

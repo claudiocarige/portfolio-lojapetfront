@@ -87,7 +87,7 @@ img {
 }
 
 
-@media (max-width: 350px) {
+@media (max-width: 414px) {
     .button-event button {
         width: 90%;
         margin: 1rem auto;

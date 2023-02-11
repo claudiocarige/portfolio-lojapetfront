@@ -1,1 +1,64 @@
-<p>service-pet-update works!</p>
+<div class="container">
+    <h2 class="title-create">Atualizar Serviço</h2>
+    <div class="width-img central">
+        <img src="../../../../assets/img/logoPetStar.svg" alt="">
+    </div>
+    <form class="example-form">
+        <mat-form-field class="width-full" appearance="outline">
+            <mat-label>Título do Serviço</mat-label>
+            <input [formControl]="title" [(ngModel)]="servicePet.title" name="titulo" required matInput
+                placeholder="Ex. Implementação web">
+        </mat-form-field>
+        <div class="status-prioridade">
+            <mat-form-field class="selecao" appearance="outline" value="selecione">
+                <mat-label>{{retornaStatus(servicePet.status)}}</mat-label>
+                <mat-select [(ngModel)]="servicePet.status" name="status" [formControl]="status" required>
+                    <mat-option>selecione</mat-option>
+                    <mat-option value="0">ABERTO</mat-option>
+                    <mat-option value="1">EM ANDAMENTO</mat-option>
+                    <mat-option value="2">ENCERRADO</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="selecao ajusteLeft" appearance="outline" value="selecione">
+                <mat-label>{{retornaPriority(servicePet.priority)}}</mat-label>
+                <mat-select [(ngModel)]="servicePet.priority" name="prioridade" [formControl]="priority" required>
+                    <mat-option>selecione</mat-option>
+                    <mat-option value="0">BAIXA</mat-option>
+                    <mat-option value="1">MEDIA</mat-option>
+                    <mat-option value="2">ALTA</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="pessoa">
+            <mat-form-field class="selecao" appearance="outline">
+                <mat-label>{{ servicePet.nameClient }}</mat-label>
+                <mat-select [(ngModel)]="servicePet.client" name="client" [formControl]="clientValida" required>
+                    <mat-option *ngFor="let cli of clientList" value='{{ cli.id }}'>{{ cli.name }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="selecao ajusteLeft" appearance="outline" value="selecione">
+                <mat-label>{{ servicePet.nameEmploye }}</mat-label>
+                <mat-select [(ngModel)]="servicePet.employee" name="employee" [formControl]="employeeValida" required>
+                    <mat-option>selecione</mat-option>
+                    <mat-option *ngFor="let employee of employeeList" value="{{ employee.id }}">{{ employee.name }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+        </div>
+        <form class="form">
+            <mat-form-field class="width-full" appearance="outline">
+                <mat-label>Deixe uma descrição</mat-label>
+                <textarea [(ngModel)]="servicePet.comments" name="observacoes" [formControl]="descri" required
+                    class="descrição" matInput placeholder="Ex. Criação de uma implementação..."></textarea>
+            </mat-form-field>
+        </form>
+    </form>
+
+    <div class="button-event">
+        <button routerLink="../../" mat-stroked-button color="warn">Cancelar</button>
+        <button (click)="update()" [disabled]="!validaForm()" mat-flat-button color="primary">Cadastrar</button>
+    </div>
+    <footer class="serv-footer">
+        <p>&copy;by Cláudio Carigé</p>
+    </footer>
+</div>

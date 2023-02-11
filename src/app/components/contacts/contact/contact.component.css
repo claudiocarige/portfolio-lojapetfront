@@ -1,0 +1,104 @@
+.container {
+    width: 70%;
+    height: 330px;
+    display: flex;
+    margin: 2rem auto;
+    justify-content: space-between;
+    border-radius: .5rem;
+    background: #002f9a;
+    background: linear-gradient(90deg,#002f9a 0%, #1b55c3 20%, #3b8abb 50%, #48c9d5 80%);
+    background: -webkit-linear-gradient(90deg,#002f9a 0%, #1b55c3 20%, #3b8abb 50%, #48c9d5 80%);
+    background: -moz-linear-gradient(90deg,#002f9a 0%, #1b55c3 20%, #3b8abb 50%, #48c9d5 80%);
+}
+.container-left{
+    width: 33%;
+    margin: 2rem 2rem;
+    padding: 2rem 0 0 0 ;
+}
+
+.container-right{
+    width: 33%;
+    margin: 2rem 2rem;
+    padding: 3rem 0 0 0 ;
+    color: white;
+}
+.arrouba{
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: white;
+}
+
+.lista{
+    color: white;
+}
+
+
+h1{
+    font-weight: bold;
+    letter-spacing: .2rem;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.45);
+}
+
+h2 {
+    width: 100%;
+    text-align: center;
+    padding: 0 0 2rem 0;
+    margin: 0;
+    font-size: 1.7rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: rgb(0, 142, 207);
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.45);
+  }
+
+li{
+    list-style: none;
+    padding-left: 3rem;
+}
+
+a{
+    text-decoration: none;
+    color: #e0f7f9;
+    transition: all .3s;
+}
+
+a:hover{
+    color: rgb(189, 255, 122);
+    font-weight: 700;
+}
+
+i{
+    font-size: 1.7rem;
+}
+
+.whatsapp{
+    padding-left: 3rem;
+    font-size: 1.1rem;
+}
+.email{
+    padding-left: 3rem;
+    font-size: 1.1rem;
+}
+
+
+@media (max-width: 1194px){
+    .arrouba{
+        font-size: 1.7rem;
+    }
+    h1{
+        font-size: 1.2rem;
+    }
+
+    i{
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 1194px){
+    .arrouba{
+        font-size: 1.7rem;
+    }
+    h1{
+        font-size: 1.2rem;
+    }
+}

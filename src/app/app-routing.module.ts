@@ -4,6 +4,7 @@ import { AuthGuard                  } from './auth/auth.guard';
 import { ClientCreateComponent      } from './components/clients/client-create/client-create.component';
 import { ClientListComponent        } from './components/clients/client-list/client-list.component';
 import { ClientUpdateComponent      } from './components/clients/client-update/client-update.component';
+import { ContactComponent } from './components/contacts/contact/contact.component';
 import { EmployeeCreateComponent    } from './components/employes/employee-create/employee-create.component';
 import { EmployeeDeleteComponent    } from './components/employes/employee-delete/employee-delete.component';
 import { EmployeeListComponent      } from './components/employes/employee-list/employee-list.component';
@@ -45,7 +46,11 @@ const routes: Routes = [
 
          //Rotas para Serviços
          { path: "services",     component:               ServicePetListComponent},
-         { path: "services/create",     component:      ServicePetCreateComponent}
+         { path: "services/create",     component:      ServicePetCreateComponent},
+
+         //Rota de contato
+        { path: "contact",  component:        ContactComponent},
+
   ] }
 ];
 

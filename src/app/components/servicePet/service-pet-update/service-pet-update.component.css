@@ -85,3 +85,35 @@ img {
 .serv-footer p {
     opacity: .4;
 }
+
+
+@media (max-width: 350px) {
+    .button-event button {
+        width: 90%;
+        margin: 1rem auto;
+        padding: 0;
+    }
+
+    .title-create {
+        font-size: 1.3em;
+    }
+
+    .margin-lable {
+        font-size: .9rem;
+    }
+}
+
+@media (max-width: 250px) {
+    .section {
+        display: block;
+    }
+
+    .margin {
+        width: 100%;
+    }
+
+    .button-event {
+        text-align: center;
+        display: block;
+    }
+}

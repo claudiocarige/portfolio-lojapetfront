@@ -55,11 +55,17 @@ descri:           FormControl = new FormControl(null, [Validators.required, Vali
 
   update(): void{
     this.servicePetService.update(this.servicePet).subscribe(response =>{
-      this.toast.success("Serviço cadastrado com sucesso.", "A T U A L I Z A R - S E R V I Ç O")
+      this.toast.success("Serviço atualizado com sucesso.", "A T U A L I Z A Ç Ã O")
       this.route.navigate(["services"]);
     }, ex => {
-      ex.console.log();
-      this.toast.error(ex.error.error);
+      console.log(ex.error.errors);
+      if (ex.error.errors) {
+        ex.error.errors.array.forEach(element => {
+          this.toast.error(element.message, "A T E N Ç Ã O !");
+        });
+      } else {
+        this.toast.error(ex.error.message, "A T E N Ç Ã O !");
+      }
       });
   }
 findById(){

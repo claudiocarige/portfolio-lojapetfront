@@ -36,15 +36,6 @@ mat-form-field {
   padding-right: 1.3em;
 }
 
-.update {
-  color: rgb(111, 219, 255);
-  font-size: 1.4em;
-}
-
-.delete {
-  color: red;
-  font-size: 1.3em;
-}
 
 @media (max-width: 407px) {
 

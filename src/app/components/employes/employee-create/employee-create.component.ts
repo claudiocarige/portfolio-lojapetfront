@@ -36,16 +36,16 @@ export class EmployeeCreateComponent implements OnInit {
   }
   create(): void {
     this.service.create(this.employee).subscribe(() => {
-      this.toast.success('Funcionário criado com sucesso!', 'C A D A S T R O - F U N C I O N Á R I O')
+      this.toast.success('Funcionário criado com sucesso!', 'C A D A S T R O')
       this.route.navigate(['employees']);
     }, ex => {
       console.log(ex);
       if (ex.error.erros) {
         ex.error.erros.array.forEach(element => {
-          this.toast.error(element.message);
+          this.toast.error(element.message, "A T E N Ç Ã O !");
         });
       } else {
-        this.toast.error(ex.error.message);
+        this.toast.error(ex.error.message, "A T E N Ç Ã O !");
       }
     })
   }

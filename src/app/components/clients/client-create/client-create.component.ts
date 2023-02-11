@@ -36,16 +36,16 @@ export class ClientCreateComponent implements OnInit {
   }
   create(): void {
     this.service.create(this.client).subscribe(() => {
-      this.toast.success('Cliente criado com sucesso!', 'C A D A S T R A R - C L I E N T E')
+      this.toast.success('Cliente criado com sucesso!', 'C A D A S T R O')
       this.route.navigate(['clients']);
     }, ex => {
       console.log(ex);
       if (ex.error.erros) {
         ex.error.erros.array.forEach(element => {
-          this.toast.error(element.message);
+          this.toast.error(element.message, "A T E N Ç Ã O !");
         });
       } else {
-        this.toast.error(ex.error.message);
+        this.toast.error(ex.error.message, "A T E N Ç Ã O !");
       }
     })
   }

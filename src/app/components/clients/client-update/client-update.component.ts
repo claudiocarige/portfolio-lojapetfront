@@ -45,16 +45,16 @@ export class ClientUpdateComponent implements OnInit {
   }
   update(): void {
     this.service.update(this.client).subscribe(() => {
-      this.toast.success('Funcionário atualizado com sucesso!', 'A T U A L I Z A R - F U N C I O N Á R I O');
+      this.toast.success('Cliente atualizado com sucesso!', 'A T U A L I Z A Ç Ã O');
       this.route.navigate(['clients'])
     }, ex => {
       console.log(ex.error.errors);
       if (ex.error.errors) {
         ex.error.errors.array.forEach(element => {
-          this.toast.error(element.message);
+          this.toast.error(element.message, "A T E N Ç Ã O !");
         });
       } else {
-        this.toast.error(ex.error.message);
+        this.toast.error(ex.error.message, "A T E N Ç Ã O !");
       }
     })
   }

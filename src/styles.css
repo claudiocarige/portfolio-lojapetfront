@@ -3,3 +3,25 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.update {
+    color: rgb(0, 142, 207);
+    font-size: 1.4em;
+  }
+  
+  .delete {
+    color: red;
+    font-size: 1.3em;
+  }
+  
+.ngx-toastr {
+    width: 350px !important; 
+    height: 120px; 
+ }
+
+ @media (max-width: 370px) {
+  .ngx-toastr {
+    width: 220px !important; 
+    height: 120px; 
+ }
+ }

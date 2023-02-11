@@ -117,6 +117,8 @@ import { ServicePetUpdateComponent } from './components/servicePet/service-pet-u
     MatDialogModule,
     MatSortModule,
     ToastrModule.forRoot({
+      easeTime: 500,
+      positionClass: "toast-center-center",
       timeOut: 3000,
       closeButton: true,
       progressBar: true

@@ -92,6 +92,11 @@ h3 {
   padding: 0;
 }
 
+button {
+  border: none;
+  color: none;
+}
+
 .check {
   padding-left: 1%;
   margin-left: 1em;
@@ -99,16 +104,6 @@ h3 {
 
 .container .tabela i {
   padding-right: 1em;
-}
-
-.update {
-  color: rgb(0, 142, 207);
-  font-size: 1.4em;
-}
-
-.delete {
-  color: red;
-  font-size: 1.3em;
 }
 
 @media (max-width: 1016px) {
@@ -136,7 +131,7 @@ h3 {
   }
 
   span {
-    font-size: 1rem;
+    font-size: .8rem;
   }
 
   .div-radio-group {
@@ -177,4 +172,5 @@ h3 {
   .mat-form-field {
     width: 100%;
   }
+
 }

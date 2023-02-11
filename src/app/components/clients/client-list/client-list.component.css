@@ -1,77 +1,66 @@
 .container {
-    width: 90%;
-    margin: 2rem auto;
-  }
-  
-  table {
-    width: 100%;
-  }
-  
+  width: 90%;
+  margin: 2rem auto;
+}
+
+table {
+  width: 100%;
+}
+
+h2 {
+  width: 100%;
+  text-align: center;
+  padding: 0 0 2rem 0;
+  margin: 0;
+  font-size: 1.7rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: rgb(0, 142, 207);
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.45);
+}
+
+.container button {
+  box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.32);
+  -webkit-box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.32);
+  -moz-box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.32);
+}
+
+mat-form-field {
+  width: 40%;
+  margin-left: 2%;
+  margin-bottom: .5em;
+}
+
+.container .tabela i {
+  padding-right: 1.3em;
+}
+
+@media (max-width: 407px) {
+
   h2 {
+    font-size: 1rem;
+  }
+
+  th,
+  td,
+  span {
+    font-size: .5rem;
+  }
+}
+
+@media (max-width: 280px) {
+
+  h2 {
+    font-size: .7rem;
+  }
+
+  th,
+  td {
+    font-size: .3rem;
+  }
+
+  .mat-stroked-button,
+  .mat-form-field {
     width: 100%;
-    text-align: center;
-    padding: 0 0 2rem 0;
-    margin: 0;
-    font-size: 1.7rem;
-    font-weight: 900;
-    text-transform: uppercase;
-    color: rgb(0, 142, 207);
-    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.45);
   }
-  
-  .container button {
-    box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.32);
-    -webkit-box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.32);
-    -moz-box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.32);
-  }
-  
-  mat-form-field {
-    width: 40%;
-    margin-left: 2%;
-    margin-bottom: .5em;
-  }
-  
-  
-  .container .tabela i {
-    padding-right: 1.3em;
-  }
-  
-  .update {
-    color: rgb(111, 219, 255);
-    font-size: 1.4em;
-  }
-  
-  .delete {
-    color: red;
-    font-size: 1.3em;
-  }
-  
-  @media (max-width: 407px) {
-  
-    h2 {
-      font-size: 1rem;
-    }
-  
-    th,
-    td,
-    span {
-      font-size: .5rem;
-    }
-  }
-  
-  @media (max-width: 280px) {
-  
-    h2 {
-      font-size: .7rem;
-    }
-  
-    th,
-    td {
-      font-size: .3rem;
-    }
-  
-    .mat-stroked-button,
-    .mat-form-field {
-      width: 100%;
-    }
-  }
+}

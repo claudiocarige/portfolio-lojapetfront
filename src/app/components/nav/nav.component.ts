@@ -23,7 +23,7 @@ export class NavComponent implements OnInit {
 
   logout() {
     this.route.navigate(['login']);
-    this.toast.success('Sessão encerrada', 'L O G O U T', { timeOut: 5000 })
+    this.toast.success('Sessão encerrada.', 'L O G O U T', { timeOut: 4000})
     this.authenticated.logout();
   }
 }

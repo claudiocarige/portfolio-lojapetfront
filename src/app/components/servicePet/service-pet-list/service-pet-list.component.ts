@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { ToastrService } from 'ngx-toastr';
 import { Employee } from 'src/app/models/modelEmployee';
 import { ServicePet } from 'src/app/models/moodelServicePet';
 import { ServicePetService } from 'src/app/services/service-pet.service';
@@ -20,7 +21,8 @@ export class ServicePetListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
-    private service: ServicePetService
+    private service: ServicePetService,
+    private toast: ToastrService
 
   ) { }
 
@@ -80,6 +82,10 @@ export class ServicePetListComponent implements OnInit {
     this.FILTER_SERVICE = list;
     this.dataSource = new MatTableDataSource<ServicePet>(this.FILTER_SERVICE);
     this.dataSource.paginator = this.paginator;
+  }
+
+  notDelete(){
+    this.toast.error("Não é permitido deletar serviços. Por favor entre em contato com o Administrador.", "I M P O R T A N T E !", {timeOut: 5000})
   }
   refreshLimpar():void{
     location.reload()

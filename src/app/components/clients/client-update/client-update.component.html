@@ -1,1 +1,46 @@
-<p>client-update works!</p>
+<div class="container">
+    <form class="form">
+        <h2 class="title-create">Atualizar Cliente</h2>
+        <div class="width-img central">
+            <img src="../../../../assets/img/logoPetStar.svg" alt="">
+        </div>
+        <h3 class="margin-lable">Perfil:</h3>
+        <section class="section">
+            <label class="margin"><input (click)="addPerfil(1)" [checked]="true" type="checkbox">
+                <span></span>
+                <p>CLIENTE</p>
+            </label>
+        </section>
+        <mat-form-field class="width-full" appearance="fill">
+            <mat-label>Nome</mat-label>
+            <input [(ngModel)]="client.name" name="name" [formControl]="name" required matInput
+                placeholder="Ex.. fulano de Tal" maxlength="60">
+            <mat-icon class="icon" matSuffix>sentiment_very_satisfied</mat-icon>
+        </mat-form-field>
+        <mat-form-field class="width-full" appearance="fill">
+            <mat-label>CPF</mat-label>
+            <input [(ngModel)]="client.cpf" name="cpf" [formControl]="cpf" required matInput
+                placeholder="Ex.. 000.000.000-00" mask="000.000.000-00" minlength="11" maxlength="11">
+            <mat-icon class="icon" matSuffix>pin</mat-icon>
+        </mat-form-field>
+        <mat-form-field class="width-full" appearance="fill">
+            <mat-label>Email</mat-label>
+            <input [(ngModel)]="client.email" name="email" [formControl]="email" required matInput
+                placeholder="Ex.. fulano@mail.com">
+            <mat-icon class="icon" matSuffix>mail</mat-icon>
+        </mat-form-field>
+        <mat-form-field class="width-full" appearance="fill">
+            <mat-label>Senha</mat-label>
+            <input [(ngModel)]="client.password" name="senha" [formControl]="password" required type="password" matInput
+                placeholder="Ex.. 1234">
+            <mat-icon class="icon" matSuffix>password</mat-icon>
+        </mat-form-field>
+        <div class="button-event">
+            <button routerLink="../../" mat-stroked-button color="warn">Cancelar</button>
+            <button (click)="update()" [disabled]="!validation()" mat-flat-button color="primary">Atualizar</button>
+        </div>
+        <footer class="tec-footer">
+            <p>&copy;by Cláudio Carigé</p>
+        </footer>
+    </form>
+</div>

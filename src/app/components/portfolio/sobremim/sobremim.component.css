@@ -100,7 +100,6 @@ p {
     text-transform: uppercase;
     color: rgb(0, 142, 207);
     text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.45);
-
 }
 
 .container-sol {
@@ -157,7 +156,6 @@ p {
     }
 }
 
-
 @media (max-width: 730px) {
     .container-1 {
         display: block;
@@ -183,23 +181,22 @@ p {
     .div-1,
     .div-2 {
         width: 70%;
-
     }
 
     .container-sol {
         width: 100%;
         text-align: center;
-
     }
 
     @media (max-width: 400px) {
-        h3, .title-sobremim {
+
+        h3,
+        .title-sobremim {
             font-size: 1.4em;
         }
 
         p {
             font-size: 1em;
         }
-
     }
 }

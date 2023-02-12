@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
-import { Client } from 'src/app/models/modelClient';
-import { ClientsService } from 'src/app/services/clients.service';
+import { Component, OnInit        } from '@angular/core';
+import { FormControl, Validators  } from '@angular/forms';
+import { Router, ActivatedRoute   } from '@angular/router';
+import { ToastrService            } from 'ngx-toastr';
+import { Client                   } from 'src/app/models/modelClient';
+import { ClientsService           } from 'src/app/services/clients.service';
 
 
 @Component({
-  selector: 'app-client-update',
+  selector:    'app-client-update',
   templateUrl: './client-update.component.html',
-  styleUrls: ['./client-update.component.css']
+  styleUrls:  ['./client-update.component.css']
 })
 export class ClientUpdateComponent implements OnInit {
   client: Client = {
@@ -28,8 +28,8 @@ export class ClientUpdateComponent implements OnInit {
 
   constructor(
     private service:      ClientsService,
-    private toast:        ToastrService,
-    private route:        Router,
+    private toast:         ToastrService,
+    private route:                Router,
     private activeRoute:  ActivatedRoute
   ) { }
   ngOnInit(): void {
@@ -67,7 +67,10 @@ export class ClientUpdateComponent implements OnInit {
     }
   }
   validation(): boolean {
-    return this.name.valid && this.cpf.valid && this.email.valid && this.password.valid;
+    return this.name.valid && 
+           this.cpf.valid && 
+           this.email.valid && 
+           this.password.valid;
   }
 }
 

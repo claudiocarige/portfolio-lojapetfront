@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit    } from '@angular/core';
 import { DialogModalComponent } from '../dialog-modal/dialog-modal.component';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog            } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-habilidades',
+  selector:    'app-habilidades',
   templateUrl: './habilidades.component.html',
-  styleUrls: ['./habilidades.component.css']
+  styleUrls:  ['./habilidades.component.css']
 })
 export class HabilidadesComponent implements OnInit {
 
@@ -24,6 +24,6 @@ export class HabilidadesComponent implements OnInit {
       console.log(`Dialog result: ${result}`);
     });
     dialogRef.componentInstance.capturaHablidade = name;
-    dialogRef.componentInstance.resp = resp;
+    dialogRef.componentInstance.resp             = resp;
   }
 }

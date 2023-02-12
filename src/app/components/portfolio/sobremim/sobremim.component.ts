@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-sobremim',
+  selector:    'app-sobremim',
   templateUrl: './sobremim.component.html',
-  styleUrls: ['./sobremim.component.css']
+  styleUrls:  ['./sobremim.component.css']
 })
 export class SobremimComponent implements OnInit {
 
@@ -11,5 +11,4 @@ export class SobremimComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
 }

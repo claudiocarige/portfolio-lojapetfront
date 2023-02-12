@@ -2,7 +2,6 @@
     min-width: 200px;
     height: 50%;
     display: flex;
-
 }
 
 .container {
@@ -20,7 +19,6 @@ a {
     padding: .5em 1em;
     color: white;
     font-size: 1.1em;
-
     right: 7em;
     top: 12em;
     border-radius: .5em;
@@ -35,7 +33,6 @@ a:hover {
     background: white;
     color: blue;
 }
-
 
 .title-cursos {
     text-align: center;
@@ -115,40 +112,49 @@ button:last-child {
     .title-cursos {
         font-size: 1.5em;
     }
+}
 
-    @media (max-width: 793px) {
-        .container {
-            width: 70%;
-        }
-
-        bottom {
-            border-radius: .3em;
-        }
-
-        a {
-            margin-left: 45%;
-        }
-
-        .title-cursos {
-            font-size: 1.3em;
-        }
+@media (max-width: 793px) {
+    .container {
+        width: 70%;
     }
 
-    @media (max-width:360px) {
-        .container {
-            width: 70%;
-        }
+    bottom {
+        border-radius: .3em;
+    }
 
-        bottom {
-            border-radius: none;
-        }
+    a {
+        margin-left: 45%;
+    }
 
-        a {
-            margin-left: 45%;
-        }
+    .title-cursos {
+        font-size: 1.3em;
+    }
+}
 
-        .title-cursos {
-            font-size: 1.2em;
-        }
+@media (max-width:360px) {
+    .container {
+        width: 70%;
+    }
+
+    bottom {
+        border-radius: none;
+    }
+
+    a {
+        position: absolute;
+        top: 14rem;
+        left: 35%;
+        right: 35%;
+        margin: auto;
+        min-width: 3rem;
+    }
+
+    .container-body {
+        padding-top: 2rem;
+    }
+
+    .title-cursos {
+        font-size: 1.2em;
     }
 }

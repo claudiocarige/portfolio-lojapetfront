@@ -1,18 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit       } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
-import { Client } from 'src/app/models/modelClient';
-import { Employee } from 'src/app/models/modelEmployee';
-import { ServicePet } from 'src/app/models/moodelServicePet';
-import { ClientsService } from 'src/app/services/clients.service';
-import { EmployeesService } from 'src/app/services/employees.service';
-import { ServicePetService } from 'src/app/services/service-pet.service';
+import { ActivatedRoute, Router  } from '@angular/router';
+import { ToastrService           } from 'ngx-toastr';
+import { Client                  } from 'src/app/models/modelClient';
+import { Employee                } from 'src/app/models/modelEmployee';
+import { ServicePet              } from 'src/app/models/moodelServicePet';
+import { ClientsService          } from 'src/app/services/clients.service';
+import { EmployeesService        } from 'src/app/services/employees.service';
+import { ServicePetService       } from 'src/app/services/service-pet.service';
 
 @Component({
-  selector: 'app-service-pet-update',
+  selector:    'app-service-pet-update',
   templateUrl: './service-pet-update.component.html',
-  styleUrls: ['./service-pet-update.component.css']
+  styleUrls:  ['./service-pet-update.component.css']
 })
 export class ServicePetUpdateComponent implements OnInit {
 
@@ -26,7 +26,7 @@ export class ServicePetUpdateComponent implements OnInit {
     nameClient:   "",
     nameEmploye:  ""
   }
-clientList: Client [] = []
+clientList:     Client [] = []
 employeeList: Employee [] = []
 
 priority:         FormControl = new FormControl(null, Validators.required);
@@ -38,12 +38,12 @@ descri:           FormControl = new FormControl(null, [Validators.required, Vali
 
 
   constructor(
-    private  clientService: ClientsService,
-    private employeeService: EmployeesService,
+    private     clientService:    ClientsService,
+    private   employeeService:  EmployeesService,
     private servicePetService: ServicePetService,
-    private toast: ToastrService,
-    private route: Router,
-    private actvateRoute: ActivatedRoute 
+    private             toast:     ToastrService,
+    private             route:            Router,
+    private      actvateRoute:    ActivatedRoute 
   ) { }
 
   ngOnInit(): void {

@@ -1,8 +1,6 @@
 <h2 class="title-formacao">Formação e Cursos de Cláudio Carigé</h2>
 <a class="button-voltar" routerLink="../"> voltar </a>
-
 <div class="container">
-    
     <div class="container-fluid">
         <div class="title">
             <h3>Formação</h3>
@@ -13,7 +11,6 @@
             <a (click)="openCursos()"> <img src="../../../../assets/img/cursos.png" alt=""></a>
         </div>
     </div>
-  
 </div>
 <div class="container-hidden">
     <div [ngStyle]="{'display': displayFormacao}" class="container-formacao">
@@ -25,19 +22,15 @@
     </div>
     <h4 class="subtitle" [ngStyle]="{'display': displayTitle}">Cursos</h4>
     <div [ngStyle]="{'display': displayCursos}" class="container-cursos" *ngFor="let list of listaCursos">
-      <div class="curso-grid">
-          <div class="curso-fluid">
-              <h4>{{ list.title }}</h4>
-              <p><b>Status</b> - {{ list.status }}</p>
-              <p><b>Período</b> - {{ list.data }}</p>
-              <div class="row" *ngFor="let element of list.linguagens">
-                  <div class="col">
-                      <ul>
-                          <li>{{ element }}</li>
-                        </ul>
-                    </div>
+        <div class="curso-fluid">
+            <h4>{{ list.title }}</h4>
+            <p><b>Status</b> - {{ list.status }}</p>
+            <p><b>Período</b> - {{ list.data }}</p>
+            <div *ngFor="let element of list.linguagens">
+                <div>
+                    <p class="element">- {{ element }}</p>
                 </div>
-            </div>     
+            </div>
         </div>
     </div>
 </div>

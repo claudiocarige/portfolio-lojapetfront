@@ -1,6 +1,6 @@
 .container {
     width: 35%;
-    min-width: 150px    ;
+    min-width: 150px;
     margin: auto auto 4em auto;
     padding: 1rem 2rem 1rem 2rem;
     border-radius: .6rem;
@@ -90,6 +90,7 @@ img {
 .check mat-form-field {
     width: 60%;
 }
+
 .check-span {
     color: black;
 }

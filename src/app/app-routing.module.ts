@@ -28,7 +28,7 @@ const routes: Routes = [
         { path: "home",       component: HomeComponent},
         
         //Rotas para Portfólio
-        {path: "portfolio",               component:       PortfolioHomeComponent},
+        { path: "portfolio",              component:       PortfolioHomeComponent},
         { path: "portfolio/sobremim",     component:            SobremimComponent},
         { path: "portfolio/experiencias", component:        ExperienciasComponent},
         { path: "portfolio/formacao",     component:            FormacaoComponent},
@@ -47,12 +47,12 @@ const routes: Routes = [
         { path: "clients/delete/:id",     component:        ClientDeleteComponent},
 
          //Rotas para Serviços
-         { path: "services",     component:               ServicePetListComponent},
-         { path: "services/create",     component:      ServicePetCreateComponent},
-         { path: "services/update/:id",     component:  ServicePetUpdateComponent},   
+        { path: "services",               component:      ServicePetListComponent},
+        { path: "services/create",        component:    ServicePetCreateComponent},
+        { path: "services/update/:id",    component:    ServicePetUpdateComponent},   
 
          //Rota de contato
-        { path: "contact",  component:        ContactComponent}
+        { path: "contact",                component:             ContactComponent}
 
   ] }
 ];

@@ -28,8 +28,8 @@ export class EmployeeCreateComponent implements OnInit {
 
   constructor(
     private service: EmployeesService,
-    private toast: ToastrService,
-    private route: Router
+    private toast:      ToastrService,
+    private route:             Router
   ) { }
 
   ngOnInit(): void {

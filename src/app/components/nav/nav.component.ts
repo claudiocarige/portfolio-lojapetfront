@@ -11,9 +11,9 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 export class NavComponent implements OnInit {
   showFiller = false;
   constructor(
-    private route: Router,
+    private         route:                Router,
     private authenticated: AuthenticationService,
-    private toast: ToastrService,
+    private         toast:         ToastrService
 
   ) { }
 

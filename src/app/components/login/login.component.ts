@@ -1,4 +1,4 @@
-import { Component, Input, OnInit  } from '@angular/core';
+import { Component, OnInit  } from '@angular/core';
 import { FormControl, Validators   } from '@angular/forms';
 import { Router                    } from '@angular/router';
 import { ToastrService             } from 'ngx-toastr';
@@ -17,13 +17,13 @@ export class LoginComponent implements OnInit {
     password: ''
   }
 
-  email    = new FormControl(null, Validators.email);
-  password = new FormControl(null, Validators.minLength(6))
+  email    = new FormControl(null,        Validators.email);
+  password = new FormControl(null, Validators.minLength(6));
 
   constructor(
-    private toast: ToastrService,
+    private   toast:         ToastrService,
     private service: AuthenticationService,
-    private route: Router
+    private   route:                 Router
   ) { }
 
   ngOnInit(): void {
@@ -42,5 +42,4 @@ export class LoginComponent implements OnInit {
   validation(): boolean {
       return this.email.valid && this.password.valid;
   }
-
 }

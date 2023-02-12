@@ -1,18 +1,18 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit                   } from '@angular/core';
 
 @Component({
-  selector: 'app-contact',
+  selector:    'app-contact',
   templateUrl: './contact.component.html',
-  styleUrls: ['./contact.component.css'],
+  styleUrls:  ['./contact.component.css'],
   animations: [
-    trigger('fade', [ 
-      transition('void => *', [
-        style({ opacity: 0 }), 
-        animate(2000, style({opacity: 1}))
-      ]) 
-    ])
-  ]
+              trigger('fade', [ 
+              transition('void => *', [
+              style({ opacity: 0 }), 
+              animate(2000, style({opacity: 1}))
+            ]) 
+        ])
+    ]
 })
 export class ContactComponent implements OnInit {
 
@@ -20,5 +20,4 @@ export class ContactComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
 }

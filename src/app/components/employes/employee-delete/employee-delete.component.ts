@@ -1,14 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { Component, OnInit      } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
-import { Employee } from 'src/app/models/modelEmployee';
-import { EmployeesService } from 'src/app/services/employees.service';
+import { ToastrService          } from 'ngx-toastr';
+import { Employee               } from 'src/app/models/modelEmployee';
+import { EmployeesService       } from 'src/app/services/employees.service';
 
 @Component({
-  selector: 'app-employee-delete',
+  selector:    'app-employee-delete',
   templateUrl: './employee-delete.component.html',
-  styleUrls: ['./employee-delete.component.css']
+  styleUrls:  ['./employee-delete.component.css']
 })
 export class EmployeeDeleteComponent implements OnInit {
   employee: Employee = {
@@ -24,9 +23,9 @@ export class EmployeeDeleteComponent implements OnInit {
   check: string
   constructor(
     private service:      EmployeesService,
-    private toast:        ToastrService,
-    private route:        Router,
-    private activeRoute:  ActivatedRoute
+    private toast:           ToastrService,
+    private route:                  Router,
+    private activeRoute:    ActivatedRoute
   ) { }
   ngOnInit(): void {
     this.employee.id = this.activeRoute.snapshot.paramMap.get('id');

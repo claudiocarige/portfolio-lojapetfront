@@ -38,7 +38,6 @@ h2 {
     background: -webkit-linear-gradient(90deg, #006fff 0%, #008dff 40%, #007eff 60%, #00daff 100%);
     background: -moz-linear-gradient(90deg, #006fff 0%, #008dff 40%, #007eff 60%, #00daff 100%);
     transition: all .5s;
-
 }
 
 .col-1:hover {

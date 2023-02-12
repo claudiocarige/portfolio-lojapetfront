@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit      } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
-import { Client } from 'src/app/models/modelClient';
-import { ClientsService } from 'src/app/services/clients.service';
+import { ToastrService          } from 'ngx-toastr';
+import { Client                 } from 'src/app/models/modelClient';
+import { ClientsService         } from 'src/app/services/clients.service';
 
 
 @Component({
-  selector: 'app-client-delete',
+  selector:    'app-client-delete',
   templateUrl: './client-delete.component.html',
-  styleUrls: ['./client-delete.component.css']
+  styleUrls:  ['./client-delete.component.css']
 })
 export class ClientDeleteComponent implements OnInit {
   client: Client = {

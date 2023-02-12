@@ -6,9 +6,9 @@ import { Client                   } from 'src/app/models/modelClient';
 import { ClientsService           } from 'src/app/services/clients.service';
 
 @Component({
-  selector: 'app-client-create',
+  selector:    'app-client-create',
   templateUrl: './client-create.component.html',
-  styleUrls: ['./client-create.component.css']
+  styleUrls:  ['./client-create.component.css']
 })
 export class ClientCreateComponent implements OnInit {
 
@@ -28,8 +28,8 @@ export class ClientCreateComponent implements OnInit {
 
   constructor(
     private service: ClientsService,
-    private toast: ToastrService,
-    private route: Router
+    private toast:    ToastrService,
+    private route:           Router
   ) { }
 
   ngOnInit(): void {
@@ -58,6 +58,9 @@ export class ClientCreateComponent implements OnInit {
     }
   }
   validation(): boolean {
-    return this.name.valid && this.cpf.valid && this.email.valid && this.password.valid;
+    return this.name.valid && 
+           this.cpf.valid && 
+           this.email.valid && 
+           this.password.valid;
   }
 }

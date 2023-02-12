@@ -1,18 +1,17 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
-import { ToastrService } from 'ngx-toastr';
-import { Employee } from 'src/app/models/modelEmployee';
-import { ServicePet } from 'src/app/models/moodelServicePet';
-import { ServicePetService } from 'src/app/services/service-pet.service';
+import { MatPaginator                 } from '@angular/material/paginator';
+import { MatTableDataSource           } from '@angular/material/table';
+import { ToastrService                } from 'ngx-toastr';
+import { ServicePet                   } from 'src/app/models/moodelServicePet';
+import { ServicePetService            } from 'src/app/services/service-pet.service';
 
 @Component({
-  selector: 'app-service-pet-list',
+  selector:    'app-service-pet-list',
   templateUrl: './service-pet-list.component.html',
-  styleUrls: ['./service-pet-list.component.css']
+  styleUrls:  ['./service-pet-list.component.css']
 })
 export class ServicePetListComponent implements OnInit {
-  ELEMENT_DATA: ServicePet[] = []
+  ELEMENT_DATA:    ServicePet[] = []
   FILTER_SERVICE: ServicePet [] = []
 
   displayedColumns: string[] = ['id', 'title', 'client', 'employee', 'priority', 'status', 'openDate', 'closingDate', 'comments', 'acoes'];

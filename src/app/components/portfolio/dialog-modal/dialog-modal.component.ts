@@ -1,46 +1,46 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
-import { modelhabilidadeData } from 'src/app/data/habilidadesData';
-import { modelDialogData } from 'src/app/data/modelDialogData';
+import { ActivatedRoute           } from '@angular/router';
+import { ToastrService            } from 'ngx-toastr';
+import { modelhabilidadeData      } from 'src/app/data/habilidadesData';
+import { modelDialogData          } from 'src/app/data/modelDialogData';
 
 @Component({
-  selector: 'app-dialog-modal',
+  selector:    'app-dialog-modal',
   templateUrl: './dialog-modal.component.html',
-  styleUrls: ['./dialog-modal.component.css']
+  styleUrls:  ['./dialog-modal.component.css']
 })
 export class DialogModalComponent implements OnInit {
 
-  id: any | null = '1'
-  title: string
-  dataInicio: string
-  dataFim: string
-  status: string
-  cargo: string
+  id:    any | null = '1'
+  title:          string
+  dataInicio:     string
+  dataFim:        string
+  status:         string
+  cargo:          string
   atividades: any[] = []
-  descricao: string
+  descricao:      string
 
   @Input()
-  capturaId: any | null
+  capturaId:  any | null
 
   @Input()
-  capturaHablidade: any
+  capturaHablidade:  any
 
   @Input()
-  resp: any
+  resp:              any
 
   displayExperiencia = 'article-row'
-  buttonExp = 'buttonNone'
-  displayHabilidade = 'article-row-2'
-  buttonHabil = 'buttonNone1'
+  buttonExp          = 'buttonNone'
+  displayHabilidade  = 'article-row-2'
+  buttonHabil        = 'buttonNone1'
 
-  list: any[] = modelDialogData
+  list:           any[] = modelDialogData
   listHabilidade: any[] = modelhabilidadeData
-  listModal: any[] = []
+  listModal:      any[] = []
   
   constructor(
     private route: ActivatedRoute,
-    private toast: ToastrService,
+    private toast:  ToastrService
 
   ) { }
 
@@ -59,13 +59,13 @@ export class DialogModalComponent implements OnInit {
       return article.id === this.capturaId
     })
     modalResult.forEach(element => {
-      this.title = element.title
+      this.title      = element.title
       this.dataInicio = element.dataInicio
-      this.dataFim = element.dataFim
-      this.status = element.status
-      this.cargo = element.cargo
+      this.dataFim    = element.dataFim
+      this.status     = element.status
+      this.cargo      = element.cargo
       this.atividades = element.atividades
-      this.descricao = element.descricao
+      this.descricao  = element.descricao
     });
   }
   modalConhecimento() {
@@ -74,16 +74,16 @@ export class DialogModalComponent implements OnInit {
       return article.id === this.capturaHablidade
     })
     modalResult.forEach(element => {
-      this.title = element.habil
+      this.title     = element.habil
       this.descricao = element.descricao2
     });
   }
   mudarDisplayExperiencia() {
     this.displayExperiencia = 'none';
-    this.buttonExp = 'none'
+    this.buttonExp          = 'none'
   }
   mudarDisplayHabilidade() {
     this.displayHabilidade = 'none';
-    this.buttonHabil = 'none'
+    this.buttonHabil       = 'none'
   }
 }

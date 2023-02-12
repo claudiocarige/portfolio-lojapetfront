@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, OnInit    } from '@angular/core';
+import { MatDialog            } from '@angular/material/dialog';
 import { DialogModalComponent } from '../dialog-modal/dialog-modal.component';
 
 @Component({
-  selector: 'app-experiencias',
+  selector:    'app-experiencias',
   templateUrl: './experiencias.component.html',
-  styleUrls: ['./experiencias.component.css']
+  styleUrls:  ['./experiencias.component.css']
 })
 export class ExperienciasComponent implements OnInit {
 

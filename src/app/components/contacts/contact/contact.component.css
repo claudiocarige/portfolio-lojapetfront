@@ -109,7 +109,6 @@ i {
         margin: 1rem 1rem;
         padding: 3rem 0 0 0;
     }
-
 }
 
 @media (max-width: 677px) {
@@ -118,7 +117,6 @@ i {
         display: block;
         text-align: center;
         height: 80%;
-
     }
 
     .container-right {

@@ -10,7 +10,9 @@ li {
     padding: 0;
     font-size: .7em;
 }
-p, h5{
+
+p,
+h5 {
     margin: 0;
 }
 

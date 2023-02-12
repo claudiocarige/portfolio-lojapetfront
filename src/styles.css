@@ -21,13 +21,13 @@ body {
 }
 
 .ngx-toastr {
-  width: 350px !important;
-  height: 120px;
+  width: 300px !important;
+  height: 105px;
 }
 
 @media (max-width: 408px) {
   .ngx-toastr {
     width: 220px !important;
-    height: 120px;
+    height: 105px;
   }
 }

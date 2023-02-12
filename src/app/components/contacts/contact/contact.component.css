@@ -1,5 +1,5 @@
 .container {
-    width: 78%;
+    width: 90%;
     height: 330px;
     display: flex;
     margin: 2rem auto;
@@ -123,7 +123,9 @@ i {
         width: 100%;
         margin: 0 auto;
     }
-
+    .email, .whatsapp{
+        padding-left: 0;
+    }
     .aviso {
         color: #ffffff;
         color: linear-gradient(90deg, #ffffff 0%, #878bff 40%, #280fff 80%);
@@ -131,4 +133,11 @@ i {
         color: -moz-linear-gradient(90deg, #ffffff 0%, #878bff 40%, #280fff 80%);
         padding-bottom: 3rem;
     }
+}
+
+@media (max-width: 677px) {
+    .email, .whatsapp{
+        font-size: .9rem;
+    }
+
 }

@@ -193,10 +193,16 @@ p {
         h3,
         .title-sobremim {
             font-size: 1.4em;
+            margin-top: 2rem;
         }
 
         p {
             font-size: 1em;
         }
+        a{
+            min-width: 3rem;
+            top: 10rem;
+        }
+      
     }
 }

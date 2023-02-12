@@ -45,7 +45,7 @@ li {
 
 p {
     line-height: 15px;
-    font-size: 1em;
+    font-size: 1.2em;
 }
 
 h3 {
@@ -165,7 +165,7 @@ span {
     }
 
     p {
-        line-height: 15px;
+        line-height: 25px;
     }
 
     h3 {
@@ -216,8 +216,9 @@ span {
         top: 16rem;
         min-width: 3rem;
     }
+
     .universidade-paragrafo{
-        line-height: 20px;
+        line-height: 25px;
     }
 
     .universidade{
@@ -227,10 +228,8 @@ span {
     h3 {
         font-size: 1.4em;
     }
-    .container-hidden p{
-        line-height: 20px
+    .container-cursos p{
+        line-height: 12px
     }
-    p {
-        line-height: 12px;
-    }
+
 }

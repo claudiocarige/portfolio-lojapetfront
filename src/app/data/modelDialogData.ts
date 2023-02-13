@@ -4,8 +4,8 @@ export const modelDialogData = [
         "id"        : "1",
         "title"     : "Projeto Acadêmico",
         "dataInicio": "jan/2023",
-        "dataFim"   : "jan/2023",
-        "status"    : "Em andamento",
+        "dataFim"   : "fev/2023",
+        "status"    : "Finalizado",
         "cargo"     : "Desenvolvedor",
         "atividades": [
             "Definição do projeto básico",

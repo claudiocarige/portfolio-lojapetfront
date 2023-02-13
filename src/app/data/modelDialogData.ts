@@ -9,18 +9,14 @@ export const modelDialogData = [
         "cargo"     : "Desenvolvedor",
         "atividades": [
             "Definição do projeto básico",
-            "Requisitos do projeto",
-            "Regras de negócio",
-            "Criação do Banco de Dados",
-            "Criação das Classes de models",
-            "Criação da conexão com banco de dados",
-            "Criação das páginas",
-            "Criação dos icones Habilidades",
-            "Validações",
-            "Ajustes finais",
-            "Metodologia Scrum"
+            "Criação e Administração da implementação do portfólio",
+            "Implementação da APIRest com Spring Boot para o Backend",
+            "Criação e Design das paginas do Frontend",
+            "Criação dos icones Habilidades e Formação em CorelDraw",
+            "Validações e ajustes finais de responsividade",
+            "Entregas diárias com base na metodologia ágil Scrum."
         ],
-        "descricao" : 'Este projeto tem o objetivo de fortalecer o apredizado das linguagems <b style="color: blue">Java, Angular</b>, <b>Css, HTML</b> e <b>JavaScrip</b>, com a criação de uma aplicação Web. Será usada a <b>IDE IntelliJ. </b>'
+        "descricao" : 'A implementação foi criada com as linguagens e frameworks <b>Java, Spring Boot, JPA, JWT, Banco H2, Angular, Angular Material, HTML, CSS</b> e <b>JavaScript</b>. Com uso do Postman e Visual Studio Code.'
     }
   ,
     {

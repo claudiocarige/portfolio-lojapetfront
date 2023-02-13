@@ -1,5 +1,5 @@
 import { Component, OnInit    } from '@angular/core';
-import { MatDialog            } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig            } from '@angular/material/dialog';
 import { DialogModalComponent } from '../dialog-modal/dialog-modal.component';
 
 @Component({
@@ -18,10 +18,10 @@ export class ExperienciasComponent implements OnInit {
     }
    
   openDialog(name: string, resp: string) {
-    const dialogRef = this.dialog.open(DialogModalComponent, {
-            height: '95%',
-            width: '45%'
-    });
+    let configResponsiva: MatDialogConfig = {
+      panelClass: "dialog-responsivo"
+    }
+    const dialogRef = this.dialog.open(DialogModalComponent, configResponsiva);
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });

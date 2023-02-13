@@ -85,7 +85,24 @@ img {
 .serv-footer p {
     opacity: .4;
 }
+@media (max-width: 550px){
+    .status-prioridade, .pessoa{
+        display: block;
+        width: 100%;
+        justify-content: none;
+    }
+    .status-prioridade .selecao, .pessoa .selecao{
+        width: 100%;
 
+    }
+
+    .button-event button {
+        margin:1rem auto;
+        padding: 0 1.2rem;
+        display: block  ;
+    }
+
+}
 
 @media (max-width: 414px) {
     .button-event button {

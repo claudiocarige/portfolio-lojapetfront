@@ -120,6 +120,10 @@ img {
     .margin-lable {
         font-size: .9rem;
     }
+    
+    .check mat-form-field {
+        width: 90%;
+    }
 }
 
 @media (max-width: 414px) {

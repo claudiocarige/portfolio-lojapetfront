@@ -127,7 +127,7 @@ button {
 
   th,
   td {
-    font-size: .5rem;
+    font-size: .6rem;
   }
 
   span {
@@ -158,14 +158,31 @@ button {
   }
 }
 
-@media (max-width: 280px) {
+@media (max-width: 430px) {
+  h2 {
+    font-size: .8rem;
+  }
+
+  th,
+  td {
+    font-size: .5rem;
+  }
+
+  .mat-stroked-button,
+  .mat-form-field {
+    width: 80%;
+  }
+
+}
+
+@media (max-width: 340px) {
   h2 {
     font-size: .7rem;
   }
 
   th,
   td {
-    font-size: .3rem;
+    font-size: .4rem;
   }
 
   .mat-stroked-button,

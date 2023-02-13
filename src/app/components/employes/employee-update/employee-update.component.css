@@ -114,13 +114,15 @@ input[type="checkbox"] {
     opacity: .4;
 }
 
-@media (max-width: 414px) {
+@media (max-width: 430px) {
     .button-event button {
         width: 90%;
         margin: 1rem auto;
         padding: 0;
     }
-
+    .section {
+        display: block;
+    }
     .title-create {
         font-size: 1.3em;
     }
@@ -131,9 +133,7 @@ input[type="checkbox"] {
 }
 
 @media (max-width: 250px) {
-    .section {
-        display: block;
-    }
+
 
     .margin {
         width: 100%;

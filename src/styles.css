@@ -10,6 +10,15 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+.dialog-responsivo {
+  width: 30%;
+  height: 80%;
+}
+.dialog-responsivo-habil {
+  width: 25%;
+  height: 65%;
+}
+
 .update {
   color: rgb(0, 142, 207);
   font-size: 1.4em;
@@ -25,9 +34,49 @@ body {
   height: 105px;
 }
 
+@media only screen and (max-width: 1140px) {
+  .dialog-responsivo {
+      width: 40%;
+  }
+  .dialog-responsivo-habil {
+    width: 30%;
+  }
+}
+
+@media only screen and (max-width: 750px) {
+  .dialog-responsivo {
+      width: 60%;
+  }
+
+  .dialog-responsivo-habil {
+    width: 45%;
+    height: 65%;
+  }
+}
+@media only screen and (max-width: 495px) {
+  .dialog-responsivo {
+      width: 90%;
+  }
+  .dialog-responsivo-habil {
+    width: 60%;
+    height: 70%;
+  }
+}
+
 @media (max-width: 408px) {
   .ngx-toastr {
     width: 220px !important;
     height: 105px;
+  }
+}
+
+@media only screen and (max-width: 330px) {
+  .dialog-responsivo {
+      width: 100%;
+  }
+
+  .dialog-responsivo-habil {
+    width: 80%;
+    height: 80%;
   }
 }

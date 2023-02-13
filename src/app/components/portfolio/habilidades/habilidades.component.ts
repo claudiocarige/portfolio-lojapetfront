@@ -1,6 +1,6 @@
 import { Component, OnInit    } from '@angular/core';
 import { DialogModalComponent } from '../dialog-modal/dialog-modal.component';
-import { MatDialog            } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig            } from '@angular/material/dialog';
 
 @Component({
   selector:    'app-habilidades',
@@ -16,10 +16,10 @@ export class HabilidadesComponent implements OnInit {
   ngOnInit(): void {
   }
   openHabilidadeDialog(name: string, resp:string) {
-    const dialogRef = this.dialog.open(DialogModalComponent, {
-            height: '70%',
-            width: '30%'
-    });
+    let configResponsiva: MatDialogConfig = {
+      panelClass: "dialog-responsivo-habil"
+    }
+    const dialogRef = this.dialog.open(DialogModalComponent, configResponsiva);
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });

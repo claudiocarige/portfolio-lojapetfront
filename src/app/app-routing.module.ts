@@ -2,10 +2,10 @@ import { NgModule                   } from '@angular/core';
 import { RouterModule, Routes       } from '@angular/router';
 import { AuthGuard                  } from './auth/auth.guard';
 import { ClientCreateComponent      } from './components/clients/client-create/client-create.component';
-import { ClientDeleteComponent } from './components/clients/client-delete/client-delete.component';
+import { ClientDeleteComponent      } from './components/clients/client-delete/client-delete.component';
 import { ClientListComponent        } from './components/clients/client-list/client-list.component';
 import { ClientUpdateComponent      } from './components/clients/client-update/client-update.component';
-import { ContactComponent } from './components/contacts/contact/contact.component';
+import { ContactComponent           } from './components/contacts/contact/contact.component';
 import { EmployeeCreateComponent    } from './components/employes/employee-create/employee-create.component';
 import { EmployeeDeleteComponent    } from './components/employes/employee-delete/employee-delete.component';
 import { EmployeeListComponent      } from './components/employes/employee-list/employee-list.component';
@@ -18,9 +18,9 @@ import { FormacaoComponent          } from './components/portfolio/formacao/form
 import { HabilidadesComponent       } from './components/portfolio/habilidades/habilidades.component';
 import { PortfolioHomeComponent     } from './components/portfolio/portfolio-home/portfolio-home.component';
 import { SobremimComponent          } from './components/portfolio/sobremim/sobremim.component';
-import { ServicePetCreateComponent } from './components/servicePet/service-pet-create/service-pet-create.component';
-import { ServicePetListComponent } from './components/servicePet/service-pet-list/service-pet-list.component';
-import { ServicePetUpdateComponent } from './components/servicePet/service-pet-update/service-pet-update.component';
+import { ServicePetCreateComponent  } from './components/servicePet/service-pet-create/service-pet-create.component';
+import { ServicePetListComponent    } from './components/servicePet/service-pet-list/service-pet-list.component';
+import { ServicePetUpdateComponent  } from './components/servicePet/service-pet-update/service-pet-update.component';
 
 const routes: Routes = [
   { path: "login", component:LoginComponent},

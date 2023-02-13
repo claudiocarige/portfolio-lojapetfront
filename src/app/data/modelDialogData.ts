@@ -14,9 +14,10 @@ export const modelDialogData = [
             "Criação e Design das paginas do Frontend",
             "Criação dos icones Habilidades e Formação em CorelDraw",
             "Validações e ajustes finais de responsividade",
+            "Deploy do Backend no servidor da Heroku e o frontend no da Vercel",
             "Entregas diárias com base na metodologia ágil Scrum."
         ],
-        "descricao" : 'A implementação foi criada com as linguagens e frameworks <b>Java, Spring Boot, JPA, JWT, Banco H2, Angular, Angular Material, HTML, CSS</b> e <b>JavaScript</b>. Com uso do Postman e Visual Studio Code.'
+        "descricao" : 'A implementação foi criada com as linguagens e frameworks <b>Java, Spring Boot, JPA, JWT, Banco H2, Angular, Angular Material, HTML, CSS</b> e <b>JavaScript</b>. Com deploy em 2 servidores, o Heroku e Vercel. Uso do Postman e Visual Studio Code.'
     }
   ,
     {

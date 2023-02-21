@@ -129,6 +129,11 @@ span {
     width: 25%;
     min-width: 250px;
     margin: 0 auto 2em auto;
+
+}
+
+.container-cursos {
+    opacity: 0;
 }
 
 .curso-fluid {
@@ -200,13 +205,15 @@ span {
         padding-bottom: 2rem;
     }
 
-    .title{
+    .title {
         padding-top: 2rem;
     }
+
     .container-fluid {
         display: block;
         width: 130px;
     }
+
     .curso-fluid {
         display: block;
         width: 130px;
@@ -217,18 +224,20 @@ span {
         min-width: 3rem;
     }
 
-    .universidade-paragrafo{
+    .universidade-paragrafo {
         line-height: 25px;
     }
 
-    .universidade{
+    .universidade {
         font-size: 2rem;
         padding-top: 2rem;
     }
+
     h3 {
         font-size: 1.4em;
     }
-    .container-cursos p{
+
+    .container-cursos p {
         line-height: 12px
     }
 

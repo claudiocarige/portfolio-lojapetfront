@@ -116,7 +116,6 @@ import { ServicePetUpdateComponent } from './components/servicePet/service-pet-u
     //ngx-toastr
     ToastrModule.forRoot({
       easeTime: 500,
-      positionClass: "toast-top-right",
       timeOut: 3000,
       closeButton: true
    })

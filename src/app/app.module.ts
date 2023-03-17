@@ -115,9 +115,9 @@ import { ServicePetUpdateComponent } from './components/servicePet/service-pet-u
     MatSortModule,
     //ngx-toastr
     ToastrModule.forRoot({
-      positionClass: 'toast-top-right',
       easeTime: 500,
       timeOut: 3000,
+      positionClass: 'toast-top-right',
       closeButton: true
    })
   ],

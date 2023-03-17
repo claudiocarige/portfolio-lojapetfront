@@ -4,7 +4,7 @@ import { AppRoutingModule        } from './app-routing.module';
 import { AppComponent            } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-//Import para formularios 
+//Import para formularios
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 //Import para Requisições Http
@@ -115,6 +115,7 @@ import { ServicePetUpdateComponent } from './components/servicePet/service-pet-u
     MatSortModule,
     //ngx-toastr
     ToastrModule.forRoot({
+      positionClass: 'toast-top-right',
       easeTime: 500,
       timeOut: 3000,
       closeButton: true

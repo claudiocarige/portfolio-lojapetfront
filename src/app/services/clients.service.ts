@@ -14,11 +14,11 @@ export class ClientsService {
   ) { }
 
   findAll(): Observable<Client[]>{
-    return this.http.get<Client[]>(`${API_URL.urlBase}/clients`)
+    return this.http.get<Client[]>(`${API_URL.urlBase}/clients`);
   }
 
   findById(id: any): Observable<Client>{
-    return this.http.get<Client>(`${API_URL.urlBase}/clients/${id}`)
+    return this.http.get<Client>(`${API_URL.urlBase}/clients/${id}`);
   }
 
   create(client: Client): Observable<Client>{
@@ -32,5 +32,5 @@ export class ClientsService {
   delete(id: any):Observable<Client>{
     return this.http.delete<Client>(`${API_URL.urlBase}/clients/${id}`);
   }
-  
+
 }

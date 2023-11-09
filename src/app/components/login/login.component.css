@@ -1,10 +1,22 @@
 .container {
+
     height: 100%;
-    display: block;
+    display: flex;
     text-align: center;
     justify-content: center;
     align-items: center;
+    
+}
+
+.title-senha-login{
+    width: 55%;
+    height: 100%;
     background: linear-gradient(159deg, rgba(52, 84, 242, 1) 0%, rgba(62, 145, 203, 1) 49%, rgba(42, 187, 255, 1) 90%);
+    position: relative; 
+}
+
+.container-fluid{
+    width: 45%;
 }
 
 img {
@@ -12,6 +24,9 @@ img {
     padding-bottom: 1rem;
 }
 
+.img-logo{
+    margin-top: 2rem;
+}
 h1 {
     padding-top: 2rem;
     font-weight: 700;
@@ -34,10 +49,6 @@ h2 {
     padding: 0;
 }
 
-.title-senha-login h2:last-child {
-    padding-bottom: 1rem;
-}
-
 p {
     margin: 1rem 0;
     padding: 0 0 .5rem 0;
@@ -47,8 +58,8 @@ p {
 }
 
 span {
-    color: rgb(166, 255, 255);
-    letter-spacing: .4rem;
+    color: rgb(85, 85, 85);
+    letter-spacing: .2rem;
     text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.45);
 }
 .claudio{
@@ -56,8 +67,8 @@ span {
     font-size: 1.7rem;
 }
 .form {
-    margin: 0 auto;
-    width: 25%;
+    margin: 2rem auto 0 auto;
+    width: 50%;
     padding: 1em 1em 4em;
     background-color: rgb(235, 235, 235);
     border-radius: 1em;

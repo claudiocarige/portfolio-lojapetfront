@@ -1,5 +1,5 @@
 import { Component, OnInit       } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router  } from '@angular/router';
 import { ToastrService           } from 'ngx-toastr';
 import { Client                  } from 'src/app/models/modelClient';
@@ -29,12 +29,12 @@ export class ServicePetUpdateComponent implements OnInit {
 clientList:     Client [] = []
 employeeList: Employee [] = []
 
-priority:         FormControl = new FormControl(null, Validators.required);
-status:           FormControl = new FormControl(null, Validators.required);
-title:            FormControl = new FormControl(null, [Validators.required, Validators.minLength(4)]);
-clientValida:     FormControl = new FormControl(null, Validators.required);
-employeeValida:   FormControl = new FormControl(null, Validators.required);
-descri:           FormControl = new FormControl(null, [Validators.required, Validators.minLength(10)]);
+priority:         UntypedFormControl = new UntypedFormControl(null, Validators.required);
+status:           UntypedFormControl = new UntypedFormControl(null, Validators.required);
+title:            UntypedFormControl = new UntypedFormControl(null, [Validators.required, Validators.minLength(4)]);
+clientValida:     UntypedFormControl = new UntypedFormControl(null, Validators.required);
+employeeValida:   UntypedFormControl = new UntypedFormControl(null, Validators.required);
+descri:           UntypedFormControl = new UntypedFormControl(null, [Validators.required, Validators.minLength(10)]);
 
 
   constructor(

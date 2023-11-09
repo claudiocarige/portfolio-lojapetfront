@@ -1,5 +1,5 @@
 import { Component, OnInit        } from '@angular/core';
-import { FormControl, Validators  } from '@angular/forms';
+import { UntypedFormControl, Validators  } from '@angular/forms';
 import { ActivatedRoute, Router   } from '@angular/router';
 import { ToastrService            } from 'ngx-toastr';
 import { Employee                 } from 'src/app/models/modelEmployee';
@@ -20,10 +20,10 @@ export class EmployeeUpdateComponent implements OnInit {
     profile:      [],
     criationDate: ''
   }
-  name:     FormControl = new FormControl(null, Validators.minLength(3));
-  cpf:      FormControl = new FormControl(null,     Validators.required);
-  email:    FormControl = new FormControl(null,        Validators.email);
-  password: FormControl = new FormControl(null, Validators.minLength(4));
+  name:     UntypedFormControl = new UntypedFormControl(null, Validators.minLength(3));
+  cpf:      UntypedFormControl = new UntypedFormControl(null,     Validators.required);
+  email:    UntypedFormControl = new UntypedFormControl(null,        Validators.email);
+  password: UntypedFormControl = new UntypedFormControl(null, Validators.minLength(4));
 
   constructor(
     private service:      EmployeesService,

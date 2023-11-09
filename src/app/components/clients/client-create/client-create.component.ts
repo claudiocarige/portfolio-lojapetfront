@@ -1,5 +1,5 @@
 import { Component, OnInit        } from '@angular/core';
-import { FormControl, Validators  } from '@angular/forms';
+import { UntypedFormControl, Validators  } from '@angular/forms';
 import { Router                   } from '@angular/router';
 import { ToastrService            } from 'ngx-toastr';
 import { Client                   } from 'src/app/models/modelClient';
@@ -21,10 +21,10 @@ export class ClientCreateComponent implements OnInit {
     profile:      [],
     criationDate: ''
   }
-  name:     FormControl = new FormControl(null,                         Validators.minLength(3));
-  cpf:      FormControl = new FormControl(null, [Validators.required, Validators.minLength(11)]);
-  email:    FormControl = new FormControl(null,                                Validators.email);
-  password: FormControl = new FormControl(null,                         Validators.minLength(6));
+  name:     UntypedFormControl = new UntypedFormControl(null,                         Validators.minLength(3));
+  cpf:      UntypedFormControl = new UntypedFormControl(null, [Validators.required, Validators.minLength(11)]);
+  email:    UntypedFormControl = new UntypedFormControl(null,                                Validators.email);
+  password: UntypedFormControl = new UntypedFormControl(null,                         Validators.minLength(6));
 
   constructor(
     private service: ClientsService,

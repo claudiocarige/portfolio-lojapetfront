@@ -1,24 +1,32 @@
 <div class="container">
+
     <div class="title-senha-login">
-        <h1>Seja bem vinda(o) ao portfólio de <span class="claudio">Cláudio Carigé</span></h1>
+        <img class="img-logo" src="../../../assets/img/logoPetStar.svg" alt="Imagem da logo marca remete a uma pata de Pet">
+        <h1>Seja bem vinda(o)!</h1>
+        <h3>Esse é o portfólio de</h3>
+        <h3><span class="claudio">Cláudio Carigé</span></h3>
         <h2>Entre com o login:<span> testecrud@mail.com</span></h2>
         <h2>Entre com a senha:<span> 24681012</span></h2>
+        <p>Faça um Tour pelo portfólio.</p>
     </div>
-    <form class="form">
-        <h3>Login</h3>
-        <img src="../../../assets/img/logoPetStar.svg" alt="Imagem da logo marca remete a uma pata de Pet">
-        <mat-form-field class="full-width" appearance="fill">
-            <mat-label>E-mail</mat-label>
-            <input [(ngModel)]="cred.email" name="email" [formControl]="email" required matInput
+    <div class="container-fluid">
+       
+        <form class="form">
+            <h3>Login</h3>
+            <img src="../../../assets/img/logoPetStar.svg" alt="Imagem da logo marca remete a uma pata de Pet">
+            <mat-form-field class="full-width" appearance="fill">
+                <mat-label>E-mail</mat-label>
+                <input [(ngModel)]="cred.email" name="email" [formControl]="email" required matInput
                 placeholder="Ex. fulano@mail.com">
-        </mat-form-field>
-        <mat-form-field class="full-width" appearance="fill">
-            <mat-label>Senha</mat-label>
-            <input [(ngModel)]="cred.password" name="password" type="password" [formControl]="password" required
+            </mat-form-field>
+            <mat-form-field class="full-width" appearance="fill">
+                <mat-label>Senha</mat-label>
+                <input [(ngModel)]="cred.password" name="password" type="password" [formControl]="password" required
                 matInput placeholder="Ex. 123456">
-        </mat-form-field>
-        <button (click)="login()" [disabled]="!validation()" class="full-width btn-login mat-elevation-z4"
+            </mat-form-field>
+            <button (click)="login()" [disabled]="!validation()" class="full-width btn-login mat-elevation-z4"
             mat-stroked-button color="primary">Logar</button>
-    </form>
-    <p>Faça alguns testes de create, read, update e delete.</p>
+        </form>
+
+    </div>
 </div>

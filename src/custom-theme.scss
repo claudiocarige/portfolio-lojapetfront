@@ -1,0 +1,31 @@
+@use '@angular/material' as mat;
+
+
+$cor-primaria: #2a3acf;
+$cor-secundaria: #6200EE;
+$cor-terciaria: #BB86FC;
+$cor-error: #bb0048;
+$cor-sucess: #00d68f;
+$cor-warning: #ffaa00;
+$cor-info: #0095ff;
+$cor-texto: #000000;
+$cor-texto-secundario: rgb(87, 87, 87);
+$cor-texto-terciario: rgb(0, 0, 0);
+$cor-texto-light: #ffffff;
+
+
+
+$primary: mat.define-palette(mat.$blue-palette);
+$accent:  mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$warn:    mat.define-palette(mat.$red-palette);
+
+$theme: mat.define-light-theme((
+  color: (
+    primary: $primary,
+    accent: $accent,
+    warn: $warn,
+  )
+));
+
+
+

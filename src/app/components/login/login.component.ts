@@ -40,6 +40,6 @@ export class LoginComponent implements OnInit {
   }
 
   validation(): boolean {
-      return this.email.valid && this.password.valid;
+      return true;
   }
 }

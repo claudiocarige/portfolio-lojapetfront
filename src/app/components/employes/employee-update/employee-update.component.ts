@@ -1,7 +1,6 @@
 import { Component, OnInit        } from '@angular/core';
 import { UntypedFormControl, Validators  } from '@angular/forms';
 import { ActivatedRoute, Router   } from '@angular/router';
-import { ToastrService            } from 'ngx-toastr';
 import { Employee                 } from 'src/app/models/modelEmployee';
 import { EmployeesService         } from 'src/app/services/employees.service';
 
@@ -27,7 +26,6 @@ export class EmployeeUpdateComponent implements OnInit {
 
   constructor(
     private service:      EmployeesService,
-    private toast:        ToastrService,
     private route:        Router,
     private activeRoute:  ActivatedRoute
   ) { }
@@ -44,16 +42,16 @@ export class EmployeeUpdateComponent implements OnInit {
   }
   update(): void {
     this.service.update(this.employee).subscribe(() => {
-      this.toast.success('Funcionário atualizado com sucesso!', 'A T U A L I Z A Ç Ã O');
+      //this.toast.success('Funcionário atualizado com sucesso!', 'A T U A L I Z A Ç Ã O');
       this.route.navigate(['employees'])
     }, ex => {
       console.log(ex.error.errors);
       if (ex.error.errors) {
         ex.error.errors.array.forEach(element => {
-          this.toast.error(element.message, "A T E N Ç Ã O !");
+          //this.toast.error(element.message, "A T E N Ç Ã O !");
         });
       } else {
-        this.toast.error(ex.error.message, "A T E N Ç Ã O !");
+        //this.toast.error(ex.error.message, "A T E N Ç Ã O !");
       }
     })
   }

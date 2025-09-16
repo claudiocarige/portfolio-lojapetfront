@@ -31,7 +31,6 @@ import { MatDialogModule    } from '@angular/material/dialog';
 import { MatSortModule      } from '@angular/material/sort';
 
 //Outras importações
-import { ToastrModule } from 'ngx-toastr';
 
 //Componentes do projeto
 import { HomeComponent             } from './components/home/home.component';
@@ -113,13 +112,7 @@ import { ServicePetUpdateComponent } from './components/servicePet/service-pet-u
     MatTooltipModule,
     MatDialogModule,
     MatSortModule,
-    //ngx-toastr
-    ToastrModule.forRoot({
-      easeTime: 500,
-      timeOut: 3200,
-      positionClass:  'toast-top-right',
-      closeButton: true
-   })
+   
   ],
   providers: [AuthoInterceptorProvider],
   bootstrap: [AppComponent]

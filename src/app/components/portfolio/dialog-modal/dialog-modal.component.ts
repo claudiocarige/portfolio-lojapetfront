@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute           } from '@angular/router';
-import { ToastrService            } from 'ngx-toastr';
 import { modelhabilidadeData      } from 'src/app/data/habilidadesData';
 import { modelDialogData          } from 'src/app/data/modelDialogData';
 
@@ -40,7 +39,6 @@ export class DialogModalComponent implements OnInit {
   
   constructor(
     private route: ActivatedRoute,
-    private toast:  ToastrService
 
   ) { }
 

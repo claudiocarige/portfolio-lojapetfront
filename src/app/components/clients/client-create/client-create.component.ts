@@ -1,7 +1,6 @@
 import { Component, OnInit        } from '@angular/core';
 import { UntypedFormControl, Validators  } from '@angular/forms';
 import { Router                   } from '@angular/router';
-import { ToastrService            } from 'ngx-toastr';
 import { Client                   } from 'src/app/models/modelClient';
 import { ClientsService           } from 'src/app/services/clients.service';
 
@@ -28,7 +27,6 @@ export class ClientCreateComponent implements OnInit {
 
   constructor(
     private service: ClientsService,
-    private toast:    ToastrService,
     private route:           Router
   ) { }
 
@@ -36,16 +34,15 @@ export class ClientCreateComponent implements OnInit {
   }
   create(): void {
     this.service.create(this.client).subscribe(() => {
-      this.toast.success('Cliente criado com sucesso!', 'C A D A S T R O')
       this.route.navigate(['clients']);
     }, ex => {
       console.log(ex);
       if (ex.error.erros) {
         ex.error.erros.array.forEach(element => {
-          this.toast.error(element.message, "A T E N Ç Ã O !");
+          //this.toast.error(element.message, "A T E N Ç Ã O !");
         });
       } else {
-        this.toast.error(ex.error.message, "A T E N Ç Ã O !");
+        //this.toast.error(ex.error.message, "A T E N Ç Ã O !");
       }
     })
   }

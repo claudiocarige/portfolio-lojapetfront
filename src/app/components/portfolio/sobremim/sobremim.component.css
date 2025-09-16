@@ -145,16 +145,6 @@ p {
     animation: pisca 2s linear infinite;
 }
 
-@keyframes pisca {
-    from {
-        opacity: 0.4;
-    }
-
-    to {
-        transform: scale(3);
-        opacity: 0;
-    }
-}
 
 @media (max-width: 730px) {
     .container-1 {

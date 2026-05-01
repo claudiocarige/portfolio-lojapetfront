@@ -106,6 +106,69 @@ Sempre seguir o ciclo:
 
 ---
 
+## 📝 Padrão de Commits
+
+Este projeto segue o padrão baseado em Conventional Commits.
+
+### 📌 Estrutura obrigatória
+
+<tipo>(escopo): descrição curta
+
+### ✅ Exemplos
+
+feat(auth): adiciona login com JWT  
+fix(header): corrige alinhamento no mobile  
+refactor(user-service): remove código duplicado  
+chore(deps): atualiza dependências npm  
+
+### 🎯 Tipos permitidos
+
+- feat → nova funcionalidade
+- fix → correção de bug
+- refactor → refatoração sem mudança de comportamento
+- chore → tarefas técnicas (build, config, dependências)
+- docs → documentação
+- test → testes
+- style → formatação (sem impacto funcional)
+
+### 📦 Escopo
+
+O escopo deve representar o módulo ou contexto funcional do sistema.
+
+Exemplos:
+- auth
+- reservation
+- map
+- api
+- ui
+- core
+- shared
+
+### ⚠️ Regras obrigatórias
+
+- Usar letras minúsculas na descrição
+- Utilizar verbo no presente (ex: "adiciona", "corrige")
+- Ser objetivo e descritivo
+- Não usar ponto final
+- Cada commit deve representar uma única responsabilidade
+
+### 🚫 Proibido
+
+Commits genéricos ou sem contexto, como:
+
+- "ajustes"
+- "correção"
+- "update"
+- "mudanças"
+
+### 🔥 Breaking Changes
+
+Para mudanças que quebram compatibilidade:
+
+feat(api): altera contrato de autenticação
+
+BREAKING CHANGE: token agora é obrigatório no header Authorization
+
 ## 🔄 ESTRATÉGIA DE MIGRAÇÃO ANGULAR (REAL)
 
 ### ❗ REGRA CRÍTICA

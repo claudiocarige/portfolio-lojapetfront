@@ -1,12 +1,13 @@
-import {ChangeDetectionStrategy, Component, signal} from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, signal } from '@angular/core';
 
-import {MatExpansionModule} from '@angular/material/expansion';
-import {MatIconModule} from '@angular/material/icon';
-import {MatDividerModule} from '@angular/material/divider';
-import {MatButtonModule} from '@angular/material/button';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { CommonModule } from '@angular/common';
-
+import { ChamadoService, Chamado } from '../../../core/services/chamado.service';
+import { LoggerService } from '../../../core/services/logger.service';
 
 @Component({
   selector: 'app-homeprincipal',
@@ -16,45 +17,23 @@ import { CommonModule } from '@angular/common';
   styleUrl: './homeprincipal.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HomeprincipalComponent {
+export class HomeprincipalComponent implements OnInit {
+
+  private readonly CONTEXT = 'HomeprincipalComponent';
   readonly panelOpenState = signal(false);
+  readonly chamados = signal<Chamado[]>([]);
 
-  chamados = [
-    {
-      id: '#_0001',
-      responsavel: 'Luiz Henrique',
-      contato: '7199999999',
-      endereco: 'Rua Estevam Barbosa, 123',
-      description: 'Descrição do chamado 1',
-    },
-    {
-      id: '#_0002',
-      responsavel: 'Maria eduarda',
-      contato: '71888888888',
-      endereco: 'Rua Estevam Barbosa, 123',
-      description: 'Descrição do chamado 2',
-    },
-    {
-      id: '#_0003',
-      responsavel: 'João Pedro',
-      contato: '71777777777',
-      endereco: 'Rua Estevam Barbosa, 123',
-      description: 'Descrição do chamado 3',
-    },
-    {
-      id: '#_0004',
-      responsavel: 'Ana Clara',
-      contato: '71666666666',
-      endereco: 'Rua Estevam Barbosa, 123',
-      description: 'Descrição do chamado 4',
-    },
-    {
-      id: '#_0005',
-      responsavel: 'Lucas Silva',
-      contato: '71555555555',
-      endereco: 'Rua Estevam Barbosa, 123',
-      description: 'Descrição do chamado 5',
-    },
+  constructor(
+    private chamadoService: ChamadoService,
+    private logger: LoggerService
+  ) {
+    this.logger.info(this.CONTEXT, 'Componente criado');
+  }
 
-  ];
+  ngOnInit(): void {
+    this.logger.info(this.CONTEXT, 'Inicializando');
+    const dados = this.chamadoService.getChamados();
+    this.chamados.set(dados);
+    this.logger.info(this.CONTEXT, 'Chamados carregados', { total: dados.length });
+  }
 }

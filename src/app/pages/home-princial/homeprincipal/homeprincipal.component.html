@@ -10,7 +10,7 @@
     </div>
   </div>
   <div class="item-02">
-    <div class="accordion" *ngFor="let item of chamados">
+    <div class="accordion" *ngFor="let item of chamados()">
       <mat-accordion>
         <mat-expansion-panel
           (opened)="panelOpenState.set(true)"

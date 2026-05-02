@@ -8,22 +8,22 @@ describe('AppComponent', () => {
     }).compileComponents();
   });
 
-  it('should create the app', () => {
+  it('deve criar a aplicação', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'copyimagemhelpdesk' title`, () => {
+  it('deve ter título "copyimagemhelpdesk"', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app.title).toEqual('copyimagemhelpdesk');
   });
 
-  it('should render title', () => {
+  it('deve renderizar router-outlet', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, copyimagemhelpdesk');
+    expect(compiled.querySelector('router-outlet')).toBeTruthy();
   });
 });

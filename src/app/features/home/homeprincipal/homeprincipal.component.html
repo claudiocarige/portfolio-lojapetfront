@@ -1,0 +1,63 @@
+<div class="container">
+  <div class="item-01">
+    <div class="div-title">
+      <div>
+        <h1 class="title-tela">HELPDESK</h1>
+      </div>
+    </div>
+    <div class="add-chamado">
+      <button mat-fab extended color="primary">Criar Chamado</button>
+    </div>
+  </div>
+  <div class="item-02">
+    <div class="accordion" *ngFor="let item of chamados()">
+      <mat-accordion>
+        <mat-expansion-panel
+          (opened)="panelOpenState.set(true)"
+          (closed)="panelOpenState.set(false)"
+        >
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              BahiaTech Matriz - Chamado {{ item.id }}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="description">
+            <div class="chamado-container">
+              <p class="chamado">
+                Responsável :
+                <span class="span-title"> {{ item.responsavel }} </span>
+              </p>
+              <p class="chamado">
+                Contato : <span class="span-title"> {{ item.contato }} </span>
+              </p>
+              <p class="chamado">
+                Endereço : <span class="span-title"> {{ item.endereco }} </span>
+              </p>
+              <p class="chamado">
+                Descrição :
+                <span class="span-title"> {{ item.description }} </span>
+              </p>
+            </div>
+            <div class="check-edit">
+              <a aria-label="Este um check icon">
+                <p>
+                  <mat-slide-toggle labelPosition="before"
+                    >Finalizar</mat-slide-toggle
+                  >
+                </p>
+              </a>
+              <a
+                disable
+                href=""
+                aria-label="Este um edit icon"
+                style="color: chocolate"
+              >
+                <i disable class="material-symbols-outlined"> edit </i>
+              </a>
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+  </div>
+</div>

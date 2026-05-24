@@ -8,12 +8,11 @@ import { RouterModule } from '@angular/router';
 import { LoggerService } from '../../../core/services/logger.service';
 
 @Component({
-  selector: 'app-create-chamado',
-  standalone: true,
-  imports: [CommonModule, FormsModule, MatFormFieldModule, ReactiveFormsModule, MatInputModule, MatButtonModule, RouterModule],
-  templateUrl: './create-chamado.component.html',
-  styleUrl: './create-chamado.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-create-chamado',
+    imports: [CommonModule, FormsModule, MatFormFieldModule, ReactiveFormsModule, MatInputModule, MatButtonModule, RouterModule],
+    templateUrl: './create-chamado.component.html',
+    styleUrl: './create-chamado.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CreateChamadoComponent implements OnInit {
 

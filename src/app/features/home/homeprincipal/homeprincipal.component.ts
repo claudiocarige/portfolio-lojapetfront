@@ -10,12 +10,11 @@ import { ChamadoService, Chamado } from '../../../core/services/chamado.service'
 import { LoggerService } from '../../../core/services/logger.service';
 
 @Component({
-  selector: 'app-homeprincipal',
-  standalone: true,
-  imports: [MatExpansionModule, MatButtonModule, MatDividerModule, MatIconModule, MatSlideToggleModule, CommonModule],
-  templateUrl: './homeprincipal.component.html',
-  styleUrl: './homeprincipal.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-homeprincipal',
+    imports: [MatExpansionModule, MatButtonModule, MatDividerModule, MatIconModule, MatSlideToggleModule, CommonModule],
+    templateUrl: './homeprincipal.component.html',
+    styleUrl: './homeprincipal.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeprincipalComponent implements OnInit {
 

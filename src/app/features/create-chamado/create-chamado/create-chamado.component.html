@@ -1,34 +1,51 @@
-<div class="container">
-  <h2 class="title-create">Solicitar Delivery</h2>
-  <div class="width-img central">
-      <img src="../../../../../assets/img/logoGWSistemas.png" alt="Imagem da logo da empresa GW Sistemas">
-  </div>
-  <mat-form-field class="width-full" appearance="outline">
-    <mat-label>Remetente</mat-label>
-    <input [(ngModel)]="senderCpfOrCnpj" matInput placeholder="Digite o CPF ou CNPJ">
-  </mat-form-field>
+<div class="page-container">
+  <mat-card class="create-chamado-card">
+    <mat-card-title>Criar Chamado</mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <div class="row">
+          <mat-form-field appearance="fill" class="full">
+            <mat-label>Empresa</mat-label>
+            <mat-select formControlName="empresaId">
+              <mat-option *ngFor="let e of empresas" [value]="e.id">{{
+                e.nomeEmpresa
+              }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <mat-form-field appearance="fill" class="full">
+          <mat-label>Responsável</mat-label>
+          <input matInput formControlName="responsavel" />
+        </mat-form-field>
 
-  <mat-form-field class="width-full" appearance="outline">
-    <mat-label>Destinatário</mat-label>
-    <input [(ngModel)]="recipientCpfOrCnpj" matInput placeholder="Digite o CPF ou CNPJ">
-  </mat-form-field>
+        <mat-form-field appearance="fill" class="full">
+          <mat-label>Contato</mat-label>
+          <input matInput formControlName="contato" />
+        </mat-form-field>
 
-  <mat-form-field class="width-full" appearance="outline">
-    <mat-label>Nome do produto</mat-label>
-    <input [(ngModel)]="productName" matInput  placeholder="Digite o nome do produto">
-  </mat-form-field>
+        <mat-form-field appearance="fill" class="full">
+          <mat-label>Endereço</mat-label>
+          <input matInput formControlName="endereco" />
+        </mat-form-field>
 
-  <mat-form-field class="width-full" style="margin: auto;" appearance="outline">
-    <mat-label>Quantidade</mat-label>
-    <input [(ngModel)]="quantityProduct"  matInput placeholder="Digite a quantidade">
-  </mat-form-field>
-  <div class="button-event">
-      <button routerLink="/" mat-stroked-button color="warn">Cancelar</button>
-      <button (click)="createDelivery()" [disabled]="!validation()" [ngClass]="{'disabled': !validation()}"
-       mat-flat-button color="primary">Solicitar Entrega</button>
-  </div>
-  <footer class="tec-footer">
-    <p>&copy;by Cláudio Carigé</p>
-  </footer>
+        <mat-form-field appearance="fill" class="full">
+          <mat-label>Descrição</mat-label>
+          <textarea matInput formControlName="description"></textarea>
+        </mat-form-field>
 
+        <div class="actions">
+          <button mat-flat-button color="primary" type="submit">
+            Criar Chamado
+          </button>
+          <button
+            mat-flat-button
+            type="button"
+            (click)="router.navigate(['/home'])"
+          >
+            Cancelar
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
 </div>

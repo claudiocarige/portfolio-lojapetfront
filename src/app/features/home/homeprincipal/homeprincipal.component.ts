@@ -36,6 +36,10 @@ export class HomeprincipalComponent implements OnInit {
     this.router.navigate(['/criar-cliente']);
   }
 
+  criarChamado(): void {
+    this.router.navigate(['/criar-chamado']);
+  }
+
   ngOnInit(): void {
     this.logger.info(this.CONTEXT, 'Inicializando');
     const dados = this.chamadoService.getChamados();

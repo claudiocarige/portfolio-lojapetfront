@@ -1,0 +1,40 @@
+:host {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: calc(100vh - 80px);
+	padding: 20px;
+}
+
+.page-container {
+  display: flex;
+  justify-content: center;   // centraliza horizontal
+  align-items: center;
+  width: 100%;
+  min-height: 100%;         // ocupa toda a tela
+  padding: 16px;             // evita colar nas bordas
+  box-sizing: border-box;
+}
+
+.create-chamado-card {
+	width: 100%;
+	max-width: 900px;
+}
+
+.create-chamado-card mat-card-title {
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.row {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.full { width: 100%; }
+
+.actions { display:flex; gap:12px; justify-content:center; margin-top:12px; }
+

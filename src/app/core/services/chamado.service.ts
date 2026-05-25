@@ -3,6 +3,7 @@ import { LoggerService } from './logger.service';
 
 export interface Chamado {
   id: string;
+  nomeEmpresa?: string; // Opcional, presente apenas para chamados relacionados a clientes PJ
   responsavel: string;
   contato: string;
   endereco: string;
@@ -18,6 +19,7 @@ export class ChamadoService {
   private chamados: Chamado[] = [
     {
       id: '#_0001',
+      nomeEmpresa: 'Salvador Tech LTDA',
       responsavel: 'Luiz Henrique',
       contato: '7199999999',
       endereco: 'Rua Estevam Barbosa, 123',
@@ -25,6 +27,7 @@ export class ChamadoService {
     },
     {
       id: '#_0002',
+      nomeEmpresa: 'BahiaTech Matriz',
       responsavel: 'Maria eduarda',
       contato: '71888888888',
       endereco: 'Rua Estevam Barbosa, 123',
@@ -32,6 +35,7 @@ export class ChamadoService {
     },
     {
       id: '#_0003',
+      nomeEmpresa: 'Escola Hemariel',
       responsavel: 'João Pedro',
       contato: '71777777777',
       endereco: 'Rua Estevam Barbosa, 123',
@@ -39,6 +43,7 @@ export class ChamadoService {
     },
     {
       id: '#_0004',
+      nomeEmpresa: 'BahiaTech Filial',
       responsavel: 'Ana Clara',
       contato: '71666666666',
       endereco: 'Rua Estevam Barbosa, 123',
@@ -46,6 +51,7 @@ export class ChamadoService {
     },
     {
       id: '#_0005',
+      nomeEmpresa: 'CopyImagem Matriz',
       responsavel: 'Lucas Silva',
       contato: '71555555555',
       endereco: 'Rua Estevam Barbosa, 123',
@@ -70,5 +76,15 @@ export class ChamadoService {
       this.logger.warn(this.CONTEXT, 'Chamado não encontrado', { id });
     }
     return chamado;
+  }
+
+  criarChamado(payload: Omit<Chamado, 'id'>): Chamado {
+    const novo: Chamado = {
+      id: `ch_${Date.now()}_${Math.random().toString(36).substr(2, 6)}`,
+      ...payload
+    };
+    this.chamados.push(novo);
+    this.logger.info(this.CONTEXT, 'Chamado criado', { id: novo.id });
+    return novo;
   }
 }

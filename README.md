@@ -1,5 +1,17 @@
 # Copyimagemhelpdesk
 
+
+## Contexto do Projeto (Português)
+
+Este repositório contém o sistema "CopyImagem Helpdesk" — uma aplicação cujo único objetivo é permitir a abertura e gestão de chamados técnicos para conserto de impressoras alugadas pela empresa CopyImagem.
+
+- Público-alvo: clientes da CopyImagem, que podem ser Pessoa Física (PF) ou Pessoa Jurídica (PJ).
+- Funcionalidade principal: abrir chamados de manutenção/reparo para as impressoras alugadas.
+- Fluxo típico: o cliente (PF/PJ) acessa a aplicação, cria um chamado descrevendo o problema e informando contatos; a equipe CopyImagem recebe e gerencia o chamado.
+
+Este README e o planejamento associado deixam explícito o escopo focado em helpdesk para serviços da CopyImagem (gestão de clientes e abertura de chamados).
+
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.9.
 
 ## Development server

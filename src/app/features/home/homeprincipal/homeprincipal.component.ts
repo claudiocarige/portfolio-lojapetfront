@@ -8,6 +8,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { CommonModule } from '@angular/common';
 import { ChamadoService, Chamado } from '../../../core/services/chamado.service';
 import { LoggerService } from '../../../core/services/logger.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-homeprincipal',
@@ -25,8 +26,14 @@ export class HomeprincipalComponent implements OnInit {
   constructor(
     private chamadoService: ChamadoService,
     private logger: LoggerService
+    ,
+    private router: Router
   ) {
     this.logger.info(this.CONTEXT, 'Componente criado');
+  }
+
+  criarCliente(): void {
+    this.router.navigate(['/criar-cliente']);
   }
 
   ngOnInit(): void {

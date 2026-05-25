@@ -1,0 +1,67 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  min-height: calc(100vh - 80px);
+}
+
+.page-container {
+  display: flex;
+  justify-content: center;   // centraliza horizontal
+  align-items: center;
+  width: 100%;
+  min-height: 100%;         // ocupa toda a tela
+  padding: 16px;             // evita colar nas bordas
+  box-sizing: border-box;
+}
+
+.create-cliente-page {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.create-cliente-page mat-card-title {
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.row {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.full {
+  width: 100%;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+/* Garantir que os botões fiquem abaixo do formulário e centralizados */
+.create-cliente-page .mat-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}

@@ -11,12 +11,10 @@
     </div>
   </div>
   <div class="item-02">
-    <div class="accordion" *ngFor="let item of chamados()">
+    @for (item of chamados(); track item.id) {
+    <div class="accordion">
       <mat-accordion>
-        <mat-expansion-panel
-          (opened)="panelOpenState.set(true)"
-          (closed)="panelOpenState.set(false)"
-        >
+        <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title>
               {{ item.nomeCliente }} - Chamado {{ item.id }}
@@ -48,17 +46,17 @@
                 </p>
               </a>
               <a
-                disable
-                href=""
+                (click)="$event.preventDefault()"
                 aria-label="Este um edit icon"
-                style="color: chocolate"
+                style="cursor: pointer; color: chocolate"
               >
-                <i disable class="material-symbols-outlined"> edit </i>
+                <i class="material-symbols-outlined"> edit </i>
               </a>
             </div>
           </div>
         </mat-expansion-panel>
       </mat-accordion>
     </div>
+    }
   </div>
 </div>

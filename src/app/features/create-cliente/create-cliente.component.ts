@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy, DestroyRef, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+
 import { ClienteService } from '../../core/services/cliente.service';
+
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -14,6 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
 @Component({
   selector: 'app-create-cliente',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -29,35 +33,26 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrls: ['./create-cliente.component.scss']
 })
 export class CreateClienteComponent {
-  form = this.fb.group({
-    tipo: ['PJ', Validators.required],
-    nomeCliente: ['', Validators.required],
-    cpfCnpj: ['', [Validators.required]],
-    endereco: ['', Validators.required],
-    nomeResponsavel: ['', Validators.required],
-    contato: ['', Validators.required]
-  });
 
-  constructor(
-    private fb: FormBuilder,
-    private clienteService: ClienteService,
-    private snackBar: MatSnackBar,
-    public router: Router
-  ) {
-    // Pode adicionar validadores condicionais para CPF/CNPJ aqui se necessário
-  }
+  private readonly fb             = inject(FormBuilder);
+  private readonly clienteService = inject(ClienteService);
+  private readonly snackBar       = inject(MatSnackBar);
+  private readonly destroyRef     = inject(DestroyRef);
+  readonly router                 = inject(Router);
+
+  readonly isSubmitting = signal(false);
+
+  readonly form = this.fb.group({
+    tipo:            ['PJ', Validators.required],
+    nomeCliente:     ['', Validators.required],
+    cpfCnpj:         ['', Validators.required],
+    endereco:        ['', Validators.required],
+    nomeResponsavel: ['', Validators.required],
+    contato:         ['', Validators.required]
+  });
 
   tipoEhPF(): boolean {
     return this.form.get('tipo')?.value === 'PF';
-  }
-
-  private valueAsString(controlName: string): string {
-    const v = this.form.get(controlName)?.value;
-    return v == null ? '' : String(v);
-  }
-
-  private adjustValidators(tipo: string): void {
-    // Not needed: unified `nomeCliente` field used for PF and PJ
   }
 
   submit(): void {
@@ -66,36 +61,43 @@ export class CreateClienteComponent {
       return;
     }
 
-    const tipo = this.form.get('tipo')?.value;
+    this.isSubmitting.set(true);
 
-    try {
-      const payloadBase = {
-        tipo: tipo as 'PF' | 'PJ',
-        nomeCliente: this.valueAsString('nomeCliente'),
-        endereco: this.valueAsString('endereco'),
-        nomeResponsavel: this.valueAsString('nomeResponsavel'),
-        contato: this.valueAsString('contato'),
-        ativo: true
-      };
+    this.clienteService.criarCliente(this.buildPayload())
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: () => {
+          this.snackBar.open('Cliente criado com sucesso!', 'Fechar', { duration: 3000 });
+          this.router.navigate(['/home']);
+        },
+        error: (err: Error) => {
+          this.snackBar.open('Erro ao criar cliente: ' + err.message, 'Fechar', { duration: 5000 });
+          this.isSubmitting.set(false);
+        }
+      });
+  }
 
-      if (tipo === 'PF') {
-        const payload = {
-          ...payloadBase,
-          cpf: this.valueAsString('cpfCnpj')
-        } as any;
-        this.clienteService.criarCliente(payload);
-      } else {
-        const payload = {
-          ...payloadBase,
-          cnpj: this.valueAsString('cpfCnpj')
-        } as any;
-        this.clienteService.criarCliente(payload);
-      }
+  // ============ MÉTODOS PRIVADOS ============
 
-      this.snackBar.open('Cliente criado com sucesso!', 'Fechar', { duration: 3000 });
-      this.router.navigate(['/home']);
-    } catch (error: any) {
-      this.snackBar.open('Erro ao criar cliente: ' + (error?.message || String(error)), 'Fechar', { duration: 5000 });
+  private buildPayload() {
+    const tipo = this.valueAsString('tipo') as 'PF' | 'PJ';
+    const base = {
+      tipo,
+      nomeCliente:     this.valueAsString('nomeCliente'),
+      endereco:        this.valueAsString('endereco'),
+      nomeResponsavel: this.valueAsString('nomeResponsavel'),
+      contato:         this.valueAsString('contato'),
+      ativo:           true
+    };
+
+    if (tipo === 'PF') {
+      return { ...base, tipo: 'PF' as const, cpf: this.valueAsString('cpfCnpj') };
     }
+    return { ...base, tipo: 'PJ' as const, cnpj: this.valueAsString('cpfCnpj') };
+  }
+
+  private valueAsString(controlName: string): string {
+    const v = this.form.get(controlName)?.value;
+    return v == null ? '' : String(v);
   }
 }

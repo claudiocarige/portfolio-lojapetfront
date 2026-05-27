@@ -64,7 +64,7 @@
         </div>
 
         <div class="actions">
-          <button mat-flat-button color="primary" type="submit">
+          <button mat-flat-button color="primary" type="submit" [disabled]="isSubmitting()">
             Criar Cliente
           </button>
           <button

@@ -13,22 +13,12 @@
           </mat-form-field>
         </div>
 
-        <div class="row" *ngIf="form.get('tipo')?.value === 'PJ'">
+        <div class="row">
           <mat-form-field appearance="fill" class="full">
-            <mat-label>Nome da empresa</mat-label>
-            <input matInput formControlName="nomeEmpresa" />
-            <mat-error *ngIf="form.get('nomeEmpresa')?.hasError('required')"
-              >Nome da empresa é obrigatório</mat-error
-            >
-          </mat-form-field>
-        </div>
-
-        <div class="row" *ngIf="form.get('tipo')?.value === 'PF'">
-          <mat-form-field appearance="fill" class="full">
-            <mat-label>Nome completo</mat-label>
-            <input matInput formControlName="nomeCompleto" />
-            <mat-error *ngIf="form.get('nomeCompleto')?.hasError('required')"
-              >Nome completo é obrigatório</mat-error
+            <mat-label>Nome do cliente</mat-label>
+            <input matInput formControlName="nomeCliente" />
+            <mat-error *ngIf="form.get('nomeCliente')?.hasError('required')"
+              >Nome do cliente é obrigatório</mat-error
             >
           </mat-form-field>
         </div>

@@ -1,6 +1,10 @@
 import { TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+
 import { ClienteService } from './cliente.service';
 import { LoggerService } from './logger.service';
+import { API_BASE_URL } from '../config';
 import { ClientePF, ClientePJ } from '../models/cliente.model';
 
 describe('ClienteService', () => {
@@ -9,12 +13,18 @@ describe('ClienteService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ClienteService, LoggerService]
+      providers: [
+        ClienteService,
+        LoggerService,
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        { provide: API_BASE_URL, useValue: '' } // fallback local nos testes unitários
+      ]
     });
+
     service = TestBed.inject(ClienteService);
     loggerService = TestBed.inject(LoggerService);
 
-    // Limpar localStorage antes de cada teste
     localStorage.clear();
   });
 
@@ -31,7 +41,7 @@ describe('ClienteService', () => {
   it('deve criar cliente pessoa física (PF) válido', () => {
     const clientePF: Omit<ClientePF, 'id' | 'dataCriacao'> = {
       tipo: 'PF',
-      nomeCompleto: 'João Silva',
+      nomeCliente: 'João Silva',
       cpf: '123.456.789-10',
       endereco: 'Rua A, 123',
       contato: 'joao@email.com',
@@ -50,7 +60,7 @@ describe('ClienteService', () => {
   it('deve criar cliente pessoa jurídica (PJ) válido', () => {
     const clientePJ: Omit<ClientePJ, 'id' | 'dataCriacao'> = {
       tipo: 'PJ',
-      nomeEmpresa: 'Tech Solutions LTDA',
+      nomeCliente: 'Tech Solutions LTDA',
       cnpj: '12.345.678/0001-90',
       endereco: 'Av. B, 456',
       contato: 'contato@techsolutions.com',
@@ -68,8 +78,8 @@ describe('ClienteService', () => {
   it('deve lançar erro ao criar cliente PF com CPF inválido', () => {
     const clientePF: Omit<ClientePF, 'id' | 'dataCriacao'> = {
       tipo: 'PF',
-      nomeCompleto: 'João Silva',
-      cpf: '000.000.000-00', // CPF com todos dígitos iguais
+      nomeCliente: 'João Silva',
+      cpf: '000.000.000-00',
       endereco: 'Rua A, 123',
       contato: 'joao@email.com',
       nomeResponsavel: 'João Silva',
@@ -82,8 +92,8 @@ describe('ClienteService', () => {
   it('deve lançar erro ao criar cliente PJ com CNPJ inválido', () => {
     const clientePJ: Omit<ClientePJ, 'id' | 'dataCriacao'> = {
       tipo: 'PJ',
-      nomeEmpresa: 'Tech Solutions LTDA',
-      cnpj: '00.000.000/0000-00', // CNPJ com todos dígitos iguais
+      nomeCliente: 'Tech Solutions LTDA',
+      cnpj: '00.000.000/0000-00',
       endereco: 'Av. B, 456',
       contato: 'contato@techsolutions.com',
       nomeResponsavel: 'Carlos Santos',
@@ -98,7 +108,7 @@ describe('ClienteService', () => {
   it('deve obter lista de clientes', () => {
     const clientePF: Omit<ClientePF, 'id' | 'dataCriacao'> = {
       tipo: 'PF',
-      nomeCompleto: 'João Silva',
+      nomeCliente: 'João Silva',
       cpf: '123.456.789-10',
       endereco: 'Rua A, 123',
       contato: 'joao@email.com',
@@ -123,7 +133,7 @@ describe('ClienteService', () => {
   it('deve obter cliente por ID', () => {
     const clientePF: Omit<ClientePF, 'id' | 'dataCriacao'> = {
       tipo: 'PF',
-      nomeCompleto: 'João Silva',
+      nomeCliente: 'João Silva',
       cpf: '123.456.789-10',
       endereco: 'Rua A, 123',
       contato: 'joao@email.com',
@@ -147,7 +157,7 @@ describe('ClienteService', () => {
   it('deve atualizar cliente existente', () => {
     const clientePF: Omit<ClientePF, 'id' | 'dataCriacao'> = {
       tipo: 'PF',
-      nomeCompleto: 'João Silva',
+      nomeCliente: 'João Silva',
       cpf: '123.456.789-10',
       endereco: 'Rua A, 123',
       contato: 'joao@email.com',
@@ -174,7 +184,7 @@ describe('ClienteService', () => {
   it('deve deletar cliente por ID', () => {
     const clientePF: Omit<ClientePF, 'id' | 'dataCriacao'> = {
       tipo: 'PF',
-      nomeCompleto: 'João Silva',
+      nomeCliente: 'João Silva',
       cpf: '123.456.789-10',
       endereco: 'Rua A, 123',
       contato: 'joao@email.com',
@@ -198,7 +208,7 @@ describe('ClienteService', () => {
   it('deve filtrar clientes PF por nome', () => {
     const cliente1: Omit<ClientePF, 'id' | 'dataCriacao'> = {
       tipo: 'PF',
-      nomeCompleto: 'João Silva',
+      nomeCliente: 'João Silva',
       cpf: '123.456.789-10',
       endereco: 'Rua A, 123',
       contato: 'joao@email.com',
@@ -208,7 +218,7 @@ describe('ClienteService', () => {
 
     const cliente2: Omit<ClientePF, 'id' | 'dataCriacao'> = {
       tipo: 'PF',
-      nomeCompleto: 'Maria Santos',
+      nomeCliente: 'Maria Santos',
       cpf: '987.654.321-00',
       endereco: 'Rua B, 456',
       contato: 'maria@email.com',
@@ -221,13 +231,13 @@ describe('ClienteService', () => {
 
     const resultados = service.filtrarClientes('João');
     expect(resultados.length).toBe(1);
-    expect((resultados[0] as ClientePF).nomeCompleto).toBe('João Silva');
+    expect(resultados[0].nomeCliente).toBe('João Silva');
   });
 
-  it('deve filtrar clientes PJ por empresa', () => {
+  it('deve filtrar clientes PJ por nome', () => {
     const cliente1: Omit<ClientePJ, 'id' | 'dataCriacao'> = {
       tipo: 'PJ',
-      nomeEmpresa: 'Tech Solutions LTDA',
+      nomeCliente: 'Tech Solutions LTDA',
       cnpj: '12.345.678/0001-90',
       endereco: 'Av. B, 456',
       contato: 'contato@techsolutions.com',
@@ -237,7 +247,7 @@ describe('ClienteService', () => {
 
     const cliente2: Omit<ClientePJ, 'id' | 'dataCriacao'> = {
       tipo: 'PJ',
-      nomeEmpresa: 'Consulting Group LTDA',
+      nomeCliente: 'Consulting Group LTDA',
       cnpj: '98.765.432/0001-10',
       endereco: 'Av. C, 789',
       contato: 'contato@consulting.com',
@@ -250,13 +260,13 @@ describe('ClienteService', () => {
 
     const resultados = service.filtrarClientes('Tech');
     expect(resultados.length).toBe(1);
-    expect((resultados[0] as ClientePJ).nomeEmpresa).toBe('Tech Solutions LTDA');
+    expect(resultados[0].nomeCliente).toBe('Tech Solutions LTDA');
   });
 
   it('deve retornar todos os clientes para filtro vazio', () => {
     const cliente1: Omit<ClientePF, 'id' | 'dataCriacao'> = {
       tipo: 'PF',
-      nomeCompleto: 'João Silva',
+      nomeCliente: 'João Silva',
       cpf: '123.456.789-10',
       endereco: 'Rua A, 123',
       contato: 'joao@email.com',
@@ -297,7 +307,7 @@ describe('ClienteService', () => {
   it('deve persistir clientes no localStorage', () => {
     const clientePF: Omit<ClientePF, 'id' | 'dataCriacao'> = {
       tipo: 'PF',
-      nomeCompleto: 'João Silva',
+      nomeCliente: 'João Silva',
       cpf: '123.456.789-10',
       endereco: 'Rua A, 123',
       contato: 'joao@email.com',
@@ -321,7 +331,7 @@ describe('ClienteService', () => {
 
     const clientePF: Omit<ClientePF, 'id' | 'dataCriacao'> = {
       tipo: 'PF',
-      nomeCompleto: 'João Silva',
+      nomeCliente: 'João Silva',
       cpf: '123.456.789-10',
       endereco: 'Rua A, 123',
       contato: 'joao@email.com',
@@ -333,7 +343,7 @@ describe('ClienteService', () => {
 
     expect(spy).toHaveBeenCalledWith(
       'ClienteService',
-      'Cliente criado com sucesso',
+      'Cliente PF criado com sucesso',
       jasmine.objectContaining({ tipo: 'PF' })
     );
   });
@@ -343,7 +353,7 @@ describe('ClienteService', () => {
 
     const clientePF: Omit<ClientePF, 'id' | 'dataCriacao'> = {
       tipo: 'PF',
-      nomeCompleto: 'João Silva',
+      nomeCliente: 'João Silva',
       cpf: '000.000.000-00',
       endereco: 'Rua A, 123',
       contato: 'joao@email.com',

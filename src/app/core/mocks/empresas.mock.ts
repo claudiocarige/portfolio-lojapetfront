@@ -6,7 +6,7 @@ export const MOCK_EMPRESAS: ClientePJ[] = [
   {
     id: 'pj_001',
     tipo: 'PJ',
-    nomeEmpresa: 'CopyImagem Matriz',
+    nomeCliente: 'CopyImagem Matriz',
     cnpj: '12.345.678/0001-90',
     endereco: 'Av. Principal, 100',
     nomeResponsavel: 'Carlos Silva',
@@ -17,7 +17,7 @@ export const MOCK_EMPRESAS: ClientePJ[] = [
   {
     id: 'pj_002',
     tipo: 'PJ',
-    nomeEmpresa: 'BahiaTech Filial',
+    nomeCliente: 'BahiaTech Filial',
     cnpj: '98.765.432/0001-55',
     endereco: 'Rua Secundária, 200',
     nomeResponsavel: 'Mariana Souza',

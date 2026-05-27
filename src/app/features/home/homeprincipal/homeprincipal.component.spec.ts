@@ -38,7 +38,8 @@ describe('HomeprincipalComponent', () => {
     const loggerSpy = spyOn(component['logger'], 'info');
     const newComponent = new HomeprincipalComponent(
       component['chamadoService'],
-      component['logger']
+      component['logger'],
+      component['router']
     );
     expect(loggerSpy).toHaveBeenCalledWith(
       'HomeprincipalComponent',

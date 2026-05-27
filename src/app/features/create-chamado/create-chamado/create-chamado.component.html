@@ -7,34 +7,45 @@
           <mat-form-field appearance="fill" class="full">
             <mat-label>Empresa</mat-label>
             <mat-select formControlName="empresaId">
-              <mat-option *ngFor="let e of empresas" [value]="e.id">{{
-                e.nomeEmpresa
-              }}</mat-option>
+              <ng-container *ngIf="empresas$ | async as empresas; else loading">
+                <mat-option *ngFor="let e of empresas" [value]="e.id">{{ e.nomeCliente }}</mat-option>
+                <mat-option *ngIf="empresas.length === 0" disabled>Nenhuma empresa encontrada</mat-option>
+              </ng-container>
+              <ng-template #loading>
+                <mat-option disabled>Carregando...</mat-option>
+              </ng-template>
             </mat-select>
+            <mat-error *ngIf="form.get('empresaId')?.hasError('required')">Empresa é obrigatória</mat-error>
           </mat-form-field>
         </div>
         <mat-form-field appearance="fill" class="full">
           <mat-label>Responsável</mat-label>
           <input matInput formControlName="responsavel" />
+          <mat-error *ngIf="form.get('responsavel')?.hasError('required')">Responsável é obrigatório</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="fill" class="full">
           <mat-label>Contato</mat-label>
-          <input matInput formControlName="contato" />
+          <input matInput type="tel" formControlName="contato" />
+          <mat-error *ngIf="form.get('contato')?.hasError('required')">Contato é obrigatório</mat-error>
+          <mat-error *ngIf="form.get('contato')?.hasError('pattern')">Contato inválido (10 ou 11 dígitos)</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="fill" class="full">
           <mat-label>Endereço</mat-label>
           <input matInput formControlName="endereco" />
+          <mat-error *ngIf="form.get('endereco')?.hasError('required')">Endereço é obrigatório</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="fill" class="full">
           <mat-label>Descrição</mat-label>
           <textarea matInput formControlName="description"></textarea>
+          <mat-error *ngIf="form.get('description')?.hasError('required')">Descrição é obrigatória</mat-error>
+          <mat-error *ngIf="form.get('description')?.hasError('minlength')">Descrição deve ter no mínimo 30 caracteres</mat-error>
         </mat-form-field>
 
         <div class="actions">
-          <button mat-flat-button color="primary" type="submit">
+          <button mat-flat-button color="primary" type="submit" [disabled]="isSubmitting || form.invalid">
             Criar Chamado
           </button>
           <button

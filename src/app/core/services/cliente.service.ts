@@ -1,6 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, Optional } from '@angular/core';
 import { Cliente, ClientePF, ClientePJ } from '../models/cliente.model';
 import { LoggerService } from './logger.service';
+import { HttpClient } from '@angular/common/http';
+import { API_BASE_URL } from '../config';
+import { Observable, of } from 'rxjs';
+import { catchError, shareReplay, map, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +13,14 @@ export class ClienteService {
   private readonly CONTEXT = 'ClienteService';
   private readonly STORAGE_KEY = 'clientes';
   private clientes: Cliente[] = [];
+  private apiBase = '';
 
-  constructor(private logger: LoggerService) {
+  constructor(
+    private logger: LoggerService,
+    @Optional() private http?: HttpClient,
+    @Optional() @Inject(API_BASE_URL) apiBase?: string
+  ) {
+    this.apiBase = apiBase || '';
     this.logger.info(this.CONTEXT, 'Serviço inicializado');
     this.carregarClientes();
   }
@@ -31,7 +41,7 @@ export class ClienteService {
           id: this.gerarId(),
           dataCriacao: new Date(),
           tipo: 'PF',
-          nomeCompleto: payload.nomeCompleto,
+          nomeCliente: payload.nomeCliente,
           cpf: payload.cpf,
           endereco: payload.endereco,
           nomeResponsavel: payload.nomeResponsavel,
@@ -58,7 +68,7 @@ export class ClienteService {
           id: this.gerarId(),
           dataCriacao: new Date(),
           tipo: 'PJ',
-          nomeEmpresa: payload.nomeEmpresa,
+          nomeCliente: payload.nomeCliente,
           cnpj: payload.cnpj,
           endereco: payload.endereco,
           nomeResponsavel: payload.nomeResponsavel,
@@ -110,6 +120,33 @@ export class ClienteService {
   }
 
   /**
+   * Retorna um Observable com a lista de clientes (busca da API quando configurada).
+   */
+  getEmpresas(): Observable<Cliente[]> {
+    if (!this.http || !this.apiBase) {
+      this.logger.info(this.CONTEXT, 'getEmpresas: sem HttpClient/API — usando localStorage');
+      return of(this.obterClientes());
+    }
+
+    const url = `${this.apiBase.replace(/\/$/, '')}/clientes`;
+    this.logger.info(this.CONTEXT, 'GET empresas URL', { url });
+    return this.http.get<any[]>(url).pipe(
+      map(list => (Array.isArray(list) ? list : [])),
+      // Normalizar nomes: aceitar nomeCliente, nomeEmpresa ou nomeCompleto
+      map(list => list.map(item => ({
+        ...item,
+        nomeCliente: item.nomeCliente ?? item.nomeEmpresa ?? item.nomeCompleto ?? ''
+      })) as unknown as Cliente[]),
+      tap(list => this.logger.info(this.CONTEXT, 'Empresas retornadas pela API', { total: list.length })),
+      catchError(error => {
+        this.logger.error(this.CONTEXT, 'Erro ao buscar empresas da API', { erro: String(error) });
+        return of(this.obterClientes());
+      }),
+      shareReplay(1)
+    );
+  }
+
+  /**
    * Atualizar cliente existente
    */
   atualizarCliente(id: string, clienteAtualizado: Partial<Cliente>): Cliente {
@@ -155,11 +192,7 @@ export class ClienteService {
 
     const termoLower = termo.toLowerCase();
     const resultado = this.clientes.filter(cliente => {
-      if (cliente.tipo === 'PF') {
-        return (cliente as ClientePF).nomeCompleto.toLowerCase().includes(termoLower);
-      } else {
-        return (cliente as ClientePJ).nomeEmpresa.toLowerCase().includes(termoLower);
-      }
+      return (cliente as ClientePF | ClientePJ).nomeCliente.toLowerCase().includes(termoLower);
     });
 
     this.logger.info(this.CONTEXT, 'Filtro aplicado', {

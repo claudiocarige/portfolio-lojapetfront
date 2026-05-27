@@ -31,8 +31,7 @@ import { MatIconModule } from '@angular/material/icon';
 export class CreateClienteComponent {
   form = this.fb.group({
     tipo: ['PJ', Validators.required],
-    nomeEmpresa: [''],
-    nomeCompleto: [''],
+    nomeCliente: ['', Validators.required],
     cpfCnpj: ['', [Validators.required]],
     endereco: ['', Validators.required],
     nomeResponsavel: ['', Validators.required],
@@ -45,10 +44,7 @@ export class CreateClienteComponent {
     private snackBar: MatSnackBar,
     public router: Router
   ) {
-    // Validadores condicionais para PF/PJ
-    this.form.get('tipo')?.valueChanges.subscribe((v) => this.adjustValidators(String(v)));
-    // Aplica validadores iniciais
-    this.adjustValidators(String(this.form.get('tipo')?.value));
+    // Pode adicionar validadores condicionais para CPF/CNPJ aqui se necessário
   }
 
   tipoEhPF(): boolean {
@@ -61,22 +57,7 @@ export class CreateClienteComponent {
   }
 
   private adjustValidators(tipo: string): void {
-    const nomeEmpresa = this.form.get('nomeEmpresa');
-    const nomeCompleto = this.form.get('nomeCompleto');
-
-    if (tipo === 'PF') {
-      nomeEmpresa?.clearValidators();
-      nomeEmpresa?.updateValueAndValidity();
-
-      nomeCompleto?.setValidators([Validators.required]);
-      nomeCompleto?.updateValueAndValidity();
-    } else {
-      nomeCompleto?.clearValidators();
-      nomeCompleto?.updateValueAndValidity();
-
-      nomeEmpresa?.setValidators([Validators.required]);
-      nomeEmpresa?.updateValueAndValidity();
-    }
+    // Not needed: unified `nomeCliente` field used for PF and PJ
   }
 
   submit(): void {
@@ -88,29 +69,26 @@ export class CreateClienteComponent {
     const tipo = this.form.get('tipo')?.value;
 
     try {
+      const payloadBase = {
+        tipo: tipo as 'PF' | 'PJ',
+        nomeCliente: this.valueAsString('nomeCliente'),
+        endereco: this.valueAsString('endereco'),
+        nomeResponsavel: this.valueAsString('nomeResponsavel'),
+        contato: this.valueAsString('contato'),
+        ativo: true
+      };
+
       if (tipo === 'PF') {
         const payload = {
-          tipo: 'PF' as const,
-          nomeCompleto: this.valueAsString('nomeCompleto'),
-          cpf: this.valueAsString('cpfCnpj'),
-          endereco: this.valueAsString('endereco'),
-          nomeResponsavel: this.valueAsString('nomeResponsavel'),
-          contato: this.valueAsString('contato'),
-          ativo: true
-        };
-
+          ...payloadBase,
+          cpf: this.valueAsString('cpfCnpj')
+        } as any;
         this.clienteService.criarCliente(payload);
       } else {
         const payload = {
-          tipo: 'PJ' as const,
-          nomeEmpresa: this.valueAsString('nomeEmpresa'),
-          cnpj: this.valueAsString('cpfCnpj'),
-          endereco: this.valueAsString('endereco'),
-          nomeResponsavel: this.valueAsString('nomeResponsavel'),
-          contato: this.valueAsString('contato'),
-          ativo: true
-        };
-
+          ...payloadBase,
+          cnpj: this.valueAsString('cpfCnpj')
+        } as any;
         this.clienteService.criarCliente(payload);
       }
 

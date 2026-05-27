@@ -1,7 +1,3 @@
-/**
- * Modelos de dados para o sistema de gestão de clientes
- * Suporta Pessoa Física (CPF) e Pessoa Jurídica (CNPJ)
- */
 
 export interface ClienteBase {
   id: string;
@@ -15,13 +11,13 @@ export interface ClienteBase {
 
 export interface ClientePF extends ClienteBase {
   tipo: 'PF';
-  nomeCompleto: string;
+  nomeCliente: string;
   cpf: string;
 }
 
 export interface ClientePJ extends ClienteBase {
   tipo: 'PJ';
-  nomeEmpresa: string;
+  nomeCliente: string;
   cnpj: string;
 }
 
@@ -37,3 +33,6 @@ export function ehClientePF(cliente: Cliente): cliente is ClientePF {
 export function ehClientePJ(cliente: Cliente): cliente is ClientePJ {
   return cliente.tipo === 'PJ';
 }
+
+
+

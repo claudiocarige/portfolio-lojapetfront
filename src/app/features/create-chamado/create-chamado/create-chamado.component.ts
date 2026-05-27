@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, OnDestroy } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
@@ -13,26 +13,31 @@ import { ChamadoService } from '../../../core/services/chamado.service';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { Subject, Observable, of } from 'rxjs';
+import { distinctUntilChanged, takeUntil, map, catchError, tap } from 'rxjs/operators';
 
 @Component({
     selector: 'app-create-chamado',
     standalone: true,
     imports: [CommonModule, FormsModule, MatFormFieldModule, ReactiveFormsModule, MatInputModule, MatButtonModule, RouterModule, MatSelectModule, MatCardModule, MatSnackBarModule],
     templateUrl: './create-chamado.component.html',
-    styleUrl: './create-chamado.component.scss',
+    styleUrls: ['./create-chamado.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CreateChamadoComponent implements OnInit {
+export class CreateChamadoComponent implements OnInit, OnDestroy {
 
   private readonly CONTEXT = 'CreateChamadoComponent';
   empresas: ClientePJ[] = [];
+  isSubmitting = false;
+  private destroy$ = new Subject<void>();
+  empresas$!: Observable<ClientePJ[]>;
 
       form = this.fb.group({
     empresaId: ['', Validators.required],
     responsavel: ['', Validators.required],
-    contato: ['', Validators.required, Validators.pattern(/^\d{10,11}$/)], // Exemplo: 10 ou 11 dígitos para telefone
-    endereco: ['', Validators.required],
-    description: ['', Validators.required, Validators.minLength(30)]
+      contato: ['', [Validators.required, Validators.pattern(/^\d{10,11}$/)]], // Exemplo: 10 ou 11 dígitos para telefone
+    endereco: ['', [Validators.required]],
+    description: ['', [Validators.required, Validators.minLength(30)]]
   });
 
   constructor(
@@ -48,17 +53,35 @@ export class CreateChamadoComponent implements OnInit {
 
   ngOnInit(): void {
     this.logger.info(this.CONTEXT, 'Inicializando formulário');
-    // Carregar empresas (clientes PJ)
-    const todos = this.clienteService.obterClientes();
-    this.empresas = (todos.filter(c => (c as any).tipo === 'PJ')) as ClientePJ[];
 
-    // Se não houver empresas reais cadastradas, usar mock para desenvolvimento
-    if (!this.empresas || this.empresas.length === 0) {
-      this.empresas = MOCK_EMPRESAS.slice();
-    }
+    // Expor empresas como Observable para uso com async pipe
+    this.empresas$ = this.clienteService.getEmpresas().pipe(
+      map(clientes => clientes.filter(c => {
+        const t = (c as any).tipo;
+        return t != null && String(t).toUpperCase() === 'PJ';
+      }) as ClientePJ[]),
+      tap(arr => this.logger.info(this.CONTEXT, 'Empresas PJ filtradas', { total: arr.length })),
+      map(arr => (arr && arr.length > 0) ? arr : MOCK_EMPRESAS.slice()),
+      catchError(err => {
+        this.logger.error(this.CONTEXT, 'Erro ao carregar empresas via ClienteService', { erro: String(err) });
+        return of(MOCK_EMPRESAS.slice());
+      })
+    );
 
-    // Quando a empresa mudar, preencher campos
-    this.form.get('empresaId')?.valueChanges.subscribe(id => this.onEmpresaChange(String(id)));
+    // Manter cópia local para buscas síncronas/patchValue
+    this.empresas$.pipe(takeUntil(this.destroy$)).subscribe(arr => this.empresas = arr);
+
+    // Quando a empresa mudar, preencher campos (unsubscribe controlado por takeUntil)
+    this.form
+      .get('empresaId')
+      ?.valueChanges
+      .pipe(distinctUntilChanged(), takeUntil(this.destroy$))
+      .subscribe(id => this.onEmpresaChange(String(id)));
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   onEmpresaChange(id: string): void {
@@ -70,6 +93,7 @@ export class CreateChamadoComponent implements OnInit {
 
     if (cliente) {
       this.form.patchValue({
+        empresaId: cliente.id,
         responsavel: cliente.nomeResponsavel,
         contato: (cliente as any).contato,
         endereco: cliente.endereco
@@ -82,7 +106,7 @@ export class CreateChamadoComponent implements OnInit {
     return v == null ? '' : String(v);
   }
 
-  submit(): void {
+  async submit(): Promise<void> {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
@@ -95,9 +119,16 @@ export class CreateChamadoComponent implements OnInit {
       description: this.valueAsString('description')
     };
 
-    this.chamadoService.criarChamado(payload);
-    this.snackBar.open('Chamado criado com sucesso!', 'Fechar', { duration: 3000 });
-    this.router.navigate(['/home']);
+    try {
+      this.isSubmitting = true;
+      const criado = await this.chamadoService.criarChamado(payload);
+      this.snackBar.open(`Chamado criado com sucesso (ID: ${criado.id})`, 'Fechar', { duration: 4000 });
+      this.router.navigate(['/home']);
+    } catch (err) {
+      this.snackBar.open('Erro ao criar chamado', 'Fechar', { duration: 3000 });
+    } finally {
+      this.isSubmitting = false;
+    }
   }
 
 }

@@ -42,8 +42,10 @@ export class HomeprincipalComponent implements OnInit {
 
   ngOnInit(): void {
     this.logger.info(this.CONTEXT, 'Inicializando');
-    const dados = this.chamadoService.getChamados();
-    this.chamados.set(dados);
-    this.logger.info(this.CONTEXT, 'Chamados carregados', { total: dados.length });
+    // Carrega chamados da API configurada (se houver) ou fallback para memória
+    this.chamadoService.fetchChamados().then(dados => {
+      this.chamados.set(dados);
+      this.logger.info(this.CONTEXT, 'Chamados carregados', { total: dados.length });
+    });
   }
 }

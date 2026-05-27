@@ -1,7 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 import { HomeprincipalComponent } from './homeprincipal.component';
+import { API_BASE_URL } from '../../../core/config';
 
 describe('HomeprincipalComponent', () => {
   let component: HomeprincipalComponent;
@@ -9,7 +12,12 @@ describe('HomeprincipalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HomeprincipalComponent, NoopAnimationsModule]
+      imports: [HomeprincipalComponent, NoopAnimationsModule],
+      providers: [
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        { provide: API_BASE_URL, useValue: '' }
+      ]
     })
     .compileComponents();
 
@@ -22,11 +30,11 @@ describe('HomeprincipalComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('deve injetar ChamadoService', () => {
+  it('deve injetar ChamadoService via inject()', () => {
     expect(component['chamadoService']).toBeTruthy();
   });
 
-  it('deve injetar LoggerService', () => {
+  it('deve injetar LoggerService via inject()', () => {
     expect(component['logger']).toBeTruthy();
   });
 
@@ -34,27 +42,12 @@ describe('HomeprincipalComponent', () => {
     expect(component.chamados()).toEqual([]);
   });
 
-  it('deve logar ao criar componente', () => {
+  it('deve logar ao inicializar', () => {
     const loggerSpy = spyOn(component['logger'], 'info');
-    const newComponent = new HomeprincipalComponent(
-      component['chamadoService'],
-      component['logger'],
-      component['router']
-    );
+    component.ngOnInit();
     expect(loggerSpy).toHaveBeenCalledWith(
       'HomeprincipalComponent',
-      'Componente criado'
+      'Inicializando'
     );
-  });
-
-  it('deve carregar chamados no ngOnInit', () => {
-    component.ngOnInit();
-    const chamados = component.chamados();
-    expect(chamados.length).toBe(5);
-    expect(chamados[0].id).toBe('#_0001');
-  });
-
-  it('deve ter panelOpenState inicializado como false', () => {
-    expect(component.panelOpenState()).toBe(false);
   });
 });

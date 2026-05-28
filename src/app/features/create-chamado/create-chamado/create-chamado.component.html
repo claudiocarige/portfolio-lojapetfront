@@ -7,41 +7,57 @@
           <mat-form-field appearance="fill" class="full">
             <mat-label>Empresa</mat-label>
             <mat-select formControlName="empresaId">
-              <ng-container *ngIf="empresas$ | async as empresas; else loading">
-                <mat-option *ngFor="let e of empresas" [value]="e.id">{{ e.nomeCliente }}</mat-option>
-                <mat-option *ngIf="empresas.length === 0" disabled>Nenhuma empresa encontrada</mat-option>
-              </ng-container>
-              <ng-template #loading>
+              @if (empresas$ | async; as empresas) {
+                @for (e of empresas; track e.id) {
+                  <mat-option [value]="e.id">{{ e.nomeCliente }}</mat-option>
+                } @empty {
+                  <mat-option disabled>Nenhuma empresa encontrada</mat-option>
+                }
+              } @else {
                 <mat-option disabled>Carregando...</mat-option>
-              </ng-template>
+              }
             </mat-select>
-            <mat-error *ngIf="form.get('empresaId')?.hasError('required')">Empresa é obrigatória</mat-error>
+            @if (form.get('empresaId')?.hasError('required')) {
+              <mat-error>Empresa é obrigatória</mat-error>
+            }
           </mat-form-field>
         </div>
         <mat-form-field appearance="fill" class="full">
           <mat-label>Responsável</mat-label>
           <input matInput formControlName="responsavel" />
-          <mat-error *ngIf="form.get('responsavel')?.hasError('required')">Responsável é obrigatório</mat-error>
+          @if (form.get('responsavel')?.hasError('required')) {
+            <mat-error>Responsável é obrigatório</mat-error>
+          }
         </mat-form-field>
 
         <mat-form-field appearance="fill" class="full">
           <mat-label>Contato</mat-label>
           <input matInput type="tel" formControlName="contato" />
-          <mat-error *ngIf="form.get('contato')?.hasError('required')">Contato é obrigatório</mat-error>
-          <mat-error *ngIf="form.get('contato')?.hasError('pattern')">Contato inválido (10 ou 11 dígitos)</mat-error>
+          @if (form.get('contato')?.hasError('required')) {
+            <mat-error>Contato é obrigatório</mat-error>
+          }
+          @if (form.get('contato')?.hasError('pattern')) {
+            <mat-error>Contato inválido. Use (XX) XXXXX-XXXX ou apenas números.</mat-error>
+          }
         </mat-form-field>
 
         <mat-form-field appearance="fill" class="full">
           <mat-label>Endereço</mat-label>
           <input matInput formControlName="endereco" />
-          <mat-error *ngIf="form.get('endereco')?.hasError('required')">Endereço é obrigatório</mat-error>
+          @if (form.get('endereco')?.hasError('required')) {
+            <mat-error>Endereço é obrigatório</mat-error>
+          }
         </mat-form-field>
 
         <mat-form-field appearance="fill" class="full">
           <mat-label>Descrição</mat-label>
           <textarea matInput formControlName="description"></textarea>
-          <mat-error *ngIf="form.get('description')?.hasError('required')">Descrição é obrigatória</mat-error>
-          <mat-error *ngIf="form.get('description')?.hasError('minlength')">Descrição deve ter no mínimo 30 caracteres</mat-error>
+          @if (form.get('description')?.hasError('required')) {
+            <mat-error>Descrição é obrigatória</mat-error>
+          }
+          @if (form.get('description')?.hasError('minlength')) {
+            <mat-error>Descrição deve ter no mínimo 10 caracteres</mat-error>
+          }
         </mat-form-field>
 
         <div class="actions">

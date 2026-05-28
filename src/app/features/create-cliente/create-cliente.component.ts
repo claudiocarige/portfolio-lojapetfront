@@ -1,5 +1,4 @@
 import { Component, ChangeDetectionStrategy, DestroyRef, inject, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -19,7 +18,6 @@ import { MatIconModule } from '@angular/material/icon';
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
@@ -50,10 +48,6 @@ export class CreateClienteComponent {
     nomeResponsavel: ['', Validators.required],
     contato:         ['', Validators.required]
   });
-
-  tipoEhPF(): boolean {
-    return this.form.get('tipo')?.value === 'PF';
-  }
 
   submit(): void {
     if (this.form.invalid) {

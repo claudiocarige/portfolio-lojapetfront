@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { API_BASE_URL } from '../config';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, map, shareReplay, tap } from 'rxjs/operators';
-
+import { parseClienteAPI } from '../mappers/cliente.mapper';
 @Injectable({
   providedIn: 'root'
 })
@@ -46,7 +46,8 @@ export class ClienteService {
 
     const url = `${this.apiBase.replace(/\/$/, '')}/clientes`;
 
-    return this.http.post<Cliente>(url, payload).pipe(
+    return this.http.post<any>(url, payload).pipe(
+      map(novoApi => parseClienteAPI(novoApi)),
       tap(novo => {
         this.clientes.push(novo);
         this.salvarClientes();
@@ -71,7 +72,7 @@ export class ClienteService {
    * Busca um cliente por ID.
    */
   obterClientePorId(id: string): Cliente | undefined {
-    const cliente = this.clientes.find(c => c.id === id);
+    const cliente = this.clientes.find(c => String(c.id) === String(id));
     if (!cliente) {
       this.logger.warn(this.CONTEXT, 'Cliente não encontrado', { id });
     } else {
@@ -93,9 +94,14 @@ export class ClienteService {
     const url = `${this.apiBase.replace(/\/$/, '')}/clientes`;
     this.logger.info(this.CONTEXT, 'GET clientes URL', { url });
 
-    return this.http.get<Cliente[]>(url).pipe(
-      map(list => (Array.isArray(list) ? list : []) as Cliente[]),
-      tap(list => this.logger.info(this.CONTEXT, 'Clientes retornados pela API', { total: list.length })),
+    return this.http.get<any[]>(url).pipe(
+      map(list => (Array.isArray(list) ? list.map(parseClienteAPI) : [])),
+      tap(list => {
+        this.logger.info(this.CONTEXT, 'Clientes retornados pela API', { total: list.length });
+        // Sincroniza o estado interno e o cache local com a API
+        this.clientes = list;
+        this.salvarClientes();
+      }),
       catchError(error => {
         this.logger.error(this.CONTEXT, 'Erro ao buscar clientes da API', { erro: String(error) });
         return of(this.obterClientes());
@@ -212,7 +218,7 @@ export class ClienteService {
   private carregarClientes(): void {
     try {
       const dados = localStorage.getItem(this.STORAGE_KEY);
-      if (dados) {
+      if (dados && dados !== 'undefined' && dados !== 'null') {
         this.clientes = JSON.parse(dados);
         this.logger.info(this.CONTEXT, 'Clientes carregados do localStorage', { total: this.clientes.length });
       } else {

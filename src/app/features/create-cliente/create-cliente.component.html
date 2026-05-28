@@ -17,9 +17,9 @@
           <mat-form-field appearance="fill" class="full">
             <mat-label>Nome do cliente</mat-label>
             <input matInput formControlName="nomeCliente" />
-            <mat-error *ngIf="form.get('nomeCliente')?.hasError('required')"
-              >Nome do cliente é obrigatório</mat-error
-            >
+            @if (form.controls.nomeCliente.hasError('required')) {
+              <mat-error>Nome do cliente é obrigatório</mat-error>
+            }
           </mat-form-field>
         </div>
 
@@ -27,9 +27,9 @@
           <mat-form-field appearance="fill" class="full">
             <mat-label>CPF / CNPJ</mat-label>
             <input matInput formControlName="cpfCnpj" />
-            <mat-error *ngIf="form.get('cpfCnpj')?.hasError('required')"
-              >CPF/CNPJ é obrigatório</mat-error
-            >
+            @if (form.controls.cpfCnpj.hasError('required')) {
+              <mat-error>CPF/CNPJ é obrigatório</mat-error>
+            }
           </mat-form-field>
         </div>
 
@@ -37,9 +37,9 @@
           <mat-form-field appearance="fill" class="full">
             <mat-label>Endereço</mat-label>
             <input matInput formControlName="endereco" />
-            <mat-error *ngIf="form.get('endereco')?.hasError('required')"
-              >Endereço é obrigatório</mat-error
-            >
+            @if (form.controls.endereco.hasError('required')) {
+              <mat-error>Endereço é obrigatório</mat-error>
+            }
           </mat-form-field>
         </div>
 
@@ -47,9 +47,9 @@
           <mat-form-field appearance="fill" class="full">
             <mat-label>Nome do responsável</mat-label>
             <input matInput formControlName="nomeResponsavel" />
-            <mat-error *ngIf="form.get('nomeResponsavel')?.hasError('required')"
-              >Nome do responsável é obrigatório</mat-error
-            >
+            @if (form.controls.nomeResponsavel.hasError('required')) {
+              <mat-error>Nome do responsável é obrigatório</mat-error>
+            }
           </mat-form-field>
         </div>
 
@@ -57,9 +57,9 @@
           <mat-form-field appearance="fill" class="full">
             <mat-label>Contato</mat-label>
             <input matInput formControlName="contato" />
-            <mat-error *ngIf="form.get('contato')?.hasError('required')"
-              >Contato é obrigatório</mat-error
-            >
+            @if (form.controls.contato.hasError('required')) {
+              <mat-error>Contato é obrigatório</mat-error>
+            }
           </mat-form-field>
         </div>
 

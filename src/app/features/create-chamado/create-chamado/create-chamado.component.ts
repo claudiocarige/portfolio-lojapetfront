@@ -27,15 +27,15 @@ import { distinctUntilChanged, takeUntil, map, catchError, tap } from 'rxjs/oper
 export class CreateChamadoComponent implements OnInit, OnDestroy {
 
   private readonly CONTEXT = 'CreateChamadoComponent';
-  empresas: ClientePJ[] = [];
+  empresas: Cliente[] = [];
   isSubmitting = false;
   private destroy$ = new Subject<void>();
-  empresas$!: Observable<ClientePJ[]>;
+  empresas$!: Observable<Cliente[]>;
 
       form = this.fb.group({
     empresaId: ['', Validators.required],
     responsavel: ['', Validators.required],
-      contato: ['', [Validators.required, Validators.pattern(/^\d{10,11}$/)]], // Exemplo: 10 ou 11 dígitos para telefone
+      contato: ['', [Validators.required, Validators.pattern(/^\(?\d{2}\)?\s?\d{4,5}-?\d{4}$/)]],
     endereco: ['', [Validators.required]],
     description: ['', [Validators.required, Validators.minLength(30)]]
   });
@@ -58,13 +58,13 @@ export class CreateChamadoComponent implements OnInit, OnDestroy {
     this.empresas$ = this.clienteService.getEmpresas().pipe(
       map(clientes => clientes.filter(c => {
         const t = (c as any).tipo;
-        return t != null && String(t).toUpperCase() === 'PJ';
-      }) as ClientePJ[]),
-      tap(arr => this.logger.info(this.CONTEXT, 'Empresas PJ filtradas', { total: arr.length })),
-      map(arr => (arr && arr.length > 0) ? arr : MOCK_EMPRESAS.slice()),
+        return t != null && (String(t).toUpperCase() === 'PJ' || String(t).toUpperCase() === 'PF');
+      }) as Cliente[]),
+      tap(arr => this.logger.info(this.CONTEXT, 'Clientes (PJ e PF) filtrados', { total: arr.length })),
+      map(arr => (arr && arr.length > 0) ? arr : MOCK_EMPRESAS.slice() as Cliente[]),
       catchError(err => {
         this.logger.error(this.CONTEXT, 'Erro ao carregar empresas via ClienteService', { erro: String(err) });
-        return of(MOCK_EMPRESAS.slice());
+        return of(MOCK_EMPRESAS.slice() as Cliente[]);
       })
     );
 
@@ -85,19 +85,22 @@ export class CreateChamadoComponent implements OnInit, OnDestroy {
   }
 
   onEmpresaChange(id: string): void {
-    // Tentar obter cliente do serviço; se não existir (mock), buscar no array local
-    let cliente = this.clienteService.obterClientePorId(id);
-    if (!cliente) {
-      cliente = this.empresas.find(e => e.id === id) as ClientePJ | undefined;
-    }
+    this.logger.info(this.CONTEXT, 'Buscando dados da empresa selecionada', { id });
+
+    // Buscar cliente na lista já carregada que preencheu o select
+    const cliente = this.empresas.find(e => String(e.id) === String(id));
 
     if (cliente) {
+      this.logger.info(this.CONTEXT, 'Busca realizada com sucesso, preenchendo formulário', { id: cliente.id, nome: cliente.nomeCliente });
+
       this.form.patchValue({
         empresaId: cliente.id,
         responsavel: cliente.nomeResponsavel,
         contato: (cliente as any).contato,
         endereco: cliente.endereco
       });
+    } else {
+      this.logger.warn(this.CONTEXT, 'Empresa selecionada não foi encontrada na lista', { id });
     }
   }
 

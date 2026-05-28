@@ -82,7 +82,7 @@ describe('CreateClienteComponent', () => {
     component.form.patchValue({
       tipo: 'PJ',
       nomeCliente: 'Empresa',
-      cpfCnpj: '123456789000123',
+      cpfCnpj: '12345678000123',
       endereco: 'Rua B',
       nomeResponsavel: 'Maria',
       contato: '11888888888'
@@ -94,7 +94,7 @@ describe('CreateClienteComponent', () => {
     expect(criarClienteSpy).toHaveBeenCalledWith(jasmine.objectContaining({
       tipo: 'PJ',
       nomeCliente: 'Empresa',
-      cnpj: '123456789000123'
+      cnpj: '12345678000123'
     }));
   });
 
@@ -102,10 +102,10 @@ describe('CreateClienteComponent', () => {
     component.form.patchValue({
       tipo: 'PJ',
       nomeCliente: 'Empresa',
-      cpfCnpj: '123',
+      cpfCnpj: '12345678000123',
       endereco: 'Rua',
       nomeResponsavel: 'Resp',
-      contato: '123'
+      contato: '11999999999'
     });
 
     const criarClienteSpy = spyOn((component as any).clienteService, 'criarCliente').and.returnValue(of({}));
@@ -123,10 +123,10 @@ describe('CreateClienteComponent', () => {
     component.form.patchValue({
       tipo: 'PJ',
       nomeCliente: 'Empresa',
-      cpfCnpj: '123',
+      cpfCnpj: '12345678000123',
       endereco: 'Rua',
       nomeResponsavel: 'Resp',
-      contato: '123'
+      contato: '11999999999'
     });
 
     const criarClienteSpy = spyOn((component as any).clienteService, 'criarCliente').and.returnValue(throwError(() => new Error('Erro API')));

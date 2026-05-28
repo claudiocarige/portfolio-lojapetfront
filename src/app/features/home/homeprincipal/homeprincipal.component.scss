@@ -7,7 +7,7 @@
   margin: 0 auto;
   align-items: center;
   justify-content: center;
-
+  padding-bottom: 6rem;
 }
 .item-01{
   display: block;
@@ -97,4 +97,17 @@ p{
   width: 30%;
   margin: auto;
   align-items: center;
+}
+
+.rodape {
+  text-align: center;
+  margin-top: 4rem;
+  padding: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+  p {
+    margin: 0;
+    font-size: 0.7rem;
+    color: rgba(122, 122, 122, 0.6);
+  }
 }

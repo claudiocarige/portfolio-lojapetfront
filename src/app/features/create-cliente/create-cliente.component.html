@@ -25,10 +25,26 @@
 
         <div class="row">
           <mat-form-field appearance="fill" class="full">
-            <mat-label>CPF / CNPJ</mat-label>
+            @if (form.controls.tipo.value === 'PF') {
+              <mat-label>CPF</mat-label>
+            } @else {
+              <mat-label>CNPJ</mat-label>
+            }
             <input matInput formControlName="cpfCnpj" />
+
             @if (form.controls.cpfCnpj.hasError('required')) {
-              <mat-error>CPF/CNPJ é obrigatório</mat-error>
+              @if (form.controls.tipo.value === 'PF') {
+                <mat-error>CPF é obrigatório</mat-error>
+              } @else {
+                <mat-error>CNPJ é obrigatório</mat-error>
+              }
+            }
+
+            @if (form.controls.cpfCnpj.hasError('invalidCpf')) {
+              <mat-error>CPF inválido</mat-error>
+            }
+            @if (form.controls.cpfCnpj.hasError('invalidCnpj')) {
+              <mat-error>CNPJ inválido</mat-error>
             }
           </mat-form-field>
         </div>
@@ -59,6 +75,9 @@
             <input matInput formControlName="contato" />
             @if (form.controls.contato.hasError('required')) {
               <mat-error>Contato é obrigatório</mat-error>
+            }
+            @if (form.controls.contato.hasError('pattern')) {
+              <mat-error>Contato deve conter apenas números (10 a 12 dígitos)</mat-error>
             }
           </mat-form-field>
         </div>

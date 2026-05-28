@@ -2,6 +2,7 @@ import { Component, ChangeDetectionStrategy, DestroyRef, inject, signal } from '
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { OnInit } from '@angular/core';
 
 import { ClienteService } from '../../core/services/cliente.service';
 
@@ -30,7 +31,7 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './create-cliente.component.html',
   styleUrls: ['./create-cliente.component.scss']
 })
-export class CreateClienteComponent {
+export class CreateClienteComponent implements OnInit {
 
   private readonly fb             = inject(FormBuilder);
   private readonly clienteService = inject(ClienteService);
@@ -43,11 +44,19 @@ export class CreateClienteComponent {
   readonly form = this.fb.group({
     tipo:            ['PJ', Validators.required],
     nomeCliente:     ['', Validators.required],
-    cpfCnpj:         ['', Validators.required],
+    cpfCnpj:         ['', [Validators.required, (c: any) => this.validarDocumento(c)]],
     endereco:        ['', Validators.required],
     nomeResponsavel: ['', Validators.required],
-    contato:         ['', Validators.required]
+    contato:         ['', [Validators.required, Validators.pattern(/^\d{10,12}$/), Validators.maxLength(12)]]
   });
+
+  ngOnInit(): void {
+    this.form.controls.tipo.valueChanges
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        this.form.controls.cpfCnpj.updateValueAndValidity();
+      });
+  }
 
   submit(): void {
     if (this.form.invalid) {
@@ -93,5 +102,17 @@ export class CreateClienteComponent {
   private valueAsString(controlName: string): string {
     const v = this.form.get(controlName)?.value;
     return v == null ? '' : String(v);
+  }
+
+  private validarDocumento(control: any): { [key: string]: boolean } | null {
+    if (!this.form) return null;
+    const tipo = this.form.get('tipo')?.value;
+    if (!control.value) return null;
+
+    if (tipo === 'PF') {
+      return this.clienteService.validarCPF(control.value) ? null : { invalidCpf: true };
+    } else {
+      return this.clienteService.validarCNPJ(control.value) ? null : { invalidCnpj: true };
+    }
   }
 }

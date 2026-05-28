@@ -115,7 +115,11 @@ export class CreateChamadoComponent implements OnInit, OnDestroy {
       return;
     }
 
+    const empresaId = this.form.get('empresaId')?.value;
+    const cliente = this.empresas.find(e => String(e.id) === String(empresaId));
+
     const payload = {
+      nomeCliente: cliente ? cliente.nomeCliente : 'Desconhecido',
       responsavel: this.valueAsString('responsavel'),
       contato: this.valueAsString('contato'),
       endereco: this.valueAsString('endereco'),

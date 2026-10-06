@@ -1,6 +1,6 @@
 import { NgModule                   } from '@angular/core';
 import { RouterModule, Routes       } from '@angular/router';
-import { AuthGuard                  } from './auth/auth.guard';
+import { authGuard                  } from './auth/auth.guard';
 import { ClientCreateComponent      } from './components/clients/client-create/client-create.component';
 import { ClientDeleteComponent      } from './components/clients/client-delete/client-delete.component';
 import { ClientListComponent        } from './components/clients/client-list/client-list.component';
@@ -22,9 +22,9 @@ import { ServicePetCreateComponent  } from './components/servicePet/service-pet-
 import { ServicePetListComponent    } from './components/servicePet/service-pet-list/service-pet-list.component';
 import { ServicePetUpdateComponent  } from './components/servicePet/service-pet-update/service-pet-update.component';
 
-const routes: Routes = [
+export const routes: Routes = [
   { path: "login", component:LoginComponent},
-  { path: "",   component: NavComponent, canActivate:[AuthGuard],  children : [
+  { path: "",   component: NavComponent, canActivate:[authGuard],  children : [
         { path: "home",       component: HomeComponent},
         
         //Rotas para Portfólio
@@ -56,9 +56,3 @@ const routes: Routes = [
 
   ] }
 ];
-
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
-})
-export class AppRoutingModule { }

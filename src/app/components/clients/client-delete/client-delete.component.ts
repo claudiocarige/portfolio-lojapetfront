@@ -1,12 +1,21 @@
 import { Component, OnInit      } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { ToastrService          } from 'ngx-toastr';
+import { CommonModule         } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { Client                 } from 'src/app/models/modelClient';
 import { ClientsService         } from 'src/app/services/clients.service';
 
 
 @Component({
   selector:    'app-client-delete',
+  standalone:   true,
+  imports:     [CommonModule, RouterModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatSelectModule, MatIconModule, MatCheckboxModule, FormsModule, ReactiveFormsModule],
   templateUrl: './client-delete.component.html',
   styleUrls:  ['./client-delete.component.css']
 })
@@ -24,7 +33,6 @@ export class ClientDeleteComponent implements OnInit {
   check: string
   constructor(
     private service:      ClientsService,
-    private toast:        ToastrService,
     private route:        Router,
     private activeRoute:  ActivatedRoute
   ) { }
@@ -41,16 +49,16 @@ export class ClientDeleteComponent implements OnInit {
   }
   delete(): void {
     this.service.delete(this.client.id).subscribe(() => {
-      this.toast.success('Cliente deletado com sucesso!', 'D E L E Ç Ã O');
+      //this.toast.success('Cliente deletado com sucesso!', 'D E L E Ç Ã O');
       this.route.navigate(['clients'])
     }, ex => {
       console.log(ex.error.errors);
       if (ex.error.errors) {
         ex.error.errors.array.forEach(element => {
-          this.toast.error(element.message, "A T E N Ç Ã O !", {timeOut:4000});
+          //this.toast.error(element.message, "A T E N Ç Ã O !", {timeOut:4000});
         });
       } else {
-        this.toast.error(ex.error.message, "A T E N Ç Ã O !", {timeOut:4000});
+        //this.toast.error(ex.error.message, "A T E N Ç Ã O !", {timeOut:4000});
       }
     })
   }

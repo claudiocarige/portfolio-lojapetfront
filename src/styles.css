@@ -1,4 +1,3 @@
-@import '../node_modules/ngx-toastr/toastr.css';
 
 html,
 body {
@@ -29,11 +28,6 @@ body {
   font-size: 1.3em;
 }
 
-.ngx-toastr {
-  width: 300px !important;
-  height: 105px;
-}
-
 @media only screen and (max-width: 1140px) {
   .dialog-responsivo {
       width: 40%;
@@ -60,13 +54,6 @@ body {
   .dialog-responsivo-habil {
     width: 60%;
     height: 70%;
-  }
-}
-
-@media (max-width: 408px) {
-  .ngx-toastr {
-    width: 220px !important;
-    height: 105px;
   }
 }
 

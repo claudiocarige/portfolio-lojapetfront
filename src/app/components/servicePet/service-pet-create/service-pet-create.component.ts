@@ -1,7 +1,12 @@
 import { Component, OnInit        } from '@angular/core';
-import { UntypedFormControl, Validators  } from '@angular/forms';
+import { CommonModule             } from '@angular/common';
+import { RouterModule             } from '@angular/router';
+import { FormsModule, ReactiveFormsModule, UntypedFormControl, Validators  } from '@angular/forms';
+import { MatFormFieldModule       } from '@angular/material/form-field';
+import { MatInputModule           } from '@angular/material/input';
+import { MatSelectModule          } from '@angular/material/select';
+import { MatButtonModule          } from '@angular/material/button';
 import { Router                   } from '@angular/router';
-import { ToastrService            } from 'ngx-toastr';
 import { Client                   } from 'src/app/models/modelClient';
 import { Employee                 } from 'src/app/models/modelEmployee';
 import { ServicePet               } from 'src/app/models/moodelServicePet';
@@ -11,6 +16,17 @@ import { ServicePetService        } from 'src/app/services/service-pet.service';
 
 @Component({
   selector:    'app-service-pet-create',
+  standalone:  true,
+  imports: [
+    CommonModule,
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule
+  ],
   templateUrl: './service-pet-create.component.html',
   styleUrls:  ['./service-pet-create.component.css']
 })
@@ -41,7 +57,6 @@ descri:           UntypedFormControl = new UntypedFormControl(null, [Validators.
     private     clientService:    ClientsService,
     private   employeeService:  EmployeesService,
     private servicePetService: ServicePetService,
-    private             toast:     ToastrService,
     private             route:            Router
   ) { }
 
@@ -52,16 +67,16 @@ descri:           UntypedFormControl = new UntypedFormControl(null, [Validators.
 
   create(): void{
     this.servicePetService.create(this.servicePet).subscribe(response =>{
-      this.toast.success("Serviço cadastrado com sucesso.", "C A D A S T R O")
+      //this.toast.success("Serviço cadastrado com sucesso.", "C A D A S T R O")
       this.route.navigate(["services"]);
     }, ex => {
       console.log(ex.error.errors);
       if (ex.error.errors) {
         ex.error.errors.array.forEach(element => {
-          this.toast.error(element.message, "A T E N Ç Ã O !");
+          //this.toast.error(element.message, "A T E N Ç Ã O !");
         });
       } else {
-        this.toast.error(ex.error.message, "A T E N Ç Ã O !");
+        //this.toast.error(ex.error.message, "A T E N Ç Ã O !");
       }
       });
   }

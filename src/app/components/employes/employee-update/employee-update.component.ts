@@ -1,12 +1,20 @@
 import { Component, OnInit        } from '@angular/core';
-import { UntypedFormControl, Validators  } from '@angular/forms';
-import { ActivatedRoute, Router   } from '@angular/router';
-import { ToastrService            } from 'ngx-toastr';
+import { CommonModule              } from '@angular/common';
+import { FormsModule, ReactiveFormsModule, UntypedFormControl, Validators  } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { ActivatedRoute, Router, RouterModule   } from '@angular/router';
 import { Employee                 } from 'src/app/models/modelEmployee';
 import { EmployeesService         } from 'src/app/services/employees.service';
 
 @Component({
   selector:    'app-employee-update',
+  standalone:   true,
+  imports:     [CommonModule, RouterModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatSelectModule, MatIconModule, MatCheckboxModule, FormsModule, ReactiveFormsModule],
   templateUrl: './employee-update.component.html',
   styleUrls:  ['./employee-update.component.css']
 })
@@ -27,7 +35,6 @@ export class EmployeeUpdateComponent implements OnInit {
 
   constructor(
     private service:      EmployeesService,
-    private toast:        ToastrService,
     private route:        Router,
     private activeRoute:  ActivatedRoute
   ) { }
@@ -38,22 +45,24 @@ export class EmployeeUpdateComponent implements OnInit {
 
   findById() {
     this.service.findById(this.employee.id).subscribe(resposta => {
-      resposta.profile = [];
-      this.employee = resposta;
+      this.employee = {
+        ...resposta,
+        profile: resposta.profile || ['TECNICO']
+      };
     })
   }
   update(): void {
     this.service.update(this.employee).subscribe(() => {
-      this.toast.success('Funcionário atualizado com sucesso!', 'A T U A L I Z A Ç Ã O');
+      //this.toast.success('Funcionário atualizado com sucesso!', 'A T U A L I Z A Ç Ã O');
       this.route.navigate(['employees'])
     }, ex => {
       console.log(ex.error.errors);
       if (ex.error.errors) {
         ex.error.errors.array.forEach(element => {
-          this.toast.error(element.message, "A T E N Ç Ã O !");
+          //this.toast.error(element.message, "A T E N Ç Ã O !");
         });
       } else {
-        this.toast.error(ex.error.message, "A T E N Ç Ã O !");
+        //this.toast.error(ex.error.message, "A T E N Ç Ã O !");
       }
     })
   }

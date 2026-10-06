@@ -1,12 +1,28 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator                 } from '@angular/material/paginator';
-import { MatTableDataSource           } from '@angular/material/table';
-import { ToastrService                } from 'ngx-toastr';
+import { CommonModule                 } from '@angular/common';
+import { RouterModule                 } from '@angular/router';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatFormFieldModule           } from '@angular/material/form-field';
+import { MatInputModule               } from '@angular/material/input';
+import { MatRadioModule               } from '@angular/material/radio';
+import { MatButtonModule              } from '@angular/material/button';
 import { ServicePet                   } from 'src/app/models/moodelServicePet';
 import { ServicePetService            } from 'src/app/services/service-pet.service';
 
 @Component({
   selector:    'app-service-pet-list',
+  standalone:  true,
+  imports: [
+    CommonModule,
+    RouterModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatRadioModule,
+    MatButtonModule
+  ],
   templateUrl: './service-pet-list.component.html',
   styleUrls:  ['./service-pet-list.component.css']
 })
@@ -21,7 +37,6 @@ export class ServicePetListComponent implements OnInit {
 
   constructor(
     private service: ServicePetService,
-    private toast: ToastrService
 
   ) { }
 
@@ -84,7 +99,7 @@ export class ServicePetListComponent implements OnInit {
   }
 
   notDelete(){
-    this.toast.error("Não é permitido deletar serviços. Por favor entre em contato com o Administrador.", "I M P O R T A N T E !", {timeOut: 5000})
+    //this.toast.error("Não é permitido deletar serviços. Por favor entre em contato com o Administrador.", "I M P O R T A N T E !", {timeOut: 5000})
   }
   refreshLimpar():void{
     location.reload()

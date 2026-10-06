@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule, UntypedFormControl, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -17,7 +17,10 @@ import { EmployeesService } from 'src/app/services/employees.service';
   templateUrl: './employee-create.component.html',
   styleUrl: './employee-create.component.css'
 })
-export class EmployeeCreateComponent implements OnInit {
+export class EmployeeCreateComponent {
+
+  private readonly service = inject(EmployeesService);
+  private readonly route = inject(Router);
 
   employee: Employee = {
     id:           '',
@@ -32,14 +35,6 @@ export class EmployeeCreateComponent implements OnInit {
   cpf:      UntypedFormControl = new UntypedFormControl(null,[Validators.required, Validators.minLength(11)]);
   email:    UntypedFormControl = new UntypedFormControl(null,        Validators.email);
   password: UntypedFormControl = new UntypedFormControl(null, Validators.minLength(6));
-
-  constructor(
-    private service: EmployeesService,
-    private route:             Router
-  ) { }
-
-  ngOnInit(): void {
-  }
   create(): void {
     this.service.create(this.employee).subscribe(() => {
       //this.toast.success('Funcionário criado com sucesso!', 'C A D A S T R O')

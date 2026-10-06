@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, UntypedFormControl, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -17,6 +17,11 @@ import { EmployeesService } from 'src/app/services/employees.service';
   styleUrl: './employee-update.component.css'
 })
 export class EmployeeUpdateComponent implements OnInit {
+
+  private readonly service = inject(EmployeesService);
+  private readonly route = inject(Router);
+  private readonly activeRoute = inject(ActivatedRoute);
+
   employee: Employee = {
     id:           '',
     name:         '',
@@ -30,12 +35,6 @@ export class EmployeeUpdateComponent implements OnInit {
   cpf:      UntypedFormControl = new UntypedFormControl(null,     Validators.required);
   email:    UntypedFormControl = new UntypedFormControl(null,        Validators.email);
   password: UntypedFormControl = new UntypedFormControl(null, Validators.minLength(4));
-
-  constructor(
-    private service:      EmployeesService,
-    private route:        Router,
-    private activeRoute:  ActivatedRoute
-  ) { }
   ngOnInit(): void {
     this.employee.id = this.activeRoute.snapshot.paramMap.get('id');
     this.findById();

@@ -12,10 +12,6 @@ import { jwtDecode         } from 'jwt-decode';
 })
 export class AuthenticationService {
 
-  constructor(
-    private http: HttpClient,
-  ) { }
-
     //  authentication(cred: Credentials){
     // return this.http.post(`${API_URL.urlBase}/login`, cred, {
     //    observe: 'response',

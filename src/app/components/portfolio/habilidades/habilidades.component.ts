@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MatDialog, MatDialogConfig, MatDialogModule } from '@angular/material/dialog';
 import { DialogModalComponent } from '../dialog-modal/dialog-modal.component';
@@ -14,9 +14,7 @@ import { DialogModalComponent } from '../dialog-modal/dialog-modal.component';
 })
 export class HabilidadesComponent {
 
-  constructor(
-    public dialog: MatDialog,
-  ) { }
+  public readonly dialog = inject(MatDialog);
 
   openHabilidadeDialog(name: string, resp:string) {
     let configResponsiva: MatDialogConfig = {

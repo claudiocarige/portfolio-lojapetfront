@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild  } from '@angular/core';
-import { MatPaginator, MatPaginatorModule                  } from '@angular/material/paginator';
-import { MatTableDataSource, MatTableModule            } from '@angular/material/table';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { RouterModule } from '@angular/router';
-import { Client                        } from 'src/app/models/modelClient';
-import { ClientsService                } from 'src/app/services/clients.service';
+import { Client } from 'src/app/models/modelClient';
+import { ClientsService } from 'src/app/services/clients.service';
 
 @Component({
   selector: 'app-client-list',
@@ -14,16 +14,15 @@ import { ClientsService                } from 'src/app/services/clients.service'
   styleUrl: './client-list.component.css'
 })
 export class ClientListComponent implements OnInit {
+
+  private readonly service = inject(ClientsService);
+
   ELEMENT_DATA: Client[] = []
 
   displayedColumns: string[] = ['id', 'nome', 'email', 'cpf', 'acoes'];
   dataSource = new MatTableDataSource<Client>(this.ELEMENT_DATA);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-
-  constructor(
-    private service: ClientsService
-  ) { }
 
   ngOnInit(): void {
     this.findAll();

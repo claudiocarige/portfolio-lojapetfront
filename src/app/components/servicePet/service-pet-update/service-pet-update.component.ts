@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { FormsModule, ReactiveFormsModule, UntypedFormControl, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -49,13 +49,11 @@ employeeValida:   UntypedFormControl = new UntypedFormControl(null, Validators.r
 descri:           UntypedFormControl = new UntypedFormControl(null, [Validators.required, Validators.minLength(10)]);
 
 
-  constructor(
-    private     clientService:    ClientsService,
-    private   employeeService:  EmployeesService,
-    private servicePetService: ServicePetService,
-    private             route:            Router,
-    private      actvateRoute:    ActivatedRoute 
-  ) { }
+  private readonly clientService = inject(ClientsService);
+  private readonly employeeService = inject(EmployeesService);
+  private readonly servicePetService = inject(ServicePetService);
+  private readonly route = inject(Router);
+  private readonly actvateRoute = inject(ActivatedRoute);
 
   ngOnInit(): void {
     this.servicePet.id = this.actvateRoute.snapshot.paramMap.get('id');

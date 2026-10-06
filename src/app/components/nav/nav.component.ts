@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -22,10 +22,8 @@ import { HeaderComponent } from '../header/header.component';
 })
 export class NavComponent {
   showFiller = false;
-  constructor(
-    private route: Router,
-    private authenticated: AuthenticationService,
-  ) { }
+  private readonly route = inject(Router);
+  private readonly authenticated = inject(AuthenticationService);
 
   logout() {
     this.route.navigate(['login']);

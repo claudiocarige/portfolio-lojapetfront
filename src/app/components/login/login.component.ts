@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, UntypedFormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Credentials } from 'src/app/models/credentials';
@@ -21,6 +21,9 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class LoginComponent {
 
+  private readonly service = inject(AuthenticationService);
+  private readonly route = inject(Router);
+
   errorMessage = '';
 
   cred: Credentials = {
@@ -30,11 +33,6 @@ export class LoginComponent {
 
   email    = new UntypedFormControl(null,        Validators.email);
   password = new UntypedFormControl(null, Validators.minLength(6));
-
-  constructor(
-    private service: AuthenticationService,
-    private route: Router
-  ) { }
 
   login() {
 

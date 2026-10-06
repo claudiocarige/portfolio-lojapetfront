@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { 
   FormBuilder, FormControl, 
   FormGroup, FormsModule, 
@@ -32,13 +32,11 @@ import { ClientsService } from 'src/app/services/clients.service';
 })
 export class ClientCreateComponent implements OnInit {
 
-  clientForm!: FormGroup;
+  private readonly fb = inject(FormBuilder);
+  private readonly service = inject(ClientsService);
+  private readonly route = inject(Router);
 
-  constructor(
-    private fb: FormBuilder,
-    private service: ClientsService,
-    private route: Router
-  ) { }
+  clientForm!: FormGroup;
 
   ngOnInit(): void {
     this.initializeForm();

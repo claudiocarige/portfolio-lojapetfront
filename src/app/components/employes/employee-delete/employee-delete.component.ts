@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -17,6 +17,11 @@ import { EmployeesService } from 'src/app/services/employees.service';
   styleUrl: './employee-delete.component.css'
 })
 export class EmployeeDeleteComponent implements OnInit {
+
+  private readonly service = inject(EmployeesService);
+  private readonly route = inject(Router);
+  private readonly activeRoute = inject(ActivatedRoute);
+
   employee: Employee = {
     id:           '',
     name:         '',
@@ -27,12 +32,7 @@ export class EmployeeDeleteComponent implements OnInit {
     criationDate: ''
   }
 
-  check: string
-  constructor(
-    private service:      EmployeesService,
-    private route:                  Router,
-    private activeRoute:    ActivatedRoute
-  ) { }
+  check: string;
   ngOnInit(): void {
     this.employee.id = this.activeRoute.snapshot.paramMap.get('id');
     this.findById();

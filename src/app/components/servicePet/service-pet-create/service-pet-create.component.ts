@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule, UntypedFormControl, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -50,12 +50,10 @@ employeeValida:   UntypedFormControl = new UntypedFormControl(null, Validators.r
 descri:           UntypedFormControl = new UntypedFormControl(null, [Validators.required, Validators.minLength(20)]);
 
 
-  constructor(
-    private     clientService:    ClientsService,
-    private   employeeService:  EmployeesService,
-    private servicePetService: ServicePetService,
-    private             route:            Router
-  ) { }
+  private readonly clientService = inject(ClientsService);
+  private readonly employeeService = inject(EmployeesService);
+  private readonly servicePetService = inject(ServicePetService);
+  private readonly route = inject(Router);
 
   ngOnInit(): void {
     this.findAllClients();

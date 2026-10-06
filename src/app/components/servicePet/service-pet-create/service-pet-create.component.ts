@@ -2,7 +2,7 @@ import { Component, OnInit, inject, DestroyRef } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { forkJoin } from 'rxjs';
 import { RouterModule } from '@angular/router';
-import { FormsModule, ReactiveFormsModule, UntypedFormControl, Validators } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -19,7 +19,6 @@ import { ServicePetService } from 'src/app/services/service-pet.service';
   selector: 'app-service-pet-create',
   imports: [
     RouterModule,
-    FormsModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
@@ -44,13 +43,12 @@ export class ServicePetCreateComponent implements OnInit {
 clientList:     Client [] = []
 employeeList: Employee [] = []
 
-priority:         UntypedFormControl = new UntypedFormControl(null, Validators.required);
-status:           UntypedFormControl = new UntypedFormControl(null, Validators.required);
-title:            UntypedFormControl = new UntypedFormControl(null, [Validators.required, Validators.minLength(6)]);
-clientValida:     UntypedFormControl = new UntypedFormControl(null, Validators.required);
-employeeValida:   UntypedFormControl = new UntypedFormControl(null, Validators.required);
-descri:           UntypedFormControl = new UntypedFormControl(null, [Validators.required, Validators.minLength(20)]);
-
+  readonly priority = new FormControl('', { nonNullable: true, validators: [Validators.required] });
+  readonly status = new FormControl('', { nonNullable: true, validators: [Validators.required] });
+  readonly title = new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.minLength(6)] });
+  readonly clientValida = new FormControl('', { nonNullable: true, validators: [Validators.required] });
+  readonly employeeValida = new FormControl('', { nonNullable: true, validators: [Validators.required] });
+  readonly descri = new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.minLength(20)] });
 
   private readonly clientService = inject(ClientsService);
   private readonly employeeService = inject(EmployeesService);
@@ -80,7 +78,21 @@ descri:           UntypedFormControl = new UntypedFormControl(null, [Validators.
   }
 
   create(): void {
-    this.servicePetService.create(this.servicePet)
+    if (!this.validaForm()) {
+      return;
+    }
+
+    const newServicePet: ServicePet = {
+      ...this.servicePet,
+      title: this.title.value,
+      status: this.status.value,
+      priority: this.priority.value,
+      client: this.clientValida.value,
+      employee: this.employeeValida.value,
+      comments: this.descri.value
+    };
+
+    this.servicePetService.create(newServicePet)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: () => {
@@ -92,12 +104,12 @@ descri:           UntypedFormControl = new UntypedFormControl(null, [Validators.
       });
   }
 
-validaForm(): boolean{
-  return this.priority.valid && 
-         this.status.valid && 
-         this.title.valid && 
-         this.clientValida.valid &&
-         this.employeeValida.valid && 
-         this.descri.valid;               
-}
+  validaForm(): boolean {
+    return this.priority.valid && 
+           this.status.valid && 
+           this.title.valid && 
+           this.clientValida.valid &&
+           this.employeeValida.valid && 
+           this.descri.valid;               
+  }
 }

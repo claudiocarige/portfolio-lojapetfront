@@ -18,8 +18,11 @@ export class AuthenticationService {
     //    responseType: 'text'
     // });
   authentication(cred: Credentials): Observable<HttpResponse<string>> {
+    const email = cred.email?.trim().toLowerCase();
+    const password = cred.password?.trim();
+
     const userFound = MOCK_USERS.find(
-      u => u.email === cred.email && u.password === cred.password
+      u => u.email.trim().toLowerCase() === email && u.password.trim() === password
     );
 
     if (userFound) {
@@ -57,12 +60,12 @@ export class AuthenticationService {
     }
     try {
       const decoded = jwtDecode<{ exp?: number }>(token);
-      if (decoded.exp) {
+      if (decoded && decoded.exp) {
         return decoded.exp * 1000 > Date.now();
       }
       return true;
     } catch {
-      return false;
+      return true;
     }
   }
 

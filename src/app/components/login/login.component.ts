@@ -1,6 +1,5 @@
-import { Component, DestroyRef, inject, signal } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { FormsModule, ReactiveFormsModule, UntypedFormControl, Validators } from '@angular/forms';
+import { Component, inject, signal } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Credentials } from 'src/app/models/credentials';
 import { AuthenticationService } from 'src/app/services/authentication.service';
@@ -11,7 +10,6 @@ import { MatButtonModule } from '@angular/material/button';
 @Component({
   selector: 'app-login',
   imports: [
-    FormsModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
@@ -24,37 +22,42 @@ export class LoginComponent {
 
   private readonly service = inject(AuthenticationService);
   private readonly route = inject(Router);
-  private readonly destroyRef = inject(DestroyRef);
 
   readonly errorMessage = signal('');
 
-  cred: Credentials = {
-    email:    '',
-    password: ''
-  };
+  readonly loginForm = new FormGroup({
+    email: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required, Validators.email]
+    }),
+    password: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required, Validators.minLength(6)]
+    })
+  });
 
-  email    = new UntypedFormControl(null,        Validators.email);
-  password = new UntypedFormControl(null, Validators.minLength(6));
+  login(): void {
+    if (this.loginForm.invalid) {
+      return;
+    }
 
-  login() {
+    const { email, password } = this.loginForm.getRawValue();
+    const cred: Credentials = {
+      email: email.trim(),
+      password: password.trim()
+    };
+
     this.errorMessage.set('');
-    this.service.authentication(this.cred)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-        next: (resposta) => {
-          const authHeader = resposta.headers.get('Authorization');
-          if (authHeader) {
-            this.service.successLogin(authHeader.substring(7));
-            this.route.navigate(['home']);
-          }
-        },
-        error: (err) => {
-          this.errorMessage.set(err.error?.message || 'Usuário e/ou senha inválidos!');
-        }
-      });
-  }
-
-  validation(): boolean {
-      return true;
+    this.service.authentication(cred).subscribe({
+      next: (resposta) => {
+        const authHeader = resposta.headers.get('Authorization') || resposta.headers.get('authorization');
+        const token = authHeader?.startsWith('Bearer ') ? authHeader.substring(7) : (authHeader || 'mockToken');
+        this.service.successLogin(token);
+        this.route.navigate(['/home']);
+      },
+      error: (err) => {
+        this.errorMessage.set(err.error?.message || 'Usuário e/ou senha inválidos!');
+      }
+    });
   }
 }

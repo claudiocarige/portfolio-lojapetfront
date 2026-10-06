@@ -1,9 +1,15 @@
 import { Component, OnInit    } from '@angular/core';
+import { RouterModule         } from '@angular/router';
+import { MatDialog, MatDialogConfig, MatDialogModule } from '@angular/material/dialog';
 import { DialogModalComponent } from '../dialog-modal/dialog-modal.component';
-import { MatDialog, MatDialogConfig            } from '@angular/material/dialog';
 
 @Component({
   selector:    'app-habilidades',
+  standalone:  true,
+  imports: [
+    RouterModule,
+    MatDialogModule
+  ],
   templateUrl: './habilidades.component.html',
   styleUrls:  ['./habilidades.component.css']
 })

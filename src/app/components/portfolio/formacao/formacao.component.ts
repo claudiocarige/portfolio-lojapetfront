@@ -1,8 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule       } from '@angular/common';
+import { RouterModule       } from '@angular/router';
 import { CursosData        } from 'src/app/data/cursosData';
 
 @Component({
   selector:    'app-formacao',
+  standalone:  true,
+  imports: [
+    CommonModule,
+    RouterModule
+  ],
   templateUrl: './formacao.component.html',
   styleUrls:  ['./formacao.component.css']
 }) 

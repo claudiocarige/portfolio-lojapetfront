@@ -1,11 +1,16 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator                 } from '@angular/material/paginator';
-import { MatTableDataSource           } from '@angular/material/table';
+import { MatPaginator, MatPaginatorModule                 } from '@angular/material/paginator';
+import { MatTableDataSource, MatTableModule           } from '@angular/material/table';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { RouterModule } from '@angular/router';
 import { Employee                     } from 'src/app/models/modelEmployee'
 import { EmployeesService             } from 'src/app/services/employees.service';
 
 @Component({
   selector:    'app-employee-list',
+  standalone:    true,
+  imports :    [MatTableModule, MatPaginatorModule, MatFormFieldModule, MatInputModule, RouterModule],
   templateUrl: './employee-list.component.html',
   styleUrls:  ['./employee-list.component.css']
 })

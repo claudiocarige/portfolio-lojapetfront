@@ -1,63 +1,96 @@
 import { Component, OnInit        } from '@angular/core';
-import { UntypedFormControl, Validators  } from '@angular/forms';
+import { 
+  FormBuilder, FormControl, 
+  FormGroup, FormsModule, 
+  ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule              } from '@angular/common';
+import { RouterModule              } from '@angular/router';
+import { MatButtonModule          } from '@angular/material/button';
+import { MatCheckboxModule        } from '@angular/material/checkbox';
+import { MatFormFieldModule       } from '@angular/material/form-field';
+import { MatIconModule            } from '@angular/material/icon';
+import { MatInputModule           } from '@angular/material/input';
+import { MatSelectModule          } from '@angular/material/select';
 import { Router                   } from '@angular/router';
 import { Client                   } from 'src/app/models/modelClient';
 import { ClientsService           } from 'src/app/services/clients.service';
 
 @Component({
-  selector:    'app-client-create',
+  selector: 'app-client-create',
+  standalone: true,
+  imports: [
+    CommonModule,
+    RouterModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatSelectModule,
+    MatIconModule,
+    MatCheckboxModule,
+    FormsModule,
+    ReactiveFormsModule
+  ],
   templateUrl: './client-create.component.html',
-  styleUrls:  ['./client-create.component.css']
+  styleUrls: ['./client-create.component.css']
 })
 export class ClientCreateComponent implements OnInit {
 
-  client: Client = {
-    id:           '',
-    name:         '',
-    cpf:          '',
-    email:        '',
-    password:     '',
-    profile:      [],
-    criationDate: ''
-  }
-  name:     UntypedFormControl = new UntypedFormControl(null,                         Validators.minLength(3));
-  cpf:      UntypedFormControl = new UntypedFormControl(null, [Validators.required, Validators.minLength(11)]);
-  email:    UntypedFormControl = new UntypedFormControl(null,                                Validators.email);
-  password: UntypedFormControl = new UntypedFormControl(null,                         Validators.minLength(6));
+  clientForm!: FormGroup;
 
   constructor(
+    private fb: FormBuilder,
     private service: ClientsService,
-    private route:           Router
+    private route: Router
   ) { }
 
   ngOnInit(): void {
+    this.initializeForm();
   }
+
+  initializeForm(): void {
+    this.clientForm = this.fb.group({
+      name: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      cpf: new FormControl('', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+      profile: new FormControl([])
+    });
+  }
+
   create(): void {
-    this.service.create(this.client).subscribe(() => {
-      this.route.navigate(['clients']);
-    }, ex => {
-      console.log(ex);
-      if (ex.error.erros) {
-        ex.error.erros.array.forEach(element => {
-          //this.toast.error(element.message, "A T E N Ç Ã O !");
-        });
-      } else {
-        //this.toast.error(ex.error.message, "A T E N Ç Ã O !");
-      }
-    })
+    if (this.clientForm.valid) {
+      const client: Client = this.clientForm.value;
+      this.service.create(client).subscribe(() => {
+        this.route.navigate(['clients']);
+      }, ex => {
+        console.error(ex);
+        if (ex.error.erros) {
+          ex.error.erros.forEach((element: any) => {
+            // Adicionar aqui o serviço de notificação (ex: toast)
+            console.error(element.message);
+          });
+        } else {
+          // Adicionar aqui o serviço de notificação (ex: toast)
+          console.error(ex.error.message);
+        }
+      });
+    }
   }
 
   addPerfil(profile: any): void {
-    if (this.client.profile.includes(profile)) {
-      this.client.profile.splice(this.client.profile.indexOf(profile), 1);
+    const currentProfiles = this.clientForm.get('profile')?.value || [];
+    if (currentProfiles.includes(profile)) {
+      this.clientForm.patchValue({
+        profile: currentProfiles.filter((p: any) => p !== profile)
+      });
     } else {
-      this.client.profile.push(profile);
+      this.clientForm.patchValue({
+        profile: [...currentProfiles, profile]
+      });
     }
   }
+
   validation(): boolean {
-    return this.name.valid && 
-           this.cpf.valid && 
-           this.email.valid && 
-           this.password.valid;
+    return this.clientForm.valid;
   }
 }

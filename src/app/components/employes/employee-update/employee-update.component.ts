@@ -1,11 +1,20 @@
 import { Component, OnInit        } from '@angular/core';
-import { UntypedFormControl, Validators  } from '@angular/forms';
-import { ActivatedRoute, Router   } from '@angular/router';
+import { CommonModule              } from '@angular/common';
+import { FormsModule, ReactiveFormsModule, UntypedFormControl, Validators  } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { ActivatedRoute, Router, RouterModule   } from '@angular/router';
 import { Employee                 } from 'src/app/models/modelEmployee';
 import { EmployeesService         } from 'src/app/services/employees.service';
 
 @Component({
   selector:    'app-employee-update',
+  standalone:   true,
+  imports:     [CommonModule, RouterModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatSelectModule, MatIconModule, MatCheckboxModule, FormsModule, ReactiveFormsModule],
   templateUrl: './employee-update.component.html',
   styleUrls:  ['./employee-update.component.css']
 })

@@ -1,9 +1,17 @@
 import { Component, OnInit    } from '@angular/core';
-import { MatDialog, MatDialogConfig            } from '@angular/material/dialog';
+import { RouterModule         } from '@angular/router';
+import { MatDialog, MatDialogConfig, MatDialogModule } from '@angular/material/dialog';
+import { MatTooltipModule     } from '@angular/material/tooltip';
 import { DialogModalComponent } from '../dialog-modal/dialog-modal.component';
 
 @Component({
   selector:    'app-experiencias',
+  standalone:  true,
+  imports: [
+    RouterModule,
+    MatDialogModule,
+    MatTooltipModule
+  ],
   templateUrl: './experiencias.component.html',
   styleUrls:  ['./experiencias.component.css']
 })

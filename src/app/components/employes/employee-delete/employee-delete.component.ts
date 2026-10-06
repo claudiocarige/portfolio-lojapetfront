@@ -1,10 +1,20 @@
 import { Component, OnInit      } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { CommonModule         } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { Employee               } from 'src/app/models/modelEmployee';
 import { EmployeesService       } from 'src/app/services/employees.service';
 
 @Component({
   selector:    'app-employee-delete',
+  standalone:   true,
+  imports:   [CommonModule, RouterModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatSelectModule, MatIconModule, MatCheckboxModule, FormsModule, ReactiveFormsModule],
   templateUrl: './employee-delete.component.html',
   styleUrls:  ['./employee-delete.component.css']
 })

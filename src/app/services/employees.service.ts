@@ -1,36 +1,80 @@
-import { HttpClient   } from '@angular/common/http';
-import { Injectable   } from '@angular/core';
-import { Observable   } from 'rxjs';
-import { API_URL      } from '../config/api.config';
-import { Employee     } from '../models/modelEmployee';
+import { Injectable } from '@angular/core';
+import { Observable, of, throwError } from 'rxjs';
+import { delay } from 'rxjs/operators';
+import { Employee } from '../models/modelEmployee';
+import { INITIAL_EMPLOYEES } from '../data/employeesData';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmployeesService {
 
-  constructor(
-    private http: HttpClient
-  ) { }
+  private readonly STORAGE_KEY = 'lojaservicepet_employees';
 
-  findAll(): Observable<Employee[]>{
-    return this.http.get<Employee[]>(`${API_URL.urlBase}/employees`)
+  constructor() {
+    this.ensureInitialData();
   }
 
-  findById(id: any): Observable<Employee>{
-    return this.http.get<Employee>(`${API_URL.urlBase}/employees/${id}`)
+  private ensureInitialData(): void {
+    if (!localStorage.getItem(this.STORAGE_KEY)) {
+      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(INITIAL_EMPLOYEES));
+    }
   }
 
-  create(employee: Employee): Observable<Employee>{
-    return this.http.post<Employee>(`${API_URL.urlBase}/employees`, employee);
+  private getStoredEmployees(): Employee[] {
+    const data = localStorage.getItem(this.STORAGE_KEY);
+    return data ? JSON.parse(data) : [...INITIAL_EMPLOYEES];
   }
 
-  update(employee: Employee): Observable<Employee>{
-    return this.http.put<Employee>(`${API_URL.urlBase}/employees/${employee.id}`, employee);
+  private saveEmployees(employees: Employee[]): void {
+    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(employees));
   }
 
-  delete(id: any):Observable<Employee>{
-    return this.http.delete<Employee>(`${API_URL.urlBase}/employees/${id}`);
+  findAll(): Observable<Employee[]> {
+    return of(this.getStoredEmployees()).pipe(delay(150));
   }
-  
+
+  findById(id: any): Observable<Employee> {
+    const employee = this.getStoredEmployees().find(e => String(e.id) === String(id));
+    if (employee) {
+      return of({ ...employee }).pipe(delay(150));
+    }
+    return throwError(() => ({ error: { message: 'Funcionário não encontrado!' } }));
+  }
+
+  create(employee: Employee): Observable<Employee> {
+    const employees = this.getStoredEmployees();
+    const newId = employees.length > 0 ? Math.max(...employees.map(e => Number(e.id) || 0)) + 1 : 1;
+    const newEmployee: Employee = {
+      ...employee,
+      id: newId,
+      criationDate: new Date().toLocaleDateString('pt-BR')
+    };
+    employees.push(newEmployee);
+    this.saveEmployees(employees);
+    return of(newEmployee).pipe(delay(150));
+  }
+
+  update(employee: Employee): Observable<Employee> {
+    const employees = this.getStoredEmployees();
+    const index = employees.findIndex(e => String(e.id) === String(employee.id));
+    if (index !== -1) {
+      employees[index] = { ...employee };
+      this.saveEmployees(employees);
+      return of(employees[index]).pipe(delay(150));
+    }
+    return throwError(() => ({ error: { message: 'Funcionário não encontrado para atualização!' } }));
+  }
+
+  delete(id: any): Observable<Employee> {
+    const employees = this.getStoredEmployees();
+    const index = employees.findIndex(e => String(e.id) === String(id));
+    if (index !== -1) {
+      const deleted = employees.splice(index, 1)[0];
+      this.saveEmployees(employees);
+      return of(deleted).pipe(delay(150));
+    }
+    return throwError(() => ({ error: { message: 'Funcionário não encontrado para exclusão!' } }));
+  }
+
 }

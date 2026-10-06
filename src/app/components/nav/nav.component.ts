@@ -1,9 +1,23 @@
 import { Component, OnInit     } from '@angular/core';
-import { Router                } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector:     'app-nav',
+  standalone:   true,
+  imports: [
+    RouterModule,
+    MatSidenavModule,
+    MatListModule,
+    MatIconModule,
+    MatButtonModule,
+    HeaderComponent
+  ],
   templateUrl:  './nav.component.html',
   styleUrls:   ['./nav.component.css']
 })

@@ -1,6 +1,11 @@
 import { Component, OnInit       } from '@angular/core';
-import { UntypedFormControl, Validators } from '@angular/forms';
-import { ActivatedRoute, Router  } from '@angular/router';
+import { CommonModule             } from '@angular/common';
+import { RouterModule, ActivatedRoute, Router } from '@angular/router';
+import { FormsModule, ReactiveFormsModule, UntypedFormControl, Validators } from '@angular/forms';
+import { MatFormFieldModule       } from '@angular/material/form-field';
+import { MatInputModule           } from '@angular/material/input';
+import { MatSelectModule          } from '@angular/material/select';
+import { MatButtonModule          } from '@angular/material/button';
 import { Client                  } from 'src/app/models/modelClient';
 import { Employee                } from 'src/app/models/modelEmployee';
 import { ServicePet              } from 'src/app/models/moodelServicePet';
@@ -10,6 +15,17 @@ import { ServicePetService       } from 'src/app/services/service-pet.service';
 
 @Component({
   selector:    'app-service-pet-update',
+  standalone:  true,
+  imports: [
+    CommonModule,
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule
+  ],
   templateUrl: './service-pet-update.component.html',
   styleUrls:  ['./service-pet-update.component.css']
 })

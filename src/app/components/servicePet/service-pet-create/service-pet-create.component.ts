@@ -1,5 +1,11 @@
 import { Component, OnInit        } from '@angular/core';
-import { UntypedFormControl, Validators  } from '@angular/forms';
+import { CommonModule             } from '@angular/common';
+import { RouterModule             } from '@angular/router';
+import { FormsModule, ReactiveFormsModule, UntypedFormControl, Validators  } from '@angular/forms';
+import { MatFormFieldModule       } from '@angular/material/form-field';
+import { MatInputModule           } from '@angular/material/input';
+import { MatSelectModule          } from '@angular/material/select';
+import { MatButtonModule          } from '@angular/material/button';
 import { Router                   } from '@angular/router';
 import { Client                   } from 'src/app/models/modelClient';
 import { Employee                 } from 'src/app/models/modelEmployee';
@@ -10,6 +16,17 @@ import { ServicePetService        } from 'src/app/services/service-pet.service';
 
 @Component({
   selector:    'app-service-pet-create',
+  standalone:  true,
+  imports: [
+    CommonModule,
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule
+  ],
   templateUrl: './service-pet-create.component.html',
   styleUrls:  ['./service-pet-create.component.css']
 })

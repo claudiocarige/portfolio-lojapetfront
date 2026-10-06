@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, inject } from '@angular/core';
+import { Component, OnInit, viewChild, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
@@ -30,7 +30,7 @@ export class ServicePetListComponent implements OnInit {
   displayedColumns: string[] = ['id', 'title', 'client', 'employee', 'priority', 'status', 'openDate', 'closingDate', 'comments', 'acoes'];
   dataSource = new MatTableDataSource<ServicePet>(this.ELEMENT_DATA);
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  readonly paginator = viewChild(MatPaginator);
 
   private readonly service = inject(ServicePetService);
 
@@ -42,7 +42,7 @@ export class ServicePetListComponent implements OnInit {
     this.service.findAll().subscribe(resposta => {
       this.ELEMENT_DATA = resposta;
       this.dataSource = new MatTableDataSource<ServicePet>(this.ELEMENT_DATA);
-      this.dataSource.paginator = this.paginator;
+      this.dataSource.paginator = this.paginator() ?? null;
     })
   }
 
@@ -89,7 +89,7 @@ export class ServicePetListComponent implements OnInit {
     });
     this.FILTER_SERVICE = list;
     this.dataSource = new MatTableDataSource<ServicePet>(this.FILTER_SERVICE);
-    this.dataSource.paginator = this.paginator;
+    this.dataSource.paginator = this.paginator() ?? null;
   }
 
   delete(id: any): void {

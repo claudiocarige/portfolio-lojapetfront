@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, inject } from '@angular/core';
+import { Component, OnInit, viewChild, inject } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -16,13 +16,12 @@ import { EmployeesService } from 'src/app/services/employees.service';
 export class EmployeeListComponent implements OnInit {
 
   private readonly service = inject(EmployeesService);
+  readonly paginator = viewChild(MatPaginator);
 
   ELEMENT_DATA: Employee[] = []
 
   displayedColumns: string[] = ['id', 'nome', 'email', 'cpf', 'profile', 'acoes'];
   dataSource = new MatTableDataSource<Employee>(this.ELEMENT_DATA);
-
-  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   ngOnInit(): void {
     this.findAll();
@@ -32,7 +31,7 @@ export class EmployeeListComponent implements OnInit {
     this.service.findAll().subscribe(resposta => {
       this.ELEMENT_DATA = resposta;
       this.dataSource = new MatTableDataSource<Employee>(this.ELEMENT_DATA);
-      this.dataSource.paginator = this.paginator;
+      this.dataSource.paginator = this.paginator() ?? null;
     })
   }
 

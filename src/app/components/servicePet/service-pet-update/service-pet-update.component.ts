@@ -67,20 +67,15 @@ descri:           UntypedFormControl = new UntypedFormControl(null, [Validators.
     this.findById();    
   }
 
-  update(): void{
-    this.servicePetService.update(this.servicePet).subscribe(response =>{
-      //this.toast.success("Serviço atualizado com sucesso.", "A T U A L I Z A Ç Ã O")
-      this.route.navigate(["services"]);
-    }, ex => {
-      console.log(ex.error.errors);
-      if (ex.error.errors) {
-        ex.error.errors.array.forEach(element => {
-          //this.toast.error(element.message, "A T E N Ç Ã O !");
-        });
-      } else {
-        //this.toast.error(ex.error.message, "A T E N Ç Ã O !");
+  update(): void {
+    this.servicePetService.update(this.servicePet).subscribe({
+      next: () => {
+        this.route.navigate(['services']);
+      },
+      error: (ex) => {
+        console.error('Erro ao atualizar serviço:', ex);
       }
-      });
+    });
   }
 findById(){
   this.servicePetService.findById(this.servicePet.id).subscribe(response => {

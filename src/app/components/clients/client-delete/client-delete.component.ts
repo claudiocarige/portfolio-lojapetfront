@@ -1,4 +1,5 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, DestroyRef } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -21,6 +22,7 @@ export class ClientDeleteComponent implements OnInit {
   private readonly service = inject(ClientsService);
   private readonly route = inject(Router);
   private readonly activeRoute = inject(ActivatedRoute);
+  private readonly destroyRef = inject(DestroyRef);
 
   client: Client = {
     id:           '',
@@ -39,26 +41,30 @@ export class ClientDeleteComponent implements OnInit {
   }
 
   findById() {
-    this.service.findById(this.client.id).subscribe({
-      next: (resposta) => {
-        resposta.profile = [];
-        this.client = resposta;
-      },
-      error: (ex) => {
-        console.error('Erro ao buscar cliente:', ex);
-      }
-    });
+    this.service.findById(this.client.id)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (resposta) => {
+          resposta.profile = [];
+          this.client = resposta;
+        },
+        error: (ex) => {
+          console.error('Erro ao buscar cliente:', ex);
+        }
+      });
   }
 
   delete(): void {
-    this.service.delete(this.client.id).subscribe({
-      next: () => {
-        this.route.navigate(['clients']);
-      },
-      error: (ex) => {
-        console.error('Erro ao deletar cliente:', ex);
-      }
-    });
+    this.service.delete(this.client.id)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: () => {
+          this.route.navigate(['clients']);
+        },
+        error: (ex) => {
+          console.error('Erro ao deletar cliente:', ex);
+        }
+      });
   }
 
   addCheck(): boolean{

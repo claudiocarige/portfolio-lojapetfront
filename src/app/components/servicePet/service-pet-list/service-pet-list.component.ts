@@ -1,4 +1,5 @@
-import { Component, OnInit, viewChild, inject } from '@angular/core';
+import { Component, OnInit, viewChild, inject, DestroyRef } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterModule } from '@angular/router';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
@@ -33,17 +34,25 @@ export class ServicePetListComponent implements OnInit {
   readonly paginator = viewChild(MatPaginator);
 
   private readonly service = inject(ServicePetService);
+  private readonly destroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
     this.findAll();
   }
 
   findAll(): void{
-    this.service.findAll().subscribe(resposta => {
-      this.ELEMENT_DATA = resposta;
-      this.dataSource = new MatTableDataSource<ServicePet>(this.ELEMENT_DATA);
-      this.dataSource.paginator = this.paginator() ?? null;
-    })
+    this.service.findAll()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (resposta) => {
+          this.ELEMENT_DATA = resposta;
+          this.dataSource = new MatTableDataSource<ServicePet>(this.ELEMENT_DATA);
+          this.dataSource.paginator = this.paginator() ?? null;
+        },
+        error: (ex) => {
+          console.error('Erro ao listar serviços:', ex);
+        }
+      });
   }
 
   applyFilter(event: Event) {
@@ -94,14 +103,16 @@ export class ServicePetListComponent implements OnInit {
 
   delete(id: any): void {
     if (confirm('Deseja realmente excluir este serviço?')) {
-      this.service.delete(id).subscribe({
-        next: () => {
-          this.findAll();
-        },
-        error: (ex) => {
-          console.error('Erro ao excluir serviço:', ex);
-        }
-      });
+      this.service.delete(id)
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe({
+          next: () => {
+            this.findAll();
+          },
+          error: (ex) => {
+            console.error('Erro ao excluir serviço:', ex);
+          }
+        });
     }
   }
   refreshLimpar():void{

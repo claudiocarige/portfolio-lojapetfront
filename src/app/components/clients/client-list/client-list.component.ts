@@ -1,4 +1,5 @@
-import { Component, OnInit, viewChild, inject } from '@angular/core';
+import { Component, OnInit, viewChild, inject, DestroyRef } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -16,6 +17,7 @@ import { ClientsService } from 'src/app/services/clients.service';
 export class ClientListComponent implements OnInit {
 
   private readonly service = inject(ClientsService);
+  private readonly destroyRef = inject(DestroyRef);
   readonly paginator = viewChild(MatPaginator);
 
   ELEMENT_DATA: Client[] = []
@@ -28,11 +30,18 @@ export class ClientListComponent implements OnInit {
   }
 
   findAll() {
-    this.service.findAll().subscribe(resposta => {
-      this.ELEMENT_DATA = resposta;
-      this.dataSource = new MatTableDataSource<Client>(this.ELEMENT_DATA);
-      this.dataSource.paginator = this.paginator() ?? null;
-    })
+    this.service.findAll()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (resposta) => {
+          this.ELEMENT_DATA = resposta;
+          this.dataSource = new MatTableDataSource<Client>(this.ELEMENT_DATA);
+          this.dataSource.paginator = this.paginator() ?? null;
+        },
+        error: (ex) => {
+          console.error('Erro ao listar clientes:', ex);
+        }
+      });
   }
 
   applyFilter(event: Event) {

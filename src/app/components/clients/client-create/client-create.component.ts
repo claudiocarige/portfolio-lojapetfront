@@ -1,4 +1,5 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, DestroyRef } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { 
   FormBuilder, FormControl, 
   FormGroup, FormsModule, 
@@ -35,6 +36,7 @@ export class ClientCreateComponent implements OnInit {
   private readonly fb = inject(FormBuilder);
   private readonly service = inject(ClientsService);
   private readonly route = inject(Router);
+  private readonly destroyRef = inject(DestroyRef);
 
   clientForm!: FormGroup;
 
@@ -55,20 +57,23 @@ export class ClientCreateComponent implements OnInit {
   create(): void {
     if (this.clientForm.valid) {
       const client: Client = this.clientForm.value;
-      this.service.create(client).subscribe(() => {
-        this.route.navigate(['clients']);
-      }, ex => {
-        console.error(ex);
-        if (ex.error.erros) {
-          ex.error.erros.forEach((element: any) => {
-            // Adicionar aqui o serviço de notificação (ex: toast)
-            console.error(element.message);
-          });
-        } else {
-          // Adicionar aqui o serviço de notificação (ex: toast)
-          console.error(ex.error.message);
-        }
-      });
+      this.service.create(client)
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe({
+          next: () => {
+            this.route.navigate(['clients']);
+          },
+          error: (ex) => {
+            console.error(ex);
+            if (ex.error?.erros) {
+              ex.error.erros.forEach((element: any) => {
+                console.error(element.message);
+              });
+            } else if (ex.error?.message) {
+              console.error(ex.error.message);
+            }
+          }
+        });
     }
   }
 

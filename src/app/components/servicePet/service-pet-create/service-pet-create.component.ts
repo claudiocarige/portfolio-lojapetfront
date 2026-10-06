@@ -1,4 +1,6 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, DestroyRef } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { forkJoin } from 'rxjs';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule, UntypedFormControl, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -54,21 +56,40 @@ descri:           UntypedFormControl = new UntypedFormControl(null, [Validators.
   private readonly employeeService = inject(EmployeesService);
   private readonly servicePetService = inject(ServicePetService);
   private readonly route = inject(Router);
+  private readonly destroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
-    this.findAllClients();
-    this.findAllEmployee();
+    this.loadInitialData();
+  }
+
+  loadInitialData(): void {
+    forkJoin({
+      clients: this.clientService.findAll(),
+      employees: this.employeeService.findAll()
+    })
+    .pipe(takeUntilDestroyed(this.destroyRef))
+    .subscribe({
+      next: ({ clients, employees }) => {
+        this.clientList = clients;
+        this.employeeList = employees;
+      },
+      error: (ex) => {
+        console.error('Erro ao carregar dados iniciais:', ex);
+      }
+    });
   }
 
   create(): void {
-    this.servicePetService.create(this.servicePet).subscribe({
-      next: () => {
-        this.route.navigate(['services']);
-      },
-      error: (ex) => {
-        console.error('Erro ao cadastrar serviço:', ex);
-      }
-    });
+    this.servicePetService.create(this.servicePet)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: () => {
+          this.route.navigate(['services']);
+        },
+        error: (ex) => {
+          console.error('Erro ao cadastrar serviço:', ex);
+        }
+      });
   }
 
 validaForm(): boolean{
@@ -78,17 +99,5 @@ validaForm(): boolean{
          this.clientValida.valid &&
          this.employeeValida.valid && 
          this.descri.valid;               
-}
-
-findAllClients(){
-  this.clientService.findAll().subscribe(response => {
-    this.clientList = response;
-  })
-}
-
-findAllEmployee(){
-  this.employeeService.findAll().subscribe(response => {
-    this.employeeList = response;
-  })
 }
 }

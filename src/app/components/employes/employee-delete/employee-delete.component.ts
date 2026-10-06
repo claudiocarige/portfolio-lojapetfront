@@ -1,4 +1,5 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, DestroyRef } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -21,6 +22,7 @@ export class EmployeeDeleteComponent implements OnInit {
   private readonly service = inject(EmployeesService);
   private readonly route = inject(Router);
   private readonly activeRoute = inject(ActivatedRoute);
+  private readonly destroyRef = inject(DestroyRef);
 
   employee: Employee = {
     id:           '',
@@ -39,26 +41,30 @@ export class EmployeeDeleteComponent implements OnInit {
   }
 
   findById() {
-    this.service.findById(this.employee.id).subscribe({
-      next: (resposta) => {
-        resposta.profile = [];
-        this.employee = resposta;
-      },
-      error: (ex) => {
-        console.error('Erro ao buscar funcionário:', ex);
-      }
-    });
+    this.service.findById(this.employee.id)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (resposta) => {
+          resposta.profile = [];
+          this.employee = resposta;
+        },
+        error: (ex) => {
+          console.error('Erro ao buscar funcionário:', ex);
+        }
+      });
   }
 
   delete(): void {
-    this.service.delete(this.employee.id).subscribe({
-      next: () => {
-        this.route.navigate(['employees']);
-      },
-      error: (ex) => {
-        console.error('Erro ao deletar funcionário:', ex);
-      }
-    });
+    this.service.delete(this.employee.id)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: () => {
+          this.route.navigate(['employees']);
+        },
+        error: (ex) => {
+          console.error('Erro ao deletar funcionário:', ex);
+        }
+      });
   }
 
   addCheck(): boolean{

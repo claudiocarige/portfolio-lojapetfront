@@ -1,4 +1,6 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, DestroyRef } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { forkJoin } from 'rxjs';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { FormsModule, ReactiveFormsModule, UntypedFormControl, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -54,40 +56,51 @@ descri:           UntypedFormControl = new UntypedFormControl(null, [Validators.
   private readonly servicePetService = inject(ServicePetService);
   private readonly route = inject(Router);
   private readonly actvateRoute = inject(ActivatedRoute);
+  private readonly destroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
     this.servicePet.id = this.actvateRoute.snapshot.paramMap.get('id');
-    this.findAllClients();
-    this.findAllEmployee();
-    this.findById();    
+    this.loadInitialData();
+  }
+
+  loadInitialData(): void {
+    forkJoin({
+      clients: this.clientService.findAll(),
+      employees: this.employeeService.findAll(),
+      servicePet: this.servicePetService.findById(this.servicePet.id)
+    })
+    .pipe(takeUntilDestroyed(this.destroyRef))
+    .subscribe({
+      next: ({ clients, employees, servicePet }) => {
+        this.clientList = clients;
+        this.employeeList = employees;
+        this.servicePet = servicePet;
+        this.priority.setValue(String(servicePet.priority));
+        this.status.setValue(String(servicePet.status));
+        this.title.setValue(servicePet.title);
+        this.clientValida.setValue(String(servicePet.client));
+        this.employeeValida.setValue(String(servicePet.employee));
+        this.descri.setValue(servicePet.comments);
+      },
+      error: (ex) => {
+        console.error('Erro ao carregar dados do serviço:', ex);
+      }
+    });
   }
 
   update(): void {
-    this.servicePetService.update(this.servicePet).subscribe({
-      next: () => {
-        this.route.navigate(['services']);
-      },
-      error: (ex) => {
-        console.error('Erro ao atualizar serviço:', ex);
-      }
-    });
+    this.servicePetService.update(this.servicePet)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: () => {
+          this.route.navigate(['services']);
+        },
+        error: (ex) => {
+          console.error('Erro ao atualizar serviço:', ex);
+        }
+      });
   }
-  findById(): void {
-    this.servicePetService.findById(this.servicePet.id).subscribe({
-      next: (response) => {
-        this.servicePet = response;
-        this.priority.setValue(String(response.priority));
-        this.status.setValue(String(response.status));
-        this.title.setValue(response.title);
-        this.clientValida.setValue(String(response.client));
-        this.employeeValida.setValue(String(response.employee));
-        this.descri.setValue(response.comments);
-      },
-      error: (ex) => {
-        console.error('Erro ao buscar serviço:', ex);
-      }
-    });
-  }
+
 validaForm(): boolean{
   return this.priority.valid && 
          this.status.valid && 
@@ -95,18 +108,6 @@ validaForm(): boolean{
          this.clientValida.valid &&
          this.employeeValida.valid && 
          this.descri.valid;               
-}
-
-findAllClients(){
-  this.clientService.findAll().subscribe(response => {
-    this.clientList = response;
-  })
-}
-
-findAllEmployee(){
-  this.employeeService.findAll().subscribe(response => {
-    this.employeeList = response;
-  })
 }
 
 retornaPriority(priority: any): string{

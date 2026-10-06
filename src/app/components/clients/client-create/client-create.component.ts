@@ -14,6 +14,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { Router } from '@angular/router';
 import { Client } from 'src/app/models/modelClient';
 import { ClientsService } from 'src/app/services/clients.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-client-create',
@@ -36,7 +37,7 @@ export class ClientCreateComponent implements OnInit {
   private readonly fb = inject(FormBuilder);
   private readonly service = inject(ClientsService);
   private readonly route = inject(Router);
-  private readonly destroyRef = inject(DestroyRef);
+  private readonly toast = inject(ToastService);
 
   clientForm!: FormGroup;
 
@@ -58,20 +59,15 @@ export class ClientCreateComponent implements OnInit {
     if (this.clientForm.valid) {
       const client: Client = this.clientForm.value;
       this.service.create(client)
-        .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe({
           next: () => {
-            this.route.navigate(['clients']);
+            this.toast.success('Cliente cadastrado com sucesso!');
+            this.route.navigate(['/clients']);
           },
           error: (ex) => {
             console.error(ex);
-            if (ex.error?.erros) {
-              ex.error.erros.forEach((element: any) => {
-                console.error(element.message);
-              });
-            } else if (ex.error?.message) {
-              console.error(ex.error.message);
-            }
+            const msg = ex.error?.message || 'Erro ao cadastrar cliente!';
+            this.toast.error(msg);
           }
         });
     }

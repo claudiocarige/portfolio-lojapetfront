@@ -14,6 +14,7 @@ import { ServicePet } from 'src/app/models/moodelServicePet';
 import { ClientsService } from 'src/app/services/clients.service';
 import { EmployeesService } from 'src/app/services/employees.service';
 import { ServicePetService } from 'src/app/services/service-pet.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-service-pet-create',
@@ -55,6 +56,7 @@ employeeList: Employee [] = []
   private readonly servicePetService = inject(ServicePetService);
   private readonly route = inject(Router);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly toast = inject(ToastService);
 
   ngOnInit(): void {
     this.loadInitialData();
@@ -73,6 +75,7 @@ employeeList: Employee [] = []
       },
       error: (ex) => {
         console.error('Erro ao carregar dados iniciais:', ex);
+        this.toast.error('Erro ao carregar lista de clientes e funcionários!');
       }
     });
   }
@@ -93,13 +96,15 @@ employeeList: Employee [] = []
     };
 
     this.servicePetService.create(newServicePet)
-      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: () => {
-          this.route.navigate(['services']);
+          this.toast.success('Serviço cadastrado com sucesso!');
+          this.route.navigate(['/services']);
         },
         error: (ex) => {
           console.error('Erro ao cadastrar serviço:', ex);
+          const msg = ex.error?.message || 'Erro ao cadastrar serviço!';
+          this.toast.error(msg);
         }
       });
   }

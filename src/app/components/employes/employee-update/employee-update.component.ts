@@ -10,6 +10,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Employee } from 'src/app/models/modelEmployee';
 import { EmployeesService } from 'src/app/services/employees.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-employee-update',
@@ -23,6 +24,7 @@ export class EmployeeUpdateComponent implements OnInit {
   private readonly route = inject(Router);
   private readonly activeRoute = inject(ActivatedRoute);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly toast = inject(ToastService);
 
   employee: Employee = {
     id:           '',
@@ -60,6 +62,7 @@ export class EmployeeUpdateComponent implements OnInit {
         },
         error: (ex) => {
           console.error('Erro ao buscar funcionário:', ex);
+          this.toast.error('Erro ao carregar dados do funcionário!');
         }
       });
   }
@@ -78,13 +81,15 @@ export class EmployeeUpdateComponent implements OnInit {
     };
 
     this.service.update(updatedEmployee)
-      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: () => {
-          this.route.navigate(['employees']);
+          this.toast.success('Funcionário atualizado com sucesso!');
+          this.route.navigate(['/employees']);
         },
         error: (ex) => {
           console.error('Erro ao atualizar funcionário:', ex);
+          const msg = ex.error?.message || 'Erro ao atualizar funcionário!';
+          this.toast.error(msg);
         }
       });
   }

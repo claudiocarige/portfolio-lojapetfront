@@ -67,3 +67,31 @@ body {
     height: 80%;
   }
 }
+
+/* Toast Notifications (MatSnackBar) */
+.toast-success .mdc-snackbar__surface {
+  background-color: #2e7d32 !important;
+  color: #fff !important;
+}
+.toast-success .mat-mdc-snack-bar-label,
+.toast-success .mat-mdc-button {
+  color: #fff !important;
+}
+
+.toast-error .mdc-snackbar__surface {
+  background-color: #c62828 !important;
+  color: #fff !important;
+}
+.toast-error .mat-mdc-snack-bar-label,
+.toast-error .mat-mdc-button {
+  color: #fff !important;
+}
+
+.toast-info .mdc-snackbar__surface {
+  background-color: #0277bd !important;
+  color: #fff !important;
+}
+.toast-info .mat-mdc-snack-bar-label,
+.toast-info .mat-mdc-button {
+  color: #fff !important;
+}

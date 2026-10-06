@@ -10,6 +10,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { Employee } from 'src/app/models/modelEmployee';
 import { EmployeesService } from 'src/app/services/employees.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-employee-delete',
@@ -23,6 +24,7 @@ export class EmployeeDeleteComponent implements OnInit {
   private readonly route = inject(Router);
   private readonly activeRoute = inject(ActivatedRoute);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly toast = inject(ToastService);
 
   employee: Employee = {
     id:           '',
@@ -50,19 +52,22 @@ export class EmployeeDeleteComponent implements OnInit {
         },
         error: (ex) => {
           console.error('Erro ao buscar funcionário:', ex);
+          this.toast.error('Erro ao carregar dados do funcionário!');
         }
       });
   }
 
   delete(): void {
     this.service.delete(this.employee.id)
-      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: () => {
-          this.route.navigate(['employees']);
+          this.toast.success('Funcionário excluído com sucesso!');
+          this.route.navigate(['/employees']);
         },
         error: (ex) => {
           console.error('Erro ao deletar funcionário:', ex);
+          const msg = ex.error?.message || 'Erro ao deletar funcionário!';
+          this.toast.error(msg);
         }
       });
   }

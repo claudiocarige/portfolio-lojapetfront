@@ -3,6 +3,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router } from '@angular/router';
 import { Credentials } from 'src/app/models/credentials';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { ToastService } from 'src/app/services/toast.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -22,6 +23,7 @@ export class LoginComponent {
 
   private readonly service = inject(AuthenticationService);
   private readonly route = inject(Router);
+  private readonly toast = inject(ToastService);
 
   readonly errorMessage = signal('');
 
@@ -53,10 +55,13 @@ export class LoginComponent {
         const authHeader = resposta.headers.get('Authorization') || resposta.headers.get('authorization');
         const token = authHeader?.startsWith('Bearer ') ? authHeader.substring(7) : (authHeader || 'mockToken');
         this.service.successLogin(token);
+        this.toast.success('Login efetuado com sucesso!');
         this.route.navigate(['/home']);
       },
       error: (err) => {
-        this.errorMessage.set(err.error?.message || 'Usuário e/ou senha inválidos!');
+        const msg = err.error?.message || 'Usuário e/ou senha inválidos!';
+        this.errorMessage.set(msg);
+        this.toast.error(msg);
       }
     });
   }

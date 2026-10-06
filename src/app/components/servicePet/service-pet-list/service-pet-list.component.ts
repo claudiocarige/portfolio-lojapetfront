@@ -9,6 +9,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatButtonModule } from '@angular/material/button';
 import { ServicePet } from 'src/app/models/moodelServicePet';
 import { ServicePetService } from 'src/app/services/service-pet.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-service-pet-list',
@@ -35,6 +36,7 @@ export class ServicePetListComponent implements OnInit {
 
   private readonly service = inject(ServicePetService);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly toast = inject(ToastService);
 
   ngOnInit(): void {
     this.findAll();
@@ -104,13 +106,15 @@ export class ServicePetListComponent implements OnInit {
   delete(id: any): void {
     if (confirm('Deseja realmente excluir este serviço?')) {
       this.service.delete(id)
-        .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe({
           next: () => {
+            this.toast.success('Serviço excluído com sucesso!');
             this.findAll();
           },
           error: (ex) => {
             console.error('Erro ao excluir serviço:', ex);
+            const msg = ex.error?.message || 'Erro ao excluir serviço!';
+            this.toast.error(msg);
           }
         });
     }

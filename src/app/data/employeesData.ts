@@ -5,7 +5,7 @@ export const INITIAL_EMPLOYEES: Employee[] = [
     id: 1,
     name: 'Cláudio Carigé (Admin)',
     cpf: '98765432100',
-    email: 'testecrud@mail.com',
+    email: 'testeclaudio@petstar.com',
     password: 'password123',
     profile: ['ADMIN', 'TECNICO'],
     criationDate: '01/01/2024'

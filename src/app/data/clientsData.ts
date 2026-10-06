@@ -38,3 +38,4 @@ export const INITIAL_CLIENTS: Client[] = [
     criationDate: '18/04/2024'
   }
 ];
+

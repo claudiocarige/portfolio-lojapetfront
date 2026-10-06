@@ -53,7 +53,7 @@ export class ClientCreateComponent implements OnInit {
       cpf: new FormControl('', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]),
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, Validators.minLength(6)]),
-      profile: new FormControl([])
+      profile: new FormControl(['CLIENTE'])
     });
   }
 

@@ -45,8 +45,10 @@ export class EmployeeUpdateComponent implements OnInit {
 
   findById() {
     this.service.findById(this.employee.id).subscribe(resposta => {
-      resposta.profile = [];
-      this.employee = resposta;
+      this.employee = {
+        ...resposta,
+        profile: resposta.profile || ['TECNICO']
+      };
     })
   }
   update(): void {

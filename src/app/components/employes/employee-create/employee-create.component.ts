@@ -27,7 +27,7 @@ export class EmployeeCreateComponent implements OnInit {
     cpf:          '',
     email:        '',
     password:     '',
-    profile:      [],
+    profile:      ['TECNICO'],
     criationDate: ''
   }
   name:     UntypedFormControl = new UntypedFormControl(null, Validators.minLength(3));

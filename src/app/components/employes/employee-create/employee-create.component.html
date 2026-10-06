@@ -6,13 +6,15 @@
         </div>
         <h3 class="margin-lable">Perfil:</h3>
         <section class="section">
-            <label class="margin"><input (click)="addPerfil(0)" type="checkbox">
+            <label class="margin">
+                <input (click)="addPerfil('ADMIN')" [checked]="employee.profile?.includes('ADMIN')" type="checkbox">
                 <span></span>
                 <p>ADMIN</p>
             </label>
-            <label class="margin"><input (click)="addPerfil(1)" type="checkbox">
+            <label class="margin">
+                <input (click)="addPerfil('TECNICO')" [checked]="employee.profile?.includes('TECNICO')" type="checkbox">
                 <span></span>
-                <p>FUNCIONÁRIO</p>
+                <p>TÉCNICO</p>
             </label>
         </section>
         <mat-form-field class="width-full" appearance="fill">

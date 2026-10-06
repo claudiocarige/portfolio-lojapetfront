@@ -46,8 +46,10 @@ export class ClientUpdateComponent implements OnInit {
 
   findById() {
     this.service.findById(this.client.id).subscribe(resposta => {
-      resposta.profile = [];
-      this.client = resposta;
+      this.client = {
+        ...resposta,
+        profile: resposta.profile || ['CLIENTE']
+      };
     })
   }
   update(): void {

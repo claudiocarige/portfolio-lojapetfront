@@ -65,20 +65,15 @@ descri:           UntypedFormControl = new UntypedFormControl(null, [Validators.
     this.findAllEmployee();
   }
 
-  create(): void{
-    this.servicePetService.create(this.servicePet).subscribe(response =>{
-      //this.toast.success("Serviço cadastrado com sucesso.", "C A D A S T R O")
-      this.route.navigate(["services"]);
-    }, ex => {
-      console.log(ex.error.errors);
-      if (ex.error.errors) {
-        ex.error.errors.array.forEach(element => {
-          //this.toast.error(element.message, "A T E N Ç Ã O !");
-        });
-      } else {
-        //this.toast.error(ex.error.message, "A T E N Ç Ã O !");
+  create(): void {
+    this.servicePetService.create(this.servicePet).subscribe({
+      next: () => {
+        this.route.navigate(['services']);
+      },
+      error: (ex) => {
+        console.error('Erro ao cadastrar serviço:', ex);
       }
-      });
+    });
   }
 
 validaForm(): boolean{

@@ -1,23 +1,21 @@
-import { Component, OnInit        } from '@angular/core';
-import { CommonModule              } from '@angular/common';
-import { RouterModule              } from '@angular/router';
-import { FormsModule, ReactiveFormsModule, UntypedFormControl, Validators  } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule, UntypedFormControl, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { Router                   } from '@angular/router';
-import { Employee                 } from 'src/app/models/modelEmployee';
-import { EmployeesService         } from 'src/app/services/employees.service';
+import { Router } from '@angular/router';
+import { Employee } from 'src/app/models/modelEmployee';
+import { EmployeesService } from 'src/app/services/employees.service';
 
 @Component({
-  selector:    'app-employee-create',
-  standalone:   true,
-  imports:  [CommonModule, RouterModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatSelectModule, MatIconModule, MatCheckboxModule, FormsModule, ReactiveFormsModule],
+  selector: 'app-employee-create',
+  imports: [RouterModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatSelectModule, MatIconModule, MatCheckboxModule, FormsModule, ReactiveFormsModule],
   templateUrl: './employee-create.component.html',
-  styleUrls:  ['./employee-create.component.css']
+  styleUrl: './employee-create.component.css'
 })
 export class EmployeeCreateComponent implements OnInit {
 

@@ -1,5 +1,4 @@
-import { Component, OnInit      } from '@angular/core';
-import { CommonModule         } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -8,16 +7,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
-import { Client                 } from 'src/app/models/modelClient';
-import { ClientsService         } from 'src/app/services/clients.service';
-
+import { Client } from 'src/app/models/modelClient';
+import { ClientsService } from 'src/app/services/clients.service';
 
 @Component({
-  selector:    'app-client-delete',
-  standalone:   true,
-  imports:     [CommonModule, RouterModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatSelectModule, MatIconModule, MatCheckboxModule, FormsModule, ReactiveFormsModule],
+  selector: 'app-client-delete',
+  imports: [RouterModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatSelectModule, MatIconModule, MatCheckboxModule, FormsModule, ReactiveFormsModule],
   templateUrl: './client-delete.component.html',
-  styleUrls:  ['./client-delete.component.css']
+  styleUrl: './client-delete.component.css'
 })
 export class ClientDeleteComponent implements OnInit {
   client: Client = {
@@ -42,25 +39,26 @@ export class ClientDeleteComponent implements OnInit {
   }
 
   findById() {
-    this.service.findById(this.client.id).subscribe(resposta => {
-      resposta.profile = [];
-      this.client = resposta;
-    })
-  }
-  delete(): void {
-    this.service.delete(this.client.id).subscribe(() => {
-      //this.toast.success('Cliente deletado com sucesso!', 'D E L E Ç Ã O');
-      this.route.navigate(['clients'])
-    }, ex => {
-      console.log(ex.error.errors);
-      if (ex.error.errors) {
-        ex.error.errors.array.forEach(element => {
-          //this.toast.error(element.message, "A T E N Ç Ã O !", {timeOut:4000});
-        });
-      } else {
-        //this.toast.error(ex.error.message, "A T E N Ç Ã O !", {timeOut:4000});
+    this.service.findById(this.client.id).subscribe({
+      next: (resposta) => {
+        resposta.profile = [];
+        this.client = resposta;
+      },
+      error: (ex) => {
+        console.error('Erro ao buscar cliente:', ex);
       }
-    })
+    });
+  }
+
+  delete(): void {
+    this.service.delete(this.client.id).subscribe({
+      next: () => {
+        this.route.navigate(['clients']);
+      },
+      error: (ex) => {
+        console.error('Erro ao deletar cliente:', ex);
+      }
+    });
   }
 
   addCheck(): boolean{

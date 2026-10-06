@@ -8,11 +8,10 @@ import { Employee                     } from 'src/app/models/modelEmployee'
 import { EmployeesService             } from 'src/app/services/employees.service';
 
 @Component({
-  selector:    'app-employee-list',
-  standalone:    true,
-  imports :    [MatTableModule, MatPaginatorModule, MatFormFieldModule, MatInputModule, RouterModule],
+  selector: 'app-employee-list',
+  imports: [MatTableModule, MatPaginatorModule, MatFormFieldModule, MatInputModule, RouterModule],
   templateUrl: './employee-list.component.html',
-  styleUrls:  ['./employee-list.component.css']
+  styleUrl: './employee-list.component.css'
 })
 export class EmployeeListComponent implements OnInit {
 

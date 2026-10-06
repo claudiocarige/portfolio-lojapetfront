@@ -1,26 +1,23 @@
-import { Component, OnInit    } from '@angular/core';
-import { RouterModule         } from '@angular/router';
+import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { MatDialog, MatDialogConfig, MatDialogModule } from '@angular/material/dialog';
 import { DialogModalComponent } from '../dialog-modal/dialog-modal.component';
 
 @Component({
-  selector:    'app-habilidades',
-  standalone:  true,
+  selector: 'app-habilidades',
   imports: [
     RouterModule,
     MatDialogModule
   ],
   templateUrl: './habilidades.component.html',
-  styleUrls:  ['./habilidades.component.css']
+  styleUrl: './habilidades.component.css'
 })
-export class HabilidadesComponent implements OnInit {
+export class HabilidadesComponent {
 
   constructor(
     public dialog: MatDialog,
   ) { }
 
-  ngOnInit(): void {
-  }
   openHabilidadeDialog(name: string, resp:string) {
     let configResponsiva: MatDialogConfig = {
       panelClass: "dialog-responsivo-habil"

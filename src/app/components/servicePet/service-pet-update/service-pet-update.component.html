@@ -33,14 +33,18 @@
             <mat-form-field class="selecao" appearance="outline">
                 <mat-label>{{ servicePet.nameClient }}</mat-label>
                 <mat-select [(ngModel)]="servicePet.client" name="client" [formControl]="clientValida" required>
-                    <mat-option *ngFor="let cli of clientList" value='{{ cli.id }}'>{{ cli.name }}</mat-option>
+                    @for (cli of clientList; track cli.id) {
+                        <mat-option [value]="cli.id">{{ cli.name }}</mat-option>
+                    }
                 </mat-select>
             </mat-form-field>
             <mat-form-field class="selecao ajusteLeft" appearance="outline" value="selecione">
                 <mat-label>{{ servicePet.nameEmploye }}</mat-label>
                 <mat-select [(ngModel)]="servicePet.employee" name="employee" [formControl]="employeeValida" required>
                     <mat-option>selecione</mat-option>
-                    <mat-option *ngFor="let employee of employeeList" value="{{ employee.id }}">{{ employee.name }}</mat-option>
+                    @for (employee of employeeList; track employee.id) {
+                        <mat-option [value]="employee.id">{{ employee.name }}</mat-option>
+                    }
                 </mat-select>
             </mat-form-field>
 

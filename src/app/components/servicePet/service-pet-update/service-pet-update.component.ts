@@ -1,23 +1,20 @@
-import { Component, OnInit       } from '@angular/core';
-import { CommonModule             } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { FormsModule, ReactiveFormsModule, UntypedFormControl, Validators } from '@angular/forms';
-import { MatFormFieldModule       } from '@angular/material/form-field';
-import { MatInputModule           } from '@angular/material/input';
-import { MatSelectModule          } from '@angular/material/select';
-import { MatButtonModule          } from '@angular/material/button';
-import { Client                  } from 'src/app/models/modelClient';
-import { Employee                } from 'src/app/models/modelEmployee';
-import { ServicePet              } from 'src/app/models/moodelServicePet';
-import { ClientsService          } from 'src/app/services/clients.service';
-import { EmployeesService        } from 'src/app/services/employees.service';
-import { ServicePetService       } from 'src/app/services/service-pet.service';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { Client } from 'src/app/models/modelClient';
+import { Employee } from 'src/app/models/modelEmployee';
+import { ServicePet } from 'src/app/models/moodelServicePet';
+import { ClientsService } from 'src/app/services/clients.service';
+import { EmployeesService } from 'src/app/services/employees.service';
+import { ServicePetService } from 'src/app/services/service-pet.service';
 
 @Component({
-  selector:    'app-service-pet-update',
-  standalone:  true,
+  selector: 'app-service-pet-update',
   imports: [
-    CommonModule,
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
@@ -27,7 +24,7 @@ import { ServicePetService       } from 'src/app/services/service-pet.service';
     MatButtonModule
   ],
   templateUrl: './service-pet-update.component.html',
-  styleUrls:  ['./service-pet-update.component.css']
+  styleUrl: './service-pet-update.component.css'
 })
 export class ServicePetUpdateComponent implements OnInit {
 
@@ -77,11 +74,22 @@ descri:           UntypedFormControl = new UntypedFormControl(null, [Validators.
       }
     });
   }
-findById(){
-  this.servicePetService.findById(this.servicePet.id).subscribe(response => {
-    this.servicePet = response
-  })
-}
+  findById(): void {
+    this.servicePetService.findById(this.servicePet.id).subscribe({
+      next: (response) => {
+        this.servicePet = response;
+        this.priority.setValue(String(response.priority));
+        this.status.setValue(String(response.status));
+        this.title.setValue(response.title);
+        this.clientValida.setValue(String(response.client));
+        this.employeeValida.setValue(String(response.employee));
+        this.descri.setValue(response.comments);
+      },
+      error: (ex) => {
+        console.error('Erro ao buscar serviço:', ex);
+      }
+    });
+  }
 validaForm(): boolean{
   return this.priority.valid && 
          this.status.valid && 

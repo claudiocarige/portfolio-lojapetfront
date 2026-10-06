@@ -1,29 +1,24 @@
-import { Component, OnInit    } from '@angular/core';
-import { RouterModule         } from '@angular/router';
+import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { MatDialog, MatDialogConfig, MatDialogModule } from '@angular/material/dialog';
-import { MatTooltipModule     } from '@angular/material/tooltip';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { DialogModalComponent } from '../dialog-modal/dialog-modal.component';
 
 @Component({
-  selector:    'app-experiencias',
-  standalone:  true,
+  selector: 'app-experiencias',
   imports: [
     RouterModule,
     MatDialogModule,
     MatTooltipModule
   ],
   templateUrl: './experiencias.component.html',
-  styleUrls:  ['./experiencias.component.css']
+  styleUrl: './experiencias.component.css'
 })
-export class ExperienciasComponent implements OnInit {
+export class ExperienciasComponent {
 
   constructor(
     public dialog: MatDialog,
-  
-    ) { }
-
-    ngOnInit(): void{  
-    }
+  ) { }
    
   openDialog(name: string, resp: string) {
     let configResponsiva: MatDialogConfig = {

@@ -1,5 +1,4 @@
-import { Component, OnInit      } from '@angular/core';
-import { CommonModule         } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -8,15 +7,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
-import { Employee               } from 'src/app/models/modelEmployee';
-import { EmployeesService       } from 'src/app/services/employees.service';
+import { Employee } from 'src/app/models/modelEmployee';
+import { EmployeesService } from 'src/app/services/employees.service';
 
 @Component({
-  selector:    'app-employee-delete',
-  standalone:   true,
-  imports:   [CommonModule, RouterModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatSelectModule, MatIconModule, MatCheckboxModule, FormsModule, ReactiveFormsModule],
+  selector: 'app-employee-delete',
+  imports: [RouterModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatSelectModule, MatIconModule, MatCheckboxModule, FormsModule, ReactiveFormsModule],
   templateUrl: './employee-delete.component.html',
-  styleUrls:  ['./employee-delete.component.css']
+  styleUrl: './employee-delete.component.css'
 })
 export class EmployeeDeleteComponent implements OnInit {
   employee: Employee = {
@@ -41,25 +39,26 @@ export class EmployeeDeleteComponent implements OnInit {
   }
 
   findById() {
-    this.service.findById(this.employee.id).subscribe(resposta => {
-      resposta.profile = [];
-      this.employee = resposta;
-    })
-  }
-  delete(): void {
-    this.service.delete(this.employee.id).subscribe(() => {
-      //this.toast.success('Funcionário deletado com sucesso!', 'D E L E Ç Ã O');
-      this.route.navigate(['employees'])
-    }, ex => {
-      console.log(ex.error.errors);
-      if (ex.error.errors) {
-        ex.error.errors.array.forEach(element => {
-          //this.toast.error(element.message, "A T E N Ç Ã O !", {timeOut: 5000});
-        });
-      } else {
-       // this.toast.error(ex.error.message, "A T E N Ç Ã O !", {timeOut: 5000});
+    this.service.findById(this.employee.id).subscribe({
+      next: (resposta) => {
+        resposta.profile = [];
+        this.employee = resposta;
+      },
+      error: (ex) => {
+        console.error('Erro ao buscar funcionário:', ex);
       }
-    })
+    });
+  }
+
+  delete(): void {
+    this.service.delete(this.employee.id).subscribe({
+      next: () => {
+        this.route.navigate(['employees']);
+      },
+      error: (ex) => {
+        console.error('Erro ao deletar funcionário:', ex);
+      }
+    });
   }
 
   addCheck(): boolean{

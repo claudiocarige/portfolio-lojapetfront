@@ -1,18 +1,15 @@
-import { CommonModule        } from '@angular/common';
-import { Component, OnInit  } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, UntypedFormControl, Validators } from '@angular/forms';
-import { Router                    } from '@angular/router';
-import { Credentials               } from 'src/app/models/credentials';
-import { AuthenticationService     } from 'src/app/services/authentication.service';
+import { Router } from '@angular/router';
+import { Credentials } from 'src/app/models/credentials';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  selector:    'app-login',
-  standalone:  true,
+  selector: 'app-login',
   imports: [
-    CommonModule,
     FormsModule,
     ReactiveFormsModule,
     MatFormFieldModule,
@@ -20,9 +17,9 @@ import { MatButtonModule } from '@angular/material/button';
     MatButtonModule
   ],
   templateUrl: './login.component.html',
-  styleUrls:  ['./login.component.css']
+  styleUrl: './login.component.css'
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
   errorMessage = '';
 
@@ -36,11 +33,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private service: AuthenticationService,
-    private   route:                 Router
+    private route: Router
   ) { }
-
-  ngOnInit(): void {
-  }
 
   login() {
 

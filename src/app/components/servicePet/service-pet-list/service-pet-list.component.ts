@@ -1,20 +1,17 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { CommonModule                 } from '@angular/common';
-import { RouterModule                 } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MatFormFieldModule           } from '@angular/material/form-field';
-import { MatInputModule               } from '@angular/material/input';
-import { MatRadioModule               } from '@angular/material/radio';
-import { MatButtonModule              } from '@angular/material/button';
-import { ServicePet                   } from 'src/app/models/moodelServicePet';
-import { ServicePetService            } from 'src/app/services/service-pet.service';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatButtonModule } from '@angular/material/button';
+import { ServicePet } from 'src/app/models/moodelServicePet';
+import { ServicePetService } from 'src/app/services/service-pet.service';
 
 @Component({
-  selector:    'app-service-pet-list',
-  standalone:  true,
+  selector: 'app-service-pet-list',
   imports: [
-    CommonModule,
     RouterModule,
     MatTableModule,
     MatPaginatorModule,
@@ -24,7 +21,7 @@ import { ServicePetService            } from 'src/app/services/service-pet.servi
     MatButtonModule
   ],
   templateUrl: './service-pet-list.component.html',
-  styleUrls:  ['./service-pet-list.component.css']
+  styleUrl: './service-pet-list.component.css'
 })
 export class ServicePetListComponent implements OnInit {
   ELEMENT_DATA:    ServicePet[] = []
@@ -98,8 +95,17 @@ export class ServicePetListComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  notDelete(){
-    //this.toast.error("Não é permitido deletar serviços. Por favor entre em contato com o Administrador.", "I M P O R T A N T E !", {timeOut: 5000})
+  delete(id: any): void {
+    if (confirm('Deseja realmente excluir este serviço?')) {
+      this.service.delete(id).subscribe({
+        next: () => {
+          this.findAll();
+        },
+        error: (ex) => {
+          console.error('Erro ao excluir serviço:', ex);
+        }
+      });
+    }
   }
   refreshLimpar():void{
     location.reload()

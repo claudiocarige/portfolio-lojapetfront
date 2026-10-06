@@ -13,24 +13,28 @@
     </div>
 </div>
 <div class="container-hidden">
-    <div [ngStyle]="{'display': displayFormacao}" class="container-formacao">
+    <div [style.display]="displayFormacao" class="container-formacao">
         <h4>Formação</h4>
         <p class="universidade">Unifacs</p>
         <p class="universidade-paragrafo">Universidade Salvador - <span>Formado</span></p>
         <p class="universidade-paragrafo">Curso - <span>Sistemas de Informação</span></p>
         <p><b>Inicio -</b> jan/2022 - <b>Conclusão</b> - dez/2025</p>
     </div>
-    <h4 class="subtitle" [ngStyle]="{'display': displayTitle}">Cursos</h4>
-    <div [ngStyle]="{'display': displayCursos}" class="container-cursos" *ngFor="let list of listaCursos">
-        <div class="curso-fluid">
-            <h4>{{ list.title }}</h4>
-            <p><b>Status</b> - {{ list.status }}</p>
-            <p><b>Período</b> - {{ list.data }}</p>
-            <div *ngFor="let element of list.linguagens">
-                <div>
-                    <p class="element">- {{ element }}</p>
-                </div>
+    <h4 class="subtitle" [style.display]="displayTitle">Cursos</h4>
+    @for (list of listaCursos; track list.title) {
+        <div [style.display]="displayCursos" class="container-cursos">
+            <div class="curso-fluid">
+                <h4>{{ list.title }}</h4>
+                <p><b>Status</b> - {{ list.status }}</p>
+                <p><b>Período</b> - {{ list.data }}</p>
+                @for (element of list.linguagens; track $index) {
+                    <div>
+                        <div>
+                            <p class="element">- {{ element }}</p>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
-    </div>
+    }
 </div>

@@ -1,22 +1,19 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CommonModule             } from '@angular/common';
 import { RouterModule, ActivatedRoute } from '@angular/router';
-import { MatDialogModule          } from '@angular/material/dialog';
-import { MatButtonModule          } from '@angular/material/button';
-import { modelhabilidadeData      } from 'src/app/data/habilidadesData';
-import { modelDialogData          } from 'src/app/data/modelDialogData';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { modelhabilidadeData } from 'src/app/data/habilidadesData';
+import { modelDialogData } from 'src/app/data/modelDialogData';
 
 @Component({
-  selector:    'app-dialog-modal',
-  standalone:  true,
+  selector: 'app-dialog-modal',
   imports: [
-    CommonModule,
     RouterModule,
     MatDialogModule,
     MatButtonModule
   ],
   templateUrl: './dialog-modal.component.html',
-  styleUrls:  ['./dialog-modal.component.css']
+  styleUrl: './dialog-modal.component.css'
 })
 export class DialogModalComponent implements OnInit {
 

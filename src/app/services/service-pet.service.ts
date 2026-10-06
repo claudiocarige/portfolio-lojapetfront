@@ -32,7 +32,7 @@ export class ServicePetService {
 
   private resolveNames(service: ServicePet): { nameClient: string; nameEmploye: string } {
     let nameClient = service.nameClient || '';
-    if (!nameClient && service.client) {
+    if (service.client) {
       try {
         const clients = JSON.parse(localStorage.getItem('lojaservicepet_clients') || '[]');
         const foundClient = clients.find((c: any) => String(c.id) === String(service.client));
@@ -43,7 +43,7 @@ export class ServicePetService {
     }
 
     let nameEmploye = service.nameEmploye || '';
-    if (!nameEmploye && service.employee) {
+    if (service.employee) {
       try {
         const employees = JSON.parse(localStorage.getItem('lojaservicepet_employees') || '[]');
         const foundEmployee = employees.find((e: any) => String(e.id) === String(service.employee));

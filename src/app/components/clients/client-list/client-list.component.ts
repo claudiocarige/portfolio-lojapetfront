@@ -8,11 +8,10 @@ import { Client                        } from 'src/app/models/modelClient';
 import { ClientsService                } from 'src/app/services/clients.service';
 
 @Component({
-  selector:     'app-client-list',
-  standalone:    true,
-  imports :    [MatTableModule, MatPaginatorModule, MatFormFieldModule, MatInputModule, RouterModule],
-  templateUrl:  './client-list.component.html',
-  styleUrls:   ['./client-list.component.css']
+  selector: 'app-client-list',
+  imports: [MatTableModule, MatPaginatorModule, MatFormFieldModule, MatInputModule, RouterModule],
+  templateUrl: './client-list.component.html',
+  styleUrl: './client-list.component.css'
 })
 export class ClientListComponent implements OnInit {
   ELEMENT_DATA: Client[] = []

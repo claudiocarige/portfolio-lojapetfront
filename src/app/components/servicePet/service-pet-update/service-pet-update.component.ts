@@ -1,25 +1,23 @@
-import { Component, OnInit       } from '@angular/core';
-import { CommonModule             } from '@angular/common';
+import { Component, OnInit, inject, DestroyRef } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { forkJoin } from 'rxjs';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
-import { FormsModule, ReactiveFormsModule, UntypedFormControl, Validators } from '@angular/forms';
-import { MatFormFieldModule       } from '@angular/material/form-field';
-import { MatInputModule           } from '@angular/material/input';
-import { MatSelectModule          } from '@angular/material/select';
-import { MatButtonModule          } from '@angular/material/button';
-import { Client                  } from 'src/app/models/modelClient';
-import { Employee                } from 'src/app/models/modelEmployee';
-import { ServicePet              } from 'src/app/models/moodelServicePet';
-import { ClientsService          } from 'src/app/services/clients.service';
-import { EmployeesService        } from 'src/app/services/employees.service';
-import { ServicePetService       } from 'src/app/services/service-pet.service';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { Client } from 'src/app/models/modelClient';
+import { Employee } from 'src/app/models/modelEmployee';
+import { ServicePet } from 'src/app/models/moodelServicePet';
+import { ClientsService } from 'src/app/services/clients.service';
+import { EmployeesService } from 'src/app/services/employees.service';
+import { ServicePetService } from 'src/app/services/service-pet.service';
 
 @Component({
-  selector:    'app-service-pet-update',
-  standalone:  true,
+  selector: 'app-service-pet-update',
   imports: [
-    CommonModule,
     RouterModule,
-    FormsModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
@@ -27,7 +25,7 @@ import { ServicePetService       } from 'src/app/services/service-pet.service';
     MatButtonModule
   ],
   templateUrl: './service-pet-update.component.html',
-  styleUrls:  ['./service-pet-update.component.css']
+  styleUrl: './service-pet-update.component.css'
 })
 export class ServicePetUpdateComponent implements OnInit {
 
@@ -44,44 +42,77 @@ export class ServicePetUpdateComponent implements OnInit {
 clientList:     Client [] = []
 employeeList: Employee [] = []
 
-priority:         UntypedFormControl = new UntypedFormControl(null, Validators.required);
-status:           UntypedFormControl = new UntypedFormControl(null, Validators.required);
-title:            UntypedFormControl = new UntypedFormControl(null, [Validators.required, Validators.minLength(4)]);
-clientValida:     UntypedFormControl = new UntypedFormControl(null, Validators.required);
-employeeValida:   UntypedFormControl = new UntypedFormControl(null, Validators.required);
-descri:           UntypedFormControl = new UntypedFormControl(null, [Validators.required, Validators.minLength(10)]);
+  readonly priority = new FormControl('', { nonNullable: true, validators: [Validators.required] });
+  readonly status = new FormControl('', { nonNullable: true, validators: [Validators.required] });
+  readonly title = new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.minLength(4)] });
+  readonly clientValida = new FormControl('', { nonNullable: true, validators: [Validators.required] });
+  readonly employeeValida = new FormControl('', { nonNullable: true, validators: [Validators.required] });
+  readonly descri = new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.minLength(10)] });
 
-
-  constructor(
-    private     clientService:    ClientsService,
-    private   employeeService:  EmployeesService,
-    private servicePetService: ServicePetService,
-    private             route:            Router,
-    private      actvateRoute:    ActivatedRoute 
-  ) { }
+  private readonly clientService = inject(ClientsService);
+  private readonly employeeService = inject(EmployeesService);
+  private readonly servicePetService = inject(ServicePetService);
+  private readonly route = inject(Router);
+  private readonly actvateRoute = inject(ActivatedRoute);
+  private readonly destroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
     this.servicePet.id = this.actvateRoute.snapshot.paramMap.get('id');
-    this.findAllClients();
-    this.findAllEmployee();
-    this.findById();    
+    this.loadInitialData();
   }
 
-  update(): void {
-    this.servicePetService.update(this.servicePet).subscribe({
-      next: () => {
-        this.route.navigate(['services']);
+  loadInitialData(): void {
+    forkJoin({
+      clients: this.clientService.findAll(),
+      employees: this.employeeService.findAll(),
+      servicePet: this.servicePetService.findById(this.servicePet.id)
+    })
+    .pipe(takeUntilDestroyed(this.destroyRef))
+    .subscribe({
+      next: ({ clients, employees, servicePet }) => {
+        this.clientList = clients;
+        this.employeeList = employees;
+        this.servicePet = servicePet;
+        this.priority.setValue(String(servicePet.priority));
+        this.status.setValue(String(servicePet.status));
+        this.title.setValue(servicePet.title);
+        this.clientValida.setValue(String(servicePet.client));
+        this.employeeValida.setValue(String(servicePet.employee));
+        this.descri.setValue(servicePet.comments);
       },
       error: (ex) => {
-        console.error('Erro ao atualizar serviço:', ex);
+        console.error('Erro ao carregar dados do serviço:', ex);
       }
     });
   }
-findById(){
-  this.servicePetService.findById(this.servicePet.id).subscribe(response => {
-    this.servicePet = response
-  })
-}
+
+  update(): void {
+    if (!this.validaForm()) {
+      return;
+    }
+
+    const updatedServicePet: ServicePet = {
+      ...this.servicePet,
+      title: this.title.value,
+      status: this.status.value,
+      priority: this.priority.value,
+      client: this.clientValida.value,
+      employee: this.employeeValida.value,
+      comments: this.descri.value
+    };
+
+    this.servicePetService.update(updatedServicePet)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: () => {
+          this.route.navigate(['services']);
+        },
+        error: (ex) => {
+          console.error('Erro ao atualizar serviço:', ex);
+        }
+      });
+  }
+
 validaForm(): boolean{
   return this.priority.valid && 
          this.status.valid && 
@@ -89,18 +120,6 @@ validaForm(): boolean{
          this.clientValida.valid &&
          this.employeeValida.valid && 
          this.descri.valid;               
-}
-
-findAllClients(){
-  this.clientService.findAll().subscribe(response => {
-    this.clientList = response;
-  })
-}
-
-findAllEmployee(){
-  this.employeeService.findAll().subscribe(response => {
-    this.employeeList = response;
-  })
 }
 
 retornaPriority(priority: any): string{

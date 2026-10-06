@@ -1,19 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
-  selector:    'app-sobremim',
-  standalone:  true,
+  selector: 'app-sobremim',
   imports: [
     RouterModule
   ],
   templateUrl: './sobremim.component.html',
-  styleUrls:  ['./sobremim.component.css']
+  styleUrl: './sobremim.component.css'
 })
-export class SobremimComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+export class SobremimComponent {
 }

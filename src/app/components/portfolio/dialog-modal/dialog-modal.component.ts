@@ -1,56 +1,43 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { CommonModule             } from '@angular/common';
-import { RouterModule, ActivatedRoute } from '@angular/router';
-import { MatDialogModule          } from '@angular/material/dialog';
-import { MatButtonModule          } from '@angular/material/button';
-import { modelhabilidadeData      } from 'src/app/data/habilidadesData';
-import { modelDialogData          } from 'src/app/data/modelDialogData';
+import { Component, OnInit } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { modelhabilidadeData } from 'src/app/data/habilidadesData';
+import { modelDialogData } from 'src/app/data/modelDialogData';
 
 @Component({
-  selector:    'app-dialog-modal',
-  standalone:  true,
+  selector: 'app-dialog-modal',
   imports: [
-    CommonModule,
     RouterModule,
     MatDialogModule,
     MatButtonModule
   ],
   templateUrl: './dialog-modal.component.html',
-  styleUrls:  ['./dialog-modal.component.css']
+  styleUrl: './dialog-modal.component.css'
 })
 export class DialogModalComponent implements OnInit {
 
-  id:    any | null = '1'
-  title:          string
-  dataInicio:     string
-  dataFim:        string
-  status:         string
-  cargo:          string
-  atividades: any[] = []
-  descricao:      string
+  id: string | null = '1';
+  title = '';
+  dataInicio = '';
+  dataFim = '';
+  status = '';
+  cargo = '';
+  atividades: any[] = [];
+  descricao = '';
 
-  @Input()
-  capturaId:  any | null
+  capturaId: string | null = null;
+  capturaHablidade: string | null = null;
+  resp: string | null = null;
 
-  @Input()
-  capturaHablidade:  any
+  displayExperiencia = 'article-row';
+  buttonExp = 'buttonNone';
+  displayHabilidade = 'article-row-2';
+  buttonHabil = 'buttonNone1';
 
-  @Input()
-  resp:              any
-
-  displayExperiencia = 'article-row'
-  buttonExp          = 'buttonNone'
-  displayHabilidade  = 'article-row-2'
-  buttonHabil        = 'buttonNone1'
-
-  list:           any[] = modelDialogData
-  listHabilidade: any[] = modelhabilidadeData
-  listModal:      any[] = []
-  
-  constructor(
-    private route: ActivatedRoute,
-
-  ) { }
+  list: any[] = modelDialogData;
+  listHabilidade: any[] = modelhabilidadeData;
+  listModal: any[] = [];
 
   ngOnInit(): void {
 

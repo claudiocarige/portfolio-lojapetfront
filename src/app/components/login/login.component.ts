@@ -1,72 +1,63 @@
-import { CommonModule        } from '@angular/common';
-import { Component, OnInit  } from '@angular/core';
-import { FormsModule, ReactiveFormsModule, UntypedFormControl, Validators } from '@angular/forms';
-import { Router                    } from '@angular/router';
-import { Credentials               } from 'src/app/models/credentials';
-import { AuthenticationService     } from 'src/app/services/authentication.service';
+import { Component, inject, signal } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Credentials } from 'src/app/models/credentials';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  selector:    'app-login',
-  standalone:  true,
+  selector: 'app-login',
   imports: [
-    CommonModule,
-    FormsModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule
   ],
   templateUrl: './login.component.html',
-  styleUrls:  ['./login.component.css']
+  styleUrl: './login.component.css'
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
-  errorMessage = '';
+  private readonly service = inject(AuthenticationService);
+  private readonly route = inject(Router);
 
-  cred: Credentials = {
-    email:    '',
-    password: ''
-  }
+  readonly errorMessage = signal('');
 
-  email    = new UntypedFormControl(null,        Validators.email);
-  password = new UntypedFormControl(null, Validators.minLength(6));
+  readonly loginForm = new FormGroup({
+    email: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required, Validators.email]
+    }),
+    password: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required, Validators.minLength(6)]
+    })
+  });
 
-  constructor(
-    private service: AuthenticationService,
-    private   route:                 Router
-  ) { }
+  login(): void {
+    if (this.loginForm.invalid) {
+      return;
+    }
 
-  ngOnInit(): void {
-  }
+    const { email, password } = this.loginForm.getRawValue();
+    const cred: Credentials = {
+      email: email.trim(),
+      password: password.trim()
+    };
 
-  login() {
-
-    //   this.service.authentication(this.cred).subscribe(resposta => {
-    //   this.service.successLogin(resposta.headers.get('Authorization').substring(7));
-    //   this.route.navigate(['home'])
-    //   //this.toast.success('Login efetuado com sucesso!', 'L O G I N')
-    // }, () => {
-    //   //this.toast.error("Usuário e / senha inválidos!", "Error")
-    // })
-    this.errorMessage = '';
-    this.service.authentication(this.cred).subscribe({
+    this.errorMessage.set('');
+    this.service.authentication(cred).subscribe({
       next: (resposta) => {
-        const authHeader = resposta.headers.get('Authorization');
-        if (authHeader) {
-          this.service.successLogin(authHeader.substring(7));
-          this.route.navigate(['home']);
-        }
+        const authHeader = resposta.headers.get('Authorization') || resposta.headers.get('authorization');
+        const token = authHeader?.startsWith('Bearer ') ? authHeader.substring(7) : (authHeader || 'mockToken');
+        this.service.successLogin(token);
+        this.route.navigate(['/home']);
       },
       error: (err) => {
-        this.errorMessage = err.error?.message || 'Usuário e/ou senha inválidos!';
+        this.errorMessage.set(err.error?.message || 'Usuário e/ou senha inválidos!');
       }
     });
-  }
-
-  validation(): boolean {
-      return true;
   }
 }

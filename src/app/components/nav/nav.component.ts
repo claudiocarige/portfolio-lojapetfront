@@ -1,4 +1,4 @@
-import { Component, OnInit     } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -8,8 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { HeaderComponent } from '../header/header.component';
 
 @Component({
-  selector:     'app-nav',
-  standalone:   true,
+  selector: 'app-nav',
   imports: [
     RouterModule,
     MatSidenavModule,
@@ -18,20 +17,13 @@ import { HeaderComponent } from '../header/header.component';
     MatButtonModule,
     HeaderComponent
   ],
-  templateUrl:  './nav.component.html',
-  styleUrls:   ['./nav.component.css']
+  templateUrl: './nav.component.html',
+  styleUrl: './nav.component.css'
 })
-export class NavComponent implements OnInit {
+export class NavComponent {
   showFiller = false;
-  constructor(
-    private         route:                Router,
-    private authenticated: AuthenticationService,
-
-  ) { }
-
-  ngOnInit(): void {
-
-  }
+  private readonly route = inject(Router);
+  private readonly authenticated = inject(AuthenticationService);
 
   logout() {
     this.route.navigate(['login']);

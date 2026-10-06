@@ -1,25 +1,23 @@
-import { Component, OnInit        } from '@angular/core';
+import { Component, OnInit, inject, DestroyRef } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { 
   FormBuilder, FormControl, 
   FormGroup, FormsModule, 
   ReactiveFormsModule, Validators } from '@angular/forms';
-import { CommonModule              } from '@angular/common';
-import { RouterModule              } from '@angular/router';
-import { MatButtonModule          } from '@angular/material/button';
-import { MatCheckboxModule        } from '@angular/material/checkbox';
-import { MatFormFieldModule       } from '@angular/material/form-field';
-import { MatIconModule            } from '@angular/material/icon';
-import { MatInputModule           } from '@angular/material/input';
-import { MatSelectModule          } from '@angular/material/select';
-import { Router                   } from '@angular/router';
-import { Client                   } from 'src/app/models/modelClient';
-import { ClientsService           } from 'src/app/services/clients.service';
+import { RouterModule } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { Router } from '@angular/router';
+import { Client } from 'src/app/models/modelClient';
+import { ClientsService } from 'src/app/services/clients.service';
 
 @Component({
   selector: 'app-client-create',
-  standalone: true,
   imports: [
-    CommonModule,
     RouterModule,
     MatFormFieldModule,
     MatInputModule,
@@ -31,17 +29,16 @@ import { ClientsService           } from 'src/app/services/clients.service';
     ReactiveFormsModule
   ],
   templateUrl: './client-create.component.html',
-  styleUrls: ['./client-create.component.css']
+  styleUrl: './client-create.component.css'
 })
 export class ClientCreateComponent implements OnInit {
 
-  clientForm!: FormGroup;
+  private readonly fb = inject(FormBuilder);
+  private readonly service = inject(ClientsService);
+  private readonly route = inject(Router);
+  private readonly destroyRef = inject(DestroyRef);
 
-  constructor(
-    private fb: FormBuilder,
-    private service: ClientsService,
-    private route: Router
-  ) { }
+  clientForm!: FormGroup;
 
   ngOnInit(): void {
     this.initializeForm();
@@ -60,20 +57,23 @@ export class ClientCreateComponent implements OnInit {
   create(): void {
     if (this.clientForm.valid) {
       const client: Client = this.clientForm.value;
-      this.service.create(client).subscribe(() => {
-        this.route.navigate(['clients']);
-      }, ex => {
-        console.error(ex);
-        if (ex.error.erros) {
-          ex.error.erros.forEach((element: any) => {
-            // Adicionar aqui o serviço de notificação (ex: toast)
-            console.error(element.message);
-          });
-        } else {
-          // Adicionar aqui o serviço de notificação (ex: toast)
-          console.error(ex.error.message);
-        }
-      });
+      this.service.create(client)
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe({
+          next: () => {
+            this.route.navigate(['clients']);
+          },
+          error: (ex) => {
+            console.error(ex);
+            if (ex.error?.erros) {
+              ex.error.erros.forEach((element: any) => {
+                console.error(element.message);
+              });
+            } else if (ex.error?.message) {
+              console.error(ex.error.message);
+            }
+          }
+        });
     }
   }
 

@@ -1,24 +1,29 @@
-import { Component, OnInit        } from '@angular/core';
-import { CommonModule              } from '@angular/common';
-import { FormsModule, ReactiveFormsModule, UntypedFormControl, Validators  } from '@angular/forms';
+import { Component, OnInit, inject, DestroyRef } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { ActivatedRoute, Router, RouterModule   } from '@angular/router';
-import { Employee                 } from 'src/app/models/modelEmployee';
-import { EmployeesService         } from 'src/app/services/employees.service';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { Employee } from 'src/app/models/modelEmployee';
+import { EmployeesService } from 'src/app/services/employees.service';
 
 @Component({
-  selector:    'app-employee-update',
-  standalone:   true,
-  imports:     [CommonModule, RouterModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatSelectModule, MatIconModule, MatCheckboxModule, FormsModule, ReactiveFormsModule],
+  selector: 'app-employee-update',
+  imports: [RouterModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatSelectModule, MatIconModule, MatCheckboxModule, ReactiveFormsModule],
   templateUrl: './employee-update.component.html',
-  styleUrls:  ['./employee-update.component.css']
+  styleUrl: './employee-update.component.css'
 })
 export class EmployeeUpdateComponent implements OnInit {
+
+  private readonly service = inject(EmployeesService);
+  private readonly route = inject(Router);
+  private readonly activeRoute = inject(ActivatedRoute);
+  private readonly destroyRef = inject(DestroyRef);
+
   employee: Employee = {
     id:           '',
     name:         '',
@@ -27,53 +32,71 @@ export class EmployeeUpdateComponent implements OnInit {
     password:     '',
     profile:      [],
     criationDate: ''
-  }
-  name:     UntypedFormControl = new UntypedFormControl(null, Validators.minLength(3));
-  cpf:      UntypedFormControl = new UntypedFormControl(null,     Validators.required);
-  email:    UntypedFormControl = new UntypedFormControl(null,        Validators.email);
-  password: UntypedFormControl = new UntypedFormControl(null, Validators.minLength(4));
+  };
 
-  constructor(
-    private service:      EmployeesService,
-    private route:        Router,
-    private activeRoute:  ActivatedRoute
-  ) { }
+  readonly name = new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.minLength(3)] });
+  readonly cpf = new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.minLength(11)] });
+  readonly email = new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.email] });
+  readonly password = new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.minLength(4)] });
+
   ngOnInit(): void {
     this.employee.id = this.activeRoute.snapshot.paramMap.get('id');
     this.findById();
   }
 
-  findById() {
-    this.service.findById(this.employee.id).subscribe(resposta => {
-      this.employee = {
-        ...resposta,
-        profile: resposta.profile || ['TECNICO']
-      };
-    })
+  findById(): void {
+    this.service.findById(this.employee.id)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (resposta) => {
+          this.employee = {
+            ...resposta,
+            profile: resposta.profile || ['TECNICO']
+          };
+          this.name.setValue(this.employee.name || '');
+          this.cpf.setValue(this.employee.cpf || '');
+          this.email.setValue(this.employee.email || '');
+          this.password.setValue(this.employee.password || '');
+        },
+        error: (ex) => {
+          console.error('Erro ao buscar funcionário:', ex);
+        }
+      });
   }
+
   update(): void {
-    this.service.update(this.employee).subscribe(() => {
-      //this.toast.success('Funcionário atualizado com sucesso!', 'A T U A L I Z A Ç Ã O');
-      this.route.navigate(['employees'])
-    }, ex => {
-      console.log(ex.error.errors);
-      if (ex.error.errors) {
-        ex.error.errors.array.forEach(element => {
-          //this.toast.error(element.message, "A T E N Ç Ã O !");
-        });
-      } else {
-        //this.toast.error(ex.error.message, "A T E N Ç Ã O !");
-      }
-    })
+    if (!this.validation()) {
+      return;
+    }
+
+    const updatedEmployee: Employee = {
+      ...this.employee,
+      name: this.name.value,
+      cpf: this.cpf.value,
+      email: this.email.value,
+      password: this.password.value
+    };
+
+    this.service.update(updatedEmployee)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: () => {
+          this.route.navigate(['employees']);
+        },
+        error: (ex) => {
+          console.error('Erro ao atualizar funcionário:', ex);
+        }
+      });
   }
 
   addPerfil(profile: any): void {
     if (this.employee.profile.includes(profile)) {
-      this.employee.profile.splice(this.employee.profile.indexOf(profile), 1);
+      this.employee.profile = this.employee.profile.filter(p => p !== profile);
     } else {
-      this.employee.profile.push(profile);
+      this.employee.profile = [...this.employee.profile, profile];
     }
   }
+
   validation(): boolean {
     return this.name.valid && this.cpf.valid && this.email.valid && this.password.valid;
   }

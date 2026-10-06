@@ -1,29 +1,22 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule       } from '@angular/common';
-import { RouterModule       } from '@angular/router';
-import { CursosData        } from 'src/app/data/cursosData';
+import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { CursosData } from 'src/app/data/cursosData';
 
 @Component({
-  selector:    'app-formacao',
-  standalone:  true,
+  selector: 'app-formacao',
   imports: [
-    CommonModule,
     RouterModule
   ],
   templateUrl: './formacao.component.html',
-  styleUrls:  ['./formacao.component.css']
+  styleUrl: './formacao.component.css'
 }) 
-export class FormacaoComponent implements OnInit {
+export class FormacaoComponent {
 
   displayFormacao: any = "container-formação"
   displayCursos:   any = "container-cursos"
   displayTitle:    any = "subtitle"
 
-  listaCursos:  any [] = CursosData;
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+  listaCursos: any[] = CursosData;
   
   openCursos() {
     this.displayFormacao = "none"

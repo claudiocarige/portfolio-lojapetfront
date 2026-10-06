@@ -1,42 +1,47 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, MatPaginatorModule                 } from '@angular/material/paginator';
-import { MatTableDataSource, MatTableModule           } from '@angular/material/table';
+import { Component, OnInit, viewChild, inject, DestroyRef } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { RouterModule } from '@angular/router';
-import { Employee                     } from 'src/app/models/modelEmployee'
-import { EmployeesService             } from 'src/app/services/employees.service';
+import { Employee } from 'src/app/models/modelEmployee'
+import { EmployeesService } from 'src/app/services/employees.service';
 
 @Component({
-  selector:    'app-employee-list',
-  standalone:    true,
-  imports :    [MatTableModule, MatPaginatorModule, MatFormFieldModule, MatInputModule, RouterModule],
+  selector: 'app-employee-list',
+  imports: [MatTableModule, MatPaginatorModule, MatFormFieldModule, MatInputModule, RouterModule],
   templateUrl: './employee-list.component.html',
-  styleUrls:  ['./employee-list.component.css']
+  styleUrl: './employee-list.component.css'
 })
 export class EmployeeListComponent implements OnInit {
+
+  private readonly service = inject(EmployeesService);
+  private readonly destroyRef = inject(DestroyRef);
+  readonly paginator = viewChild(MatPaginator);
 
   ELEMENT_DATA: Employee[] = []
 
   displayedColumns: string[] = ['id', 'nome', 'email', 'cpf', 'profile', 'acoes'];
   dataSource = new MatTableDataSource<Employee>(this.ELEMENT_DATA);
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-
-  constructor(
-    private service: EmployeesService
-  ) { }
-
   ngOnInit(): void {
     this.findAll();
   }
 
   findAll() {
-    this.service.findAll().subscribe(resposta => {
-      this.ELEMENT_DATA = resposta;
-      this.dataSource = new MatTableDataSource<Employee>(this.ELEMENT_DATA);
-      this.dataSource.paginator = this.paginator;
-    })
+    this.service.findAll()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (resposta) => {
+          this.ELEMENT_DATA = resposta;
+          this.dataSource = new MatTableDataSource<Employee>(this.ELEMENT_DATA);
+          this.dataSource.paginator = this.paginator() ?? null;
+        },
+        error: (ex) => {
+          console.error('Erro ao listar funcionários:', ex);
+        }
+      });
   }
 
   applyFilter(event: Event) {

@@ -21,33 +21,49 @@
       <mat-label>Nome</mat-label>
       <input formControlName="name" matInput placeholder="Ex.. fulano de Tal" maxlength="60">
       <mat-icon class="icon" matSuffix>sentiment_very_satisfied</mat-icon>
-      <mat-error *ngIf="clientForm.get('name')?.hasError('required')">O nome é obrigatório</mat-error>
-      <mat-error *ngIf="clientForm.get('name')?.hasError('minlength')">O nome deve ter pelo menos 3 caracteres</mat-error>
+      @if (clientForm.get('name')?.hasError('required')) {
+        <mat-error>O nome é obrigatório</mat-error>
+      }
+      @if (clientForm.get('name')?.hasError('minlength')) {
+        <mat-error>O nome deve ter pelo menos 3 caracteres</mat-error>
+      }
     </mat-form-field>
     <mat-form-field class="width-full" appearance="fill">
       <mat-label>CPF</mat-label>
       <input formControlName="cpf" matInput placeholder="Ex.. 000.000.000-00" mask="000.000.000-00">
       <mat-icon class="icon" matSuffix>pin</mat-icon>
-      <mat-error *ngIf="clientForm.get('cpf')?.hasError('required')">O CPF é obrigatório</mat-error>
-      <mat-error *ngIf="clientForm.get('cpf')?.hasError('minlength')">O CPF deve ter 11 caracteres</mat-error>
+      @if (clientForm.get('cpf')?.hasError('required')) {
+        <mat-error>O CPF é obrigatório</mat-error>
+      }
+      @if (clientForm.get('cpf')?.hasError('minlength')) {
+        <mat-error>O CPF deve ter 11 caracteres</mat-error>
+      }
     </mat-form-field>
     <mat-form-field class="width-full" appearance="fill">
       <mat-label>Email</mat-label>
       <input formControlName="email" matInput placeholder="Ex.. fulano@mail.com">
       <mat-icon class="icon" matSuffix>mail</mat-icon>
-      <mat-error *ngIf="clientForm.get('email')?.hasError('required')">O e-mail é obrigatório</mat-error>
-      <mat-error *ngIf="clientForm.get('email')?.hasError('email')">E-mail inválido</mat-error>
+      @if (clientForm.get('email')?.hasError('required')) {
+        <mat-error>O e-mail é obrigatório</mat-error>
+      }
+      @if (clientForm.get('email')?.hasError('email')) {
+        <mat-error>E-mail inválido</mat-error>
+      }
     </mat-form-field>
     <mat-form-field class="width-full" appearance="fill">
       <mat-label>Senha</mat-label>
       <input formControlName="password" type="password" matInput placeholder="Ex.. 1234">
       <mat-icon class="icon" matSuffix>password</mat-icon>
-      <mat-error *ngIf="clientForm.get('password')?.hasError('required')">A senha é obrigatória</mat-error>
-      <mat-error *ngIf="clientForm.get('password')?.hasError('minlength')">A senha deve ter pelo menos 6 caracteres</mat-error>
+      @if (clientForm.get('password')?.hasError('required')) {
+        <mat-error>A senha é obrigatória</mat-error>
+      }
+      @if (clientForm.get('password')?.hasError('minlength')) {
+        <mat-error>A senha deve ter pelo menos 6 caracteres</mat-error>
+      }
     </mat-form-field>
     <div class="button-event">
-      <button routerLink="../" mat-stroked-button color="warn">Cancelar</button>
-      <button (click)="create()" [disabled]="!clientForm.valid" mat-flat-button color="primary">Cadastrar</button>
+      <button type="button" routerLink="../" mat-stroked-button color="warn">Cancelar</button>
+      <button type="button" (click)="create()" [disabled]="!clientForm.valid" mat-flat-button color="primary">Cadastrar</button>
     </div>
     <footer class="tec-footer">
       <p>&copy;by Cláudio Carigé</p>

@@ -1,25 +1,28 @@
-import { Component, OnInit        } from '@angular/core';
-import { CommonModule              } from '@angular/common';
-import { RouterModule              } from '@angular/router';
-import { FormsModule, ReactiveFormsModule, UntypedFormControl, Validators  } from '@angular/forms';
+import { Component, inject, DestroyRef } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { RouterModule } from '@angular/router';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { Router                   } from '@angular/router';
-import { Employee                 } from 'src/app/models/modelEmployee';
-import { EmployeesService         } from 'src/app/services/employees.service';
+import { Router } from '@angular/router';
+import { Employee } from 'src/app/models/modelEmployee';
+import { EmployeesService } from 'src/app/services/employees.service';
 
 @Component({
-  selector:    'app-employee-create',
-  standalone:   true,
-  imports:  [CommonModule, RouterModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatSelectModule, MatIconModule, MatCheckboxModule, FormsModule, ReactiveFormsModule],
+  selector: 'app-employee-create',
+  imports: [RouterModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatSelectModule, MatIconModule, MatCheckboxModule, ReactiveFormsModule],
   templateUrl: './employee-create.component.html',
-  styleUrls:  ['./employee-create.component.css']
+  styleUrl: './employee-create.component.css'
 })
-export class EmployeeCreateComponent implements OnInit {
+export class EmployeeCreateComponent {
+
+  private readonly service = inject(EmployeesService);
+  private readonly route = inject(Router);
+  private readonly destroyRef = inject(DestroyRef);
 
   employee: Employee = {
     id:           '',
@@ -29,42 +32,51 @@ export class EmployeeCreateComponent implements OnInit {
     password:     '',
     profile:      ['TECNICO'],
     criationDate: ''
-  }
-  name:     UntypedFormControl = new UntypedFormControl(null, Validators.minLength(3));
-  cpf:      UntypedFormControl = new UntypedFormControl(null,[Validators.required, Validators.minLength(11)]);
-  email:    UntypedFormControl = new UntypedFormControl(null,        Validators.email);
-  password: UntypedFormControl = new UntypedFormControl(null, Validators.minLength(6));
+  };
 
-  constructor(
-    private service: EmployeesService,
-    private route:             Router
-  ) { }
+  readonly name = new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.minLength(3)] });
+  readonly cpf = new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.minLength(11)] });
+  readonly email = new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.email] });
+  readonly password = new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.minLength(6)] });
 
-  ngOnInit(): void {
-  }
   create(): void {
-    this.service.create(this.employee).subscribe(() => {
-      //this.toast.success('Funcionário criado com sucesso!', 'C A D A S T R O')
-      this.route.navigate(['employees']);
-    }, ex => {
-      console.log(ex);
-      if (ex.error.erros) {
-        ex.error.erros.array.forEach(element => {
-          //this.toast.error(element.message, "A T E N Ç Ã O !");
-        });
-      } else {
-        //this.toast.error(ex.error.message, "A T E N Ç Ã O !");
+    if (!this.validation()) {
+      return;
+    }
+
+    const newEmployee: Employee = {
+      ...this.employee,
+      name: this.name.value,
+      cpf: this.cpf.value,
+      email: this.email.value,
+      password: this.password.value
+    };
+
+    this.service.create(newEmployee).subscribe({
+      next: () => {
+        this.route.navigate(['/employees']);
+      },
+      error: (ex) => {
+        console.error('Erro ao cadastrar funcionário:', ex);
+        if (ex.error?.erros) {
+          ex.error.erros.forEach((element: any) => {
+            console.error(element.message);
+          });
+        } else if (ex.error?.message) {
+          console.error(ex.error.message);
+        }
       }
-    })
+    });
   }
 
   addPerfil(profile: any): void {
     if (this.employee.profile.includes(profile)) {
-      this.employee.profile.splice(this.employee.profile.indexOf(profile), 1);
+      this.employee.profile = this.employee.profile.filter(p => p !== profile);
     } else {
-      this.employee.profile.push(profile);
+      this.employee.profile = [...this.employee.profile, profile];
     }
   }
+
   validation(): boolean {
     return this.name.valid && this.cpf.valid && this.email.valid && this.password.valid;
   }

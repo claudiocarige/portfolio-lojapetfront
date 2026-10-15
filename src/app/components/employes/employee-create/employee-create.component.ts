@@ -11,6 +11,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { Router } from '@angular/router';
 import { Employee } from 'src/app/models/modelEmployee';
 import { EmployeesService } from 'src/app/services/employees.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-employee-create',
@@ -22,7 +23,7 @@ export class EmployeeCreateComponent {
 
   private readonly service = inject(EmployeesService);
   private readonly route = inject(Router);
-  private readonly destroyRef = inject(DestroyRef);
+  private readonly toast = inject(ToastService);
 
   employee: Employee = {
     id:           '',
@@ -54,17 +55,13 @@ export class EmployeeCreateComponent {
 
     this.service.create(newEmployee).subscribe({
       next: () => {
+        this.toast.success('Funcionário cadastrado com sucesso!');
         this.route.navigate(['/employees']);
       },
       error: (ex) => {
         console.error('Erro ao cadastrar funcionário:', ex);
-        if (ex.error?.erros) {
-          ex.error.erros.forEach((element: any) => {
-            console.error(element.message);
-          });
-        } else if (ex.error?.message) {
-          console.error(ex.error.message);
-        }
+        const msg = ex.error?.message || 'Erro ao cadastrar funcionário!';
+        this.toast.error(msg);
       }
     });
   }

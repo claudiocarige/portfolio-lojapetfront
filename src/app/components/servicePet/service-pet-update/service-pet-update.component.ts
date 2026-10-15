@@ -13,6 +13,7 @@ import { ServicePet } from 'src/app/models/moodelServicePet';
 import { ClientsService } from 'src/app/services/clients.service';
 import { EmployeesService } from 'src/app/services/employees.service';
 import { ServicePetService } from 'src/app/services/service-pet.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-service-pet-update',
@@ -55,6 +56,7 @@ employeeList: Employee [] = []
   private readonly route = inject(Router);
   private readonly actvateRoute = inject(ActivatedRoute);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly toast = inject(ToastService);
 
   ngOnInit(): void {
     this.servicePet.id = this.actvateRoute.snapshot.paramMap.get('id');
@@ -82,6 +84,7 @@ employeeList: Employee [] = []
       },
       error: (ex) => {
         console.error('Erro ao carregar dados do serviço:', ex);
+        this.toast.error('Erro ao carregar dados do serviço!');
       }
     });
   }
@@ -102,13 +105,15 @@ employeeList: Employee [] = []
     };
 
     this.servicePetService.update(updatedServicePet)
-      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: () => {
-          this.route.navigate(['services']);
+          this.toast.success('Serviço atualizado com sucesso!');
+          this.route.navigate(['/services']);
         },
         error: (ex) => {
           console.error('Erro ao atualizar serviço:', ex);
+          const msg = ex.error?.message || 'Erro ao atualizar serviço!';
+          this.toast.error(msg);
         }
       });
   }

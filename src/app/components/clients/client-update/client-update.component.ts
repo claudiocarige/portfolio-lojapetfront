@@ -10,6 +10,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { Client } from 'src/app/models/modelClient';
 import { ClientsService } from 'src/app/services/clients.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-client-update',
@@ -23,6 +24,7 @@ export class ClientUpdateComponent implements OnInit {
   private readonly route = inject(Router);
   private readonly activeRoute = inject(ActivatedRoute);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly toast = inject(ToastService);
 
   client: Client = {
     id:           '',
@@ -60,6 +62,7 @@ export class ClientUpdateComponent implements OnInit {
         },
         error: (ex) => {
           console.error('Erro ao buscar cliente:', ex);
+          this.toast.error('Erro ao carregar dados do cliente!');
         }
       });
   }
@@ -78,13 +81,15 @@ export class ClientUpdateComponent implements OnInit {
     };
 
     this.service.update(updatedClient)
-      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: () => {
-          this.route.navigate(['clients']);
+          this.toast.success('Cliente atualizado com sucesso!');
+          this.route.navigate(['/clients']);
         },
         error: (ex) => {
           console.error('Erro ao atualizar cliente:', ex);
+          const msg = ex.error?.message || 'Erro ao atualizar cliente!';
+          this.toast.error(msg);
         }
       });
   }

@@ -10,6 +10,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { Client } from 'src/app/models/modelClient';
 import { ClientsService } from 'src/app/services/clients.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-client-delete',
@@ -23,6 +24,7 @@ export class ClientDeleteComponent implements OnInit {
   private readonly route = inject(Router);
   private readonly activeRoute = inject(ActivatedRoute);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly toast = inject(ToastService);
 
   client: Client = {
     id:           '',
@@ -50,19 +52,22 @@ export class ClientDeleteComponent implements OnInit {
         },
         error: (ex) => {
           console.error('Erro ao buscar cliente:', ex);
+          this.toast.error('Erro ao carregar dados do cliente!');
         }
       });
   }
 
   delete(): void {
     this.service.delete(this.client.id)
-      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: () => {
-          this.route.navigate(['clients']);
+          this.toast.success('Cliente excluído com sucesso!');
+          this.route.navigate(['/clients']);
         },
         error: (ex) => {
           console.error('Erro ao deletar cliente:', ex);
+          const msg = ex.error?.message || 'Erro ao deletar cliente!';
+          this.toast.error(msg);
         }
       });
   }
